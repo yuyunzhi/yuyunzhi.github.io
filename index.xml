@@ -167,15 +167,6 @@
 &lt;li&gt;使用 &lt;strong&gt;Vue全家桶&lt;/strong&gt; 实现项目描述中的所有功能及用户的登录状态进行权限管理 。同时对 &lt;strong&gt;代码进行优化，易维护&lt;/strong&gt; ，对首页3D-Earth加载出现白斑进行了 &lt;strong&gt;性能优化&lt;/strong&gt; 、前后端联调、打包上线；&lt;/li&gt;
 &lt;li&gt;部分业务功能使用了第三方库实现： &lt;strong&gt;Element UI&lt;/strong&gt;引入基础组件、&lt;strong&gt;Echart.js&lt;/strong&gt;数据可视化、&lt;strong&gt;Swiper.js、Pdfmake.js&lt;/strong&gt;；&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;个人作品----------------------------------------&#34;&gt;个人作品 .   .   .   .   .   .   .   .   .   .   .   .   .   .&lt;/h1&gt;
-&lt;h3 id=&#34;1自制vue-ui组件库&#34;&gt;1、自制Vue UI组件库&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;描述：&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;使用Vuepress搭建官网，文档及官网介绍1篇；&lt;/li&gt;
-&lt;li&gt;共计17个UI组件：Button、Input、Grid、Layout、Pager、Sticky、Collapse、Cascader、Table、Popover、Toast、Slides、Tabs、Nav、图形验证码、瀑布流布局、单/多图上传；&lt;/li&gt;
-&lt;li&gt;设计模式：单向数据流、测试驱动开发、发布订阅模式、API正交（props）、可测试代码；&lt;/li&gt;
-&lt;li&gt;2019年7月30日，该项目获得 ** JetBrains Open Source license ** 认证&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
