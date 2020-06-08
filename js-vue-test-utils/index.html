@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-git-abbreviation/" />
+  <link rel="next" href="http://www.yuyunzhi.com/java-maven/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-vue-test-utils/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           vue-test-utils&amp;持续集成 | 余韵之
+       
+  </title>
+  <meta name="title" content="vue-test-utils&amp;持续集成 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "vue-test-utils\u0026持续集成",
+    "headline" : "vue-test-utils\u0026持续集成",
+    "description" : "一、测试有哪些分类 1、黑白测试  根据代码的思路写测试叫白盒测试 不知道代码的思路测试叫黑盒测试（大部分人工测试都是这个）  2、规模（小-\u0026gt;大）  单元测试（最小的测试是函数，也是白盒测试） 模块测试（根据API测试） 功能测试 集成测试（多个系统端对端测试E2E，也是黑盒测试）  二、单元测试的必要性  你不一定一辈子当前端 开发库（公司里的库必须要有），没有单元测试公司很难有优质代码的积累 测试驱动开发  三、前端业务代码是否需要测试  不需要 业务代码中的共用代码才需要测试：比如表单验证（抽离出组件，测组件） 然后做高质量的组件，输出给团队用  四、什么才算是好的单元测试  测试覆盖率\u0026gt;90%，基本上都是好的测试 测试内容：语句、分支、函数、行  五、测试工具介绍  这里使用Karma \u002b Mocha做单元测试，TravisCI做持续集成 Karma（[ˈkɑrmə] 卡玛）是一个测试运行器，它可以呼起浏览器，加载测试脚本，然后运行测试用例 Mocha（[ˈmoʊkə] 摩卡）是一个单元测试框架\/库，它可以用来写测试用例 Sinon（西农）是一个 spy \/ stub \/ mock 库，用以辅助测试 karma-coverage 来设置 Karma 的代码覆盖率 chaijs 提供了dscribe it断言  除此之外了解两个词语：\n BDD 行为驱动开发 Behavior Driven Development TDD 测试驱动开发 Test Driven Development  五、安装工具及配置 1、创建karma 配置  安装依赖  npm add -D karma karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack chai sinon sinon-chai 安装成功：  创建 karma.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-01-25 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-01-25 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-vue-test-utils\/",
+    "wordCount" : "437",
+    "keywords" : [ "Vue","单元测试","持续集成","TDD", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">vue-test-utils&amp;持续集成</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-01-25 itemprop="datePublished">January 25, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一测试有哪些分类">一、测试有哪些分类</h2>
+<h3 id="1黑白测试">1、黑白测试</h3>
+<ul>
+<li>根据代码的思路写测试叫白盒测试</li>
+<li>不知道代码的思路测试叫黑盒测试（大部分人工测试都是这个）</li>
+</ul>
+<h3 id="2规模小-大">2、规模（小-&gt;大）</h3>
+<ul>
+<li>单元测试（最小的测试是函数，也是白盒测试）</li>
+<li>模块测试（根据API测试）</li>
+<li>功能测试</li>
+<li>集成测试（多个系统端对端测试E2E，也是黑盒测试）</li>
+</ul>
+<h2 id="二单元测试的必要性">二、单元测试的必要性</h2>
+<ul>
+<li>你不一定一辈子当前端</li>
+<li>开发库（公司里的库必须要有），没有单元测试公司很难有优质代码的积累</li>
+<li>测试驱动开发</li>
+</ul>
+<h2 id="三前端业务代码是否需要测试">三、前端业务代码是否需要测试</h2>
+<ul>
+<li>不需要</li>
+<li>业务代码中的共用代码才需要测试：比如表单验证（抽离出组件，测组件）</li>
+<li>然后做高质量的组件，输出给团队用</li>
+</ul>
+<h2 id="四什么才算是好的单元测试">四、什么才算是好的单元测试</h2>
+<ul>
+<li>测试覆盖率&gt;90%，基本上都是好的测试</li>
+<li>测试内容：语句、分支、函数、行</li>
+</ul>
+<h2 id="五测试工具介绍">五、测试工具介绍</h2>
+<ul>
+<li>这里使用Karma + Mocha做单元测试，TravisCI做持续集成</li>
+<li>Karma（[ˈkɑrmə] 卡玛）是一个测试运行器，它可以呼起浏览器，加载测试脚本，然后运行测试用例</li>
+<li>Mocha（[ˈmoʊkə] 摩卡）是一个单元测试框架/库，它可以用来写测试用例</li>
+<li>Sinon（西农）是一个 spy / stub / mock 库，用以辅助测试</li>
+<li>karma-coverage 来设置 Karma 的代码覆盖率</li>
+<li>chaijs 提供了dscribe it断言</li>
+</ul>
+<p>除此之外了解两个词语：</p>
+<ul>
+<li>BDD 行为驱动开发  Behavior Driven Development</li>
+<li>TDD 测试驱动开发 Test Driven Development</li>
+</ul>
+<h2 id="五安装工具及配置">五、安装工具及配置</h2>
+<h3 id="1创建karma-配置">1、创建karma 配置</h3>
+<ul>
+<li>安装依赖</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm add -D karma karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack chai sinon sinon-chai
+</code></pre></div><p><strong>安装成功：</strong>
+<img src="http://pj71rnyh2.bkt.clouddn.com/1543891661%281%29.png" alt="安装成功"></p>
+<ul>
+<li>创建 karma.config.js</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">//frameworks引入&#39;mocha&#39;, 就会拥有descibe it函数，frameworks引入&#39;sinon-chai&#39;，就会有sinon.fake<span style="color:#960050;background-color:#1e0010">(</span>)，expect函数
+//files 检索 tests/<span style="color:#960050;background-color:#1e0010">**</span>/*<span style="color:#a6e22e">.spec.js文件</span>
+//browsers 使用的是ChromeHeadless,无头浏览器
+
+var webpackConfig = require<span style="color:#960050;background-color:#1e0010">(</span>&#39;@vue/cli-service/webpack.config.js&#39;)
+
+module.exports = function (<span style="color:#a6e22e">config</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  config.set<span style="color:#960050;background-color:#1e0010">({</span>
+    frameworks: <span style="color:#960050;background-color:#1e0010">[</span>&#39;mocha&#39;],
+
+    files: <span style="color:#960050;background-color:#1e0010">[</span>
+      &#39;tests/<span style="color:#960050;background-color:#1e0010">**</span>/*<span style="color:#a6e22e">.spec.js</span>&#39;
+    ],
+
+    preprocessors: <span style="color:#960050;background-color:#1e0010">{</span>
+      &#39;<span style="color:#960050;background-color:#1e0010">**</span>/*<span style="color:#a6e22e">.spec.js</span>&#39;: <span style="color:#960050;background-color:#1e0010">[</span>&#39;webpack&#39;, &#39;sourcemap&#39;]
+    },
+
+    webpack: webpackConfig,
+
+    reporters: <span style="color:#960050;background-color:#1e0010">[</span>&#39;spec&#39;],
+    autoWatch: true,
+
+    browsers: <span style="color:#960050;background-color:#1e0010">[</span>&#39;ChromeHeadless&#39;]
+  })
+}
+</code></pre></div><ul>
+<li>修改package.json 中scripts</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">  &#34;scripts&#34;: <span style="color:#960050;background-color:#1e0010">{</span>
+      ...
+    &#34;test&#34;: &#34;karma start --single-run&#34;,
+    &#34;test:unit&#34;: &#34;karma start&#34;,
+    &#34;test:unit:old&#34;: &#34;vue-cli-service test:unit&#34;,//vue原有提供的代码
+    ...
+  },
+
+</code></pre></div><h3 id="2创建单元测试覆盖率">2、创建单元测试覆盖率</h3>
+<ul>
+<li>安装依赖</li>
+</ul>
+<p><strong>vue-test-utils</strong>:<a href="https://vue-test-utils.vuejs.org/zh/guides/#%E7%94%A8-karma-%E6%B5%8B%E8%AF%95%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6">vue-test-utils官网配置覆盖率</a></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm install --save-dev karma-coverage cross-env
+npm install --save-dev babel-plugin-istanbul
+
+</code></pre></div><ul>
+<li>更新.babelrc 文件</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"><span style="color:#960050;background-color:#1e0010">{</span>
+  ……
+  env: <span style="color:#960050;background-color:#1e0010">{</span>
+    test: <span style="color:#960050;background-color:#1e0010">{</span>
+      &#34;plugins&#34;: <span style="color:#960050;background-color:#1e0010">[</span>&#34;istanbul&#34;]
+    }
+  }
+  ……
+}
+</code></pre></div><ul>
+<li>更新 karma.conf.js文件</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">module.exports = function (<span style="color:#a6e22e">config</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  config.set<span style="color:#960050;background-color:#1e0010">({</span>
+  // ...
+
+    reporters: <span style="color:#960050;background-color:#1e0010">[</span>&#39;spec&#39;, &#39;coverage&#39;],
+
+    coverageReporter: <span style="color:#960050;background-color:#1e0010">{</span>
+      dir: &#39;./coverage&#39;,
+      reporters: <span style="color:#960050;background-color:#1e0010">[</span>
+        <span style="color:#960050;background-color:#1e0010">{</span> type: &#39;lcov&#39;, subdir: &#39;.&#39; },
+        <span style="color:#960050;background-color:#1e0010">{</span> type: &#39;text-summary&#39; }
+      ]
+    }
+  })
+}
+</code></pre></div><ul>
+<li>更新test脚本</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// 加上cross-env BABEL_ENV=test
+<span style="color:#960050;background-color:#1e0010">{</span>
+  &#34;scripts&#34;: <span style="color:#960050;background-color:#1e0010">{</span>
+    &#34;test&#34;: &#34;cross-env BABEL_ENV=test karma start --single-run&#34;
+  }
+}
+</code></pre></div><h2 id="六如何写单元测试">六、如何写单元测试</h2>
+<ul>
+<li>
+<p>在vue脚手架中，不同的单元测试写在tests/unit/**.spec.js</p>
+</li>
+<li>
+<p>vue-test-utils提供的API：<a href="https://vue-test-utils.vuejs.org/zh/api/">官网教你怎么写代码</a></p>
+</li>
+<li>
+<p>举例button组件</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">vue/test-utils
+//引入chai，所以有dscribe it expect 函数
+import chai, <span style="color:#960050;background-color:#1e0010">{</span>expect} from &#39;chai&#39;
+
+//sinon（西农）是一个 spy / stub / mock 库，用以辅助测试
+import sinon from &#39;sinon&#39;
+import sinonChai from &#39;sinon-chai&#39;
+
+//vue-test-utils 提供的工具
+import <span style="color:#960050;background-color:#1e0010">{</span>shallowMount, mount} from &#39;@vue/test-utils&#39;
+
+//引入要测试的组件
+import Button from &#39;../../src/button/button&#39;
+
+chai.use(<span style="color:#a6e22e">sinonChai</span>)
+
+
+describe<span style="color:#960050;background-color:#1e0010">(</span>&#39;Button.vue&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;存在.&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        expect(<span style="color:#a6e22e">Button</span>).to.exist
+    })
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;可以设置icon.&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        const wrapper = mount<span style="color:#960050;background-color:#1e0010">(</span>Button, <span style="color:#960050;background-color:#1e0010">{</span>
+            propsData: <span style="color:#960050;background-color:#1e0010">{</span>
+                icon: &#39;settings&#39;
+            }
+        })
+        const useElement = wrapper.find<span style="color:#960050;background-color:#1e0010">(</span>&#39;use&#39;)
+        expect<span style="color:#960050;background-color:#1e0010">(</span>useElement.attributes<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">[</span>&#39;href&#39;]).to.equal<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">i-settings</span>&#39;)
+    })
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;可以设置loading.&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        const wrapper = mount<span style="color:#960050;background-color:#1e0010">(</span>Button, <span style="color:#960050;background-color:#1e0010">{</span>
+            propsData: <span style="color:#960050;background-color:#1e0010">{</span>
+                icon: &#39;settings&#39;,
+                loading: true
+            }
+        })
+        const vm = wrapper.vm
+        const useElements = vm.$el.querySelectorAll<span style="color:#960050;background-color:#1e0010">(</span>&#39;use&#39;)
+        expect(<span style="color:#a6e22e">useElements.length</span>).to.equal(<span style="color:#a6e22e">1</span>)
+        expect<span style="color:#960050;background-color:#1e0010">(</span>useElements[<span style="color:#a6e22e">0</span>].getAttribute<span style="color:#960050;background-color:#1e0010">(</span>&#39;xlink:href&#39;)).to.equal<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">i-loading</span>&#39;)
+    })
+
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;icon 默认的 order 是 1&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        const wrapper = mount<span style="color:#960050;background-color:#1e0010">(</span>Button, <span style="color:#960050;background-color:#1e0010">{</span>
+            attachToDocument: true,
+            propsData: <span style="color:#960050;background-color:#1e0010">{</span>
+                icon: &#39;settings&#39;,
+            }
+        })
+        const vm = wrapper.vm
+        const icon = vm.$el.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;svg&#39;)
+        expect<span style="color:#960050;background-color:#1e0010">(</span>getComputedStyle(<span style="color:#a6e22e">icon</span>).order).to.eq<span style="color:#960050;background-color:#1e0010">(</span>&#39;1&#39;)
+    })
+
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;设置 iconPosition 可以改变 order&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        const wrapper = mount<span style="color:#960050;background-color:#1e0010">(</span>Button, <span style="color:#960050;background-color:#1e0010">{</span>
+            attachToDocument: true,
+            propsData: <span style="color:#960050;background-color:#1e0010">{</span>
+                icon: &#39;settings&#39;,
+                iconPosition: &#39;right&#39;
+            }
+        })
+        const vm = wrapper.vm
+        const icon = vm.$el.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;svg&#39;)
+        expect<span style="color:#960050;background-color:#1e0010">(</span>getComputedStyle(<span style="color:#a6e22e">icon</span>).order).to.eq<span style="color:#960050;background-color:#1e0010">(</span>&#39;2&#39;)
+    })
+    it<span style="color:#960050;background-color:#1e0010">(</span>&#39;点击 button 触发 click 事件&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        const wrapper = mount<span style="color:#960050;background-color:#1e0010">(</span>Button, <span style="color:#960050;background-color:#1e0010">{</span>
+            propsData: <span style="color:#960050;background-color:#1e0010">{</span>
+                icon: &#39;settings&#39;,
+            }
+        })
+        const vm = wrapper.vm
+        const callback = sinon.fake<span style="color:#960050;background-color:#1e0010">(</span>);
+        vm.$on<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, callback)
+        vm.$el.click<span style="color:#960050;background-color:#1e0010">(</span>)
+        expect(<span style="color:#a6e22e">callback</span>).to.have.been.called
+
+    })
+})
+</code></pre></div><ul>
+<li>运行</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm run test:unit
+</code></pre></div><p><strong>运行成功：单元测试及测试覆盖率</strong></p>
+<p><img src="http://pj71rnyh2.bkt.clouddn.com/1543895376%281%29.png" alt="单元测试及测试覆盖率"></p>
+<h2 id="七travisci-持续集成">七、TravisCI 持续集成</h2>
+<ul>
+<li>每次都需要输入npm run test:unit来测试，如果用TravisCI写好测试用例文件配置相关配置就会自动化测试。</li>
+<li>阮一峰文章：http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html</li>
+<li>在根目录下配置.travis.yml文件</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">//nodejs环境，版本为8，选用稳定版本的chrome测试
+language: node_js
+node_js:
+  - &#34;8&#34;
+addons:
+    chrome: stable
+sudo: required
+before_script:
+  - &#34;sudo chown root /opt/google/chrome/chrome-sandbox&#34;
+  - &#34;sudo chmod 4755 /opt/google/chrome/chrome-sandbox&#34;
+</code></pre></div><ul>
+<li>使用github登录官网：https://travis-ci.org/</li>
+<li>选中测试项目，且测试项目需要有测试脚本</li>
+<li>每次github提交代码都会进行测试</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-vue-test-utils/>http://www.yuyunzhi.com/js-vue-test-utils/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/vue/">
+                    #Vue</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+                    #单元测试</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/">
+                    #持续集成</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/tdd/">
+                    #TDD</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-git-abbreviation/" class="prev" rel="prev" title="Git配置命令缩写"><i class="iconfont icon-left"></i>&nbsp;Git配置命令缩写</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/java-maven/" class="next" rel="next" title="设置Maven环境变量">设置Maven环境变量&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>性能优化 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 性能优化 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 21 Nov 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>前端性能优化</title>
+      <link>http://www.yuyunzhi.com/js-performance-optimization/</link>
+      <pubDate>Wed, 21 Nov 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-performance-optimization/</guid>
+      <description>1、使用懒加载  组件懒加载  const xxx =()=&amp;gt;import(&amp;#39;./components/xxx.vue&amp;#39;)  路由懒加载  2、减少或合并DOM操作或使用虚拟DOM // 不好的方式 //var elem = $(&amp;#39;#elem&amp;#39;); //for (var i = 0; i &amp;lt; 100; i++) { // elem.append(&amp;#39;&amp;lt;li&amp;gt;element &amp;#39;+i+&amp;#39;&amp;lt;/li&amp;gt;&amp;#39;); //} // 好的方式 var elem = $(&amp;#39;#elem&amp;#39; ), arr = []; for (var i = 0; i &amp;lt; 100; i++) { arr.push(&amp;#39;&amp;lt;li&amp;gt;element &amp;#39; +i+&amp;#39;&amp;lt;/li&amp;gt;&amp;#39; ); } elem.append(arr. join(&amp;#39;&amp;#39;)); 3、减少监听器，使用事件委托 function listen(element, eventType, selector, fn) { element.addEventListener(eventType, e =&amp;gt; { let el = e.</description>
+    </item>
+    
+  </channel>
+</rss>

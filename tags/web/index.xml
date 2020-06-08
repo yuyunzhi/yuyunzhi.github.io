@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>web on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/web/</link>
+    <description>Recent content in web on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 16 Sep 2019 16:52:16 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>web前后端的基础知识</title>
+      <link>http://www.yuyunzhi.com/common-web-principle/</link>
+      <pubDate>Mon, 16 Sep 2019 16:52:16 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-web-principle/</guid>
+      <description>一、在打开网页的时候发生了什么？ 比如说 taobao.com 按回车一瞬间后到页面全部完成发生了什么?
+不同的计算机组成的网络是可以互相通信和连接的，我们每一台主机都对应了自己的一个32位地址(4个字节)，如:115.118.112.3,这种方式的网络协议版本为IPV4。
+从这个地址我们可以看出一些比较有趣的事，一个byte最大可以存255,4个字节最多能存约42亿个数字，大约到了90年代发现42亿也不够用了，于是升级到了128位的网络协议版本IPV6，可以理解为地球上每一粒沙子分配一个地址，来避免IPV4地址不足。
+1、DNS域名解析-缓存 如果要一个人要和别的主机通信，就需要知道别的主机IP地址，由于IP地址对人来说不好记忆，所以就需要另外一个服务，DNS （Domain Name Service）域名服务，那么当用户输入域名的时候，就会通过域名服务器解析域名得到IP地址返回。
+当然中间还有跳了一步，比如说本地已经保存了 taobao.com 及对应的IP地址，那么就不需要进行DNS解析了来节约”翻译”域名的时间。无论是windows还是Mac,都可以通过本地的文件host文件来覆盖掉,Mac 路径：sudo /etc/hosts
+2、端口 如果你的电脑开了很多程序，但网线只有一根，从网线传输的数据怎么知道是哪个程序呢？ 比如你开了QQ、浏览器、微信，数据传递如何对应？这时候就用到了端口(port)，
+端口可以理解为自己的电脑有很多的&amp;quot;港口&amp;rdquo;，编号为，1，2，3，4，5……65536个港口，那么每个数据包就会分配到自己对应的端口上。端口指定了你请求网站的归属地
+注意：
+  HTTPS协议默认端口是443,当你请求https://taobao.com的时候，完全等价于请求https://taobao.com:443
+  HTTP协议默认端口是80,当你请求http://taobao.com的时候，完全等价于请求http://taobao.com:80
+  3、数据流 在计算机协议中常用的通信协议有TCP、UDP协议 TCP基于流的协议、也是全双工协议。可以理解为一个双向的高速公路，当你向远端服务器发送请求的时候就在本地的端口和远端的端口开辟了一个双向的高速公路，而中间跑的不是车而是数据，并且是可以同时发送数据。
+数据流是一个个字节组成的，又称作为字节流。TCP协议规定了字节流在网络上发送和接收的方式。
+TCP协议之上是HTTP协议 超文本传输协议，超文本的意思是如果遵循了HTTP协议不仅仅可以在双向数据流上跑字节流还可以跑文件、跑图片等等。
+那每一个数据流长什么样子？
+ Request请求   Response响应  4、数据是如何被浏览器处理的？ 在网络上传的只是字节流
+比如当你发送请求给淘宝后，会获得 HTTP Response 的响应头和响应体，响应体 不仅仅可以是文本，还可以是二进制数据（图片、音频、下载的文件……）
+输入url后的响应体以标签开头
+这就是，HTML 超文本标记语言。当浏览器看到标签的时候就知道这是一个html，并且一行一行进行相应的文本、样式的解析和下载。</description>
+    </item>
+    
+  </channel>
+</rss>

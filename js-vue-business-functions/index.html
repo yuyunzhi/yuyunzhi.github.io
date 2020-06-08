@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-vue-import/" />
+  <link rel="next" href="http://www.yuyunzhi.com/java-type/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-vue-business-functions/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Vue实现业务功能 | 余韵之
+       
+  </title>
+  <meta name="title" content="Vue实现业务功能 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Vue实现业务功能",
+    "headline" : "Vue实现业务功能",
+    "description" : "一、实现逻辑功能 1、导航显示二级菜单  鼠标进入显示 鼠标移开隐藏 多个菜单使用同一个函数  HTML --------------- \u0026lt;div @mouseover=\u0026#34;showSubmenu(\u0026#39;show\u0026#39;,\u0026#39;Language\u0026#39;)\u0026#34; @mouseout=\u0026#34;showSubmenu(\u0026#39;hide\u0026#39;,\u0026#39;Language\u0026#39;)\u0026#34; \u0026gt; \u0026lt;span\u0026gt;Language\u0026lt;\/span\u0026gt; \u0026lt;ul class=\u0026#34;submenu\u0026#34; v-show=\u0026#34;showLanguage\u0026#34;\u0026gt; \u0026lt;li\u0026gt;\u0026lt;a class=\u0026#34;language\u0026#34; href=\u0026#34;#\u0026#34;\u0026gt;中文\u0026lt;\/a\u0026gt;\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;\u0026lt;a class=\u0026#34;language\u0026#34; href=\u0026#34;#\u0026#34;\u0026gt;English\u0026lt;\/a\u0026gt;\u0026lt;\/li\u0026gt; \u0026lt;li\u0026gt;\u0026lt;a class=\u0026#34;language\u0026#34; href=\u0026#34;#\u0026#34;\u0026gt;Espanol\u0026lt;\/a\u0026gt;\u0026lt;\/li\u0026gt; \u0026lt;\/ul\u0026gt; \u0026lt;\/div\u0026gt;  使用鼠标onmouseover及mouseout来监听事件,传入两个参数x,y x表示show或hide,y表示触发状态的元素  JS --------------- showSubmenu(status,item){ if(item == \u0026#39;Language\u0026#39;){ status==\u0026#39;show\u0026#39;?this.showLanguage=true:this.showLanguage=false } if(item == \u0026#39;Individual\u0026#39;){ status==\u0026#39;show\u0026#39;?this.showIndividual=true:this.showIndividual=false } ………… } 2、搜索框  函数节流，输入过程中显示相关的搜索清单  if(this.timer){ clearTimeout(this.timer) } this.timer = setTimeout(( \/\/发送请求 \/\/对请求后的数据处理 )=\u0026gt;{},1000)  输入不同的类型内容跳转不同页面，同时传id  输入过程中，结合函数节流从后端获取输入的内容的类型，根据类型判断跳转不同的页面 JS --------------- gotoNewPage(list){ if(list.type==\u0026#34;city\u0026#34;){ \/\/进入city页面 传参为list.cid this.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-03-05 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-03-05 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-vue-business-functions\/",
+    "wordCount" : "295",
+    "keywords" : [ "Vue", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Vue实现业务功能</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-03-05 itemprop="datePublished">March 5, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一实现逻辑功能">一、实现逻辑功能</h2>
+<h3 id="1导航显示二级菜单">1、导航显示二级菜单</h3>
+<ul>
+<li>鼠标进入显示</li>
+<li>鼠标移开隐藏</li>
+<li>多个菜单使用同一个函数</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">HTML
+---------------
+&lt;div @mouseover=&#34;showSubmenu<span style="color:#960050;background-color:#1e0010">(</span>&#39;show&#39;,&#39;Language&#39;)&#34; 
+     @mouseout=&#34;showSubmenu<span style="color:#960050;background-color:#1e0010">(</span>&#39;hide&#39;,&#39;Language&#39;)&#34; &gt;
+    &lt;span&gt;Language&lt;/span&gt;
+    &lt;ul class=&#34;submenu&#34; v-show=&#34;showLanguage&#34;&gt;
+        &lt;li&gt;&lt;a class=&#34;language&#34; href=&#34;<span style="color:#960050;background-color:#1e0010">#</span>&#34;&gt;中文&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class=&#34;language&#34; href=&#34;<span style="color:#960050;background-color:#1e0010">#</span>&#34;&gt;English&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a class=&#34;language&#34; href=&#34;<span style="color:#960050;background-color:#1e0010">#</span>&#34;&gt;Espanol&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+</code></pre></div><ul>
+<li>使用鼠标onmouseover及mouseout来监听事件,传入两个参数x,y</li>
+<li>x表示show或hide,y表示触发状态的元素</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">JS
+---------------
+showSubmenu<span style="color:#960050;background-color:#1e0010">(</span>status,item)<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>item == &#39;Language&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+        status==&#39;show&#39;?this.showLanguage=true:this.showLanguage=false
+    }
+    if<span style="color:#960050;background-color:#1e0010">(</span>item == &#39;Individual&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+        status==&#39;show&#39;?this.showIndividual=true:this.showIndividual=false
+    }
+    …………
+}
+</code></pre></div><h3 id="2搜索框">2、搜索框</h3>
+<ul>
+<li>函数节流，输入过程中显示相关的搜索清单</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">if(<span style="color:#a6e22e">this.timer</span>)<span style="color:#960050;background-color:#1e0010">{</span> 
+    clearTimeout(<span style="color:#a6e22e">this.timer</span>)
+}
+this.timer = setTimeout<span style="color:#960050;background-color:#1e0010">((</span>
+    //发送请求
+    //对请求后的数据处理
+)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>},1000)
+</code></pre></div><ul>
+<li>输入不同的类型内容跳转不同页面，同时传id</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">输入过程中，结合函数节流从后端获取输入的内容的类型，根据类型判断跳转不同的页面
+JS
+---------------
+gotoNewPage(<span style="color:#a6e22e">list</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>list.type==&#34;city&#34;)<span style="color:#960050;background-color:#1e0010">{</span>
+        //进入city页面  传参为list.cid
+        this.$router.push<span style="color:#960050;background-color:#1e0010">({</span>name:&#39;ranking&#39;,params:<span style="color:#960050;background-color:#1e0010">{</span>
+            id:list.cid
+            }
+        })
+    }else if<span style="color:#960050;background-color:#1e0010">(</span>list.type==&#34;scenic&#34;)<span style="color:#960050;background-color:#1e0010">{</span>
+        //进入维基百科页面
+        let url = `$<span style="color:#960050;background-color:#1e0010">{</span>Url.wiki}$<span style="color:#960050;background-color:#1e0010">{</span>list.placeName}`
+        window.open(<span style="color:#a6e22e">url</span>)
+    }
+    this.showList=false
+},
+</code></pre></div><ul>
+<li>鼠标点击外部，input显示的清单消失</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">在APP.vue文件监听click事件，点击判断是否为input相关的元素/元素class
+然后触发$emit事件，在Search组件mounted<span style="color:#960050;background-color:#1e0010">(</span>)使用$on监听
+
+APP.vue JS
+---------------
+changeLists(<span style="color:#a6e22e">e</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    let targetName=e.target.className
+        if<span style="color:#960050;background-color:#1e0010">(</span>!<span style="color:#960050;background-color:#1e0010">(</span>targetName === &#34;input&#34; ||  targetName === &#34;list&#34;))<span style="color:#960050;background-color:#1e0010">{</span>
+            this.$bus.$emit<span style="color:#960050;background-color:#1e0010">(</span>&#39;changeList&#39;)         
+        }
+}
+
+
+Serarch.vue JS
+---------------
+this.$bus.$on<span style="color:#960050;background-color:#1e0010">(</span>&#39;changeList&#39;,<span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+    this.showList=false
+})
+</code></pre></div><ul>
+<li>搜索报错.catch处理页面逻辑</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">.catch((<span style="color:#a6e22e">error</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+        console.log(<span style="color:#a6e22e">error.response</span>)
+})
+//注意，一定要.response才能取到报错的数据
+</code></pre></div><h3 id="3焦点状态">3、焦点状态</h3>
+<ul>
+<li>当鼠标点击/浮过某个元素，显示某种状态</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">声明一个变量 topIndex
+传入index,并在函数内赋值给topIndex
+判断其是否相等,添加class激活状态
+
+&lt;li :class=&#34;<span style="color:#960050;background-color:#1e0010">{</span>&#39;active&#39;:topIndex==index}&#34; 
+v-for=&#34;<span style="color:#960050;background-color:#1e0010">(</span>item,index) in provinceNames&#34; v-bind:key=&#34;index&#34;
+@mouseover=&#34;updateCityList<span style="color:#960050;background-color:#1e0010">(</span>index,item)&#34;
+&gt;
+<span style="color:#75715e">{{</span>xxx<span style="color:#75715e">}}</span>
+&lt;/li&gt;
+</code></pre></div><h3 id="4页面状态保存">4、页面状态保存</h3>
+<ul>
+<li>存的到localStorage、sessionStorage里</li>
+<li>页面加载是从里面获取渲染页面</li>
+</ul>
+<h3 id="5不准确路由跳转404">5、不准确路由跳转404</h3>
+<ul>
+<li>404页面当然是自己准备了</li>
+<li>在APP.vue的created里判断路由的name是否存在</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">  if<span style="color:#960050;background-color:#1e0010">(</span>this.$route.name===null)<span style="color:#960050;background-color:#1e0010">{</span>
+    this.$router.push<span style="color:#960050;background-color:#1e0010">({</span>name:&#39;errorPage&#39;})
+  }
+</code></pre></div><ul>
+<li>当然也可以把这个函数写在Vue.protoype里</li>
+</ul>
+<h3 id="6路由守卫">6、路由守卫</h3>
+<ul>
+<li>引用场景，判断某个组件，某个页面用户是否登录来决定是否显示该页面或跳转到登录页面</li>
+<li>根据后端传来的登录状态储存到sessionStorage/localStorage</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">登录成功：true
+登录失败：false
+储存到sessionStorage:window.sessionStorage.setItem<span style="color:#960050;background-color:#1e0010">(</span>&#39;isLogin&#39;,true)
+</code></pre></div><ul>
+<li>页面初始化或点击某个组件进行状态判断</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Vue.prototype.$initPageLogin=function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  let isLogin=window.sessionStorage.getItem<span style="color:#960050;background-color:#1e0010">(</span>&#39;isLogin&#39;);
+  if<span style="color:#960050;background-color:#1e0010">(</span>isLogin === false || isLogin === null)<span style="color:#960050;background-color:#1e0010">{</span>
+      this.$router.push<span style="color:#960050;background-color:#1e0010">({</span>name:&#39;onepage&#39;})
+  }
+}
+</code></pre></div><h3 id="7打包-懒加载">7、打包-懒加载</h3>
+<ul>
+<li>对引入的组件更改为按需加载,会使得打包体积大大降低</li>
+<li>原来是这样的：</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">import xxx from &#39;./yyy.vue&#39;
+</code></pre></div><ul>
+<li>懒加载引入</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const xxx = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;import <span style="color:#960050;background-color:#1e0010">(</span>&#39;./yyy.vue&#39;)
+</code></pre></div><h3 id="8windowopen突破拦截">8、window.open突破拦截</h3>
+<ul>
+<li>产生原因：非用户点击直接开启新窗口，在异步请求后打开新窗口被拦截</li>
+<li>解决方案</li>
+</ul>
+<p>1、先打开空白新窗口，异步请求后重定向新窗口</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var xxx=window.open<span style="color:#960050;background-color:#1e0010">(</span>&#39;&#39;,_blank)
+xxx.location.href=url
+</code></pre></div><p>2、把异步请求变成同步请求</p>
+<p>&ndash; 异步换成同步写法(本质还是异步，所以不行)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">async function r<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    try<span style="color:#960050;background-color:#1e0010">{</span>
+        let content1 = await read<span style="color:#960050;background-color:#1e0010">(</span>&#39;1.txt&#39;,&#39;utf8&#39;);
+        let content2 = await read<span style="color:#960050;background-color:#1e0010">(</span>content1,&#39;utf8&#39;);
+        return content2;
+    }catch(<span style="color:#a6e22e">e</span>)<span style="color:#960050;background-color:#1e0010">{</span> 
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;err&#39;,e)
+    }
+}
+</code></pre></div><p>&ndash; 用同步的方式发请求(这里使用了jquery ajax)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let data
+$.ajax<span style="color:#960050;background-color:#1e0010">({</span>
+    url:xxx,
+    async:false， //表示是否异步
+    success(<span style="color:#a6e22e">mes</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+        data=mes
+    }
+})
+//后面可以使用data
+然后window.open打开新窗口
+</code></pre></div><h2 id="二css样式">二、CSS样式</h2>
+<h3 id="1隐藏滚动条">1、隐藏滚动条</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">.xxx<span style="color:#960050;background-color:#1e0010">{</span>
+    //限定最大高度如max-height:100px;    
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    overflow-y: scroll;       
+    margin-bottom: -.2rem;
+    overflow: -moz-scrollbars-none;
+    overflow: -moz-scrollbars-none;
+    &amp;::-webkit-scrollbar<span style="color:#960050;background-color:#1e0010">{</span>
+        display: none;
+    }   
+}
+</code></pre></div><h3 id="2显示固定行数">2、显示固定行数</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">.xxx<span style="color:#960050;background-color:#1e0010">{</span>
+    //设置高度
+  display: -webkit-box;    
+  -webkit-box-orient: vertical;    
+  -webkit-line-clamp: 5;    
+  overflow: hidden;
+}
+
+</code></pre></div><h3 id="3宽">3、宽</h3>
+<ul>
+<li>在布局的时候，最外的div设置固定的px</li>
+<li>内部的div设置百分比</li>
+<li>实现响应式的时候，用媒体查询修改最外div的宽度就可以了</li>
+</ul>
+<h3 id="4解决滚动条抖屏">4、解决滚动条抖屏</h3>
+<ul>
+<li>产生原因：不同页面的所用的高度不一样那么超出浏览器高度会显示滚动条，出现样式抖动</li>
+<li>解决方案，全局样式加上以下代码(body absoulte)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">html <span style="color:#960050;background-color:#1e0010">{</span>
+    overflow-y: scroll;
+}
+:root <span style="color:#960050;background-color:#1e0010">{</span>
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+:root body <span style="color:#960050;background-color:#1e0010">{</span>
+    position: absolute;
+}
+body <span style="color:#960050;background-color:#1e0010">{</span>
+    width: 100vw;
+    overflow: hidden;
+}
+</code></pre></div><h2 id="三前端库的使用">三、前端库的使用</h2>
+<h3 id="1swiper">1、Swiper</h3>
+<ul>
+<li>官网，选择样式：https://www.swiper.com.cn/</li>
+<li>引入cdnjs</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">index.html
+-------------------
+&lt;script src=&#34;https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/js/swiper.min.js&#34;&gt;&lt;/script&gt;
+</code></pre></div><ul>
+<li>引入css</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">@import &#34;../assets/css/swiper.min.css&#34;;
+</code></pre></div><ul>
+<li>引入html</li>
+<li>引入js</li>
+</ul>
+<p>注意，如果异步获取的数据赋值后不更新，那么在swiper的配置里加上：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">observer:true,
+observeParents:true,
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-vue-business-functions/>http://www.yuyunzhi.com/js-vue-business-functions/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/vue/">
+                    #Vue</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-vue-import/" class="prev" rel="prev" title="Vue全局引入文件"><i class="iconfont icon-left"></i>&nbsp;Vue全局引入文件</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/java-type/" class="next" rel="next" title="Java的数据类型">Java的数据类型&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

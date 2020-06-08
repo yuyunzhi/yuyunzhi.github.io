@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-code-optimization/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-vue-import/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-vue-dom/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Vue虚拟DOM | 余韵之
+       
+  </title>
+  <meta name="title" content="Vue虚拟DOM | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Vue虚拟DOM",
+    "headline" : "Vue虚拟DOM",
+    "description" : "一、为什么要使用虚拟DOM  首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以Vue内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。 为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，会先比较该节点类型，假如节点类型不一样，那么Vue会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么Vue会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。  二、使用虚拟DOM 1、代码示例 \u0026lt;template\u0026gt; \u0026lt;div class=\u0026#34;container\u0026#34;\u0026gt; \u0026lt;y-div @click=\u0026#34;outerFny\u0026#34; level=\u0026#34;1\u0026#34;\u0026gt;\u0026lt;\/y-div\u0026gt; \u0026lt;\/div\u0026gt; \u0026lt;\/template\u0026gt; \u0026lt;script\u0026gt; export default { components: { \u0026#39;y-div\u0026#39;: { data() { return { value: \u0026#39;123\u0026#39; } }, props: [\u0026#39;level\u0026#39;], render: function (createElement) { return createElement( \u0026#39;div\u0026#39;, { \u0026#39;class\u0026#39;: { foo: true, bar: false }, style:{ width:\u0026#39;100px\u0026#39;, height:\u0026#39;100px\u0026#39;, } }, [ createElement(\u0026#39;p\u0026#39;,{ on: { click: this.handler }, \u0026#39;class\u0026#39;: { foo: true, bar: false }, style: { fontSize: \u0026#39;14px\u0026#39;, }, },\u0026#39;nnnnnnnnn\u0026#39;), createElement(\u0026#39;p\u0026#39;,\u0026#39;wwwwwww\u0026#39;) ] ) }, methods: { handler() { console.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-02-18 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-02-18 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-vue-dom\/",
+    "wordCount" : "247",
+    "keywords" : [ "虚拟Dom","Vue", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Vue虚拟DOM</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-02-18 itemprop="datePublished">February 18, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一为什么要使用虚拟dom">一、为什么要使用虚拟DOM</h2>
+<ul>
+<li>首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以Vue内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。</li>
+<li>为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，会先比较该节点类型，假如节点类型不一样，那么Vue会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么Vue会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。</li>
+</ul>
+<h2 id="二使用虚拟dom">二、使用虚拟DOM</h2>
+<h3 id="1代码示例">1、代码示例</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;template&gt;
+    &lt;div class=&#34;container&#34;&gt;
+        &lt;y-div  @click=&#34;outerFny&#34; level=&#34;1&#34;&gt;&lt;/y-div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+    export default <span style="color:#960050;background-color:#1e0010">{</span>
+        components: <span style="color:#960050;background-color:#1e0010">{</span>
+            &#39;y-div&#39;: <span style="color:#960050;background-color:#1e0010">{</span>
+                data<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+                    return <span style="color:#960050;background-color:#1e0010">{</span>
+                        value: &#39;123&#39;
+                    }
+                },
+                props: <span style="color:#960050;background-color:#1e0010">[</span>&#39;level&#39;],
+                render: function (<span style="color:#a6e22e">createElement</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+                    return createElement<span style="color:#960050;background-color:#1e0010">(</span>
+                        &#39;div&#39;,
+                        <span style="color:#960050;background-color:#1e0010">{</span>
+                            &#39;class&#39;: <span style="color:#960050;background-color:#1e0010">{</span>
+                                foo: true,
+                                bar: false
+                            },
+                            style:<span style="color:#960050;background-color:#1e0010">{</span>
+                                width:&#39;100px&#39;,
+                                height:&#39;100px&#39;,
+                            }
+                        },
+                        <span style="color:#960050;background-color:#1e0010">[</span>
+                            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;p&#39;,<span style="color:#960050;background-color:#1e0010">{</span>
+                                on: <span style="color:#960050;background-color:#1e0010">{</span>
+                                    click: this.handler
+                                },
+                                &#39;class&#39;: <span style="color:#960050;background-color:#1e0010">{</span>
+                                    foo: true,
+                                    bar: false
+                                },
+                                style: <span style="color:#960050;background-color:#1e0010">{</span>
+                                    fontSize: &#39;14px&#39;,
+                                },
+                            },&#39;nnnnnnnnn&#39;),
+                            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;p&#39;,&#39;wwwwwww&#39;)
+                        ]
+                    )
+                },
+                methods: <span style="color:#960050;background-color:#1e0010">{</span>
+                    handler<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+                        console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;value&#39;, this.value);//123
+                        this.$emit<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, <span style="color:#960050;background-color:#1e0010">{</span>a: &#39;1&#39;, b: &#39;2&#39;})
+                    }
+                }
+            },
+
+        },
+        methods: <span style="color:#960050;background-color:#1e0010">{</span>
+            outerFny(<span style="color:#a6e22e">e</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+                console.log(<span style="color:#a6e22e">e</span>);// <span style="color:#960050;background-color:#1e0010">{</span>a: &#39;1&#39;, b: &#39;2&#39;}
+            }
+        }
+    }
+&lt;/script&gt;
+</code></pre></div><h3 id="2render函数的一个参数">2、render函数的一个参数</h3>
+<ul>
+<li>第一个参数必选， string|Object|Function</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Vue.component<span style="color:#960050;background-color:#1e0010">(</span>&#39;child&#39;, <span style="color:#960050;background-color:#1e0010">{</span>
+//String--html标签
+//Object---一个含有数据选项的对象
+//FUnction---方法返回含有数据选项的对象
+    render: function (<span style="color:#a6e22e">createElement</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        alert<span style="color:#960050;background-color:#1e0010">(</span>typeof createElement)
+// return createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;h1&#39;)
+// return createElement<span style="color:#960050;background-color:#1e0010">({</span>
+// template:&#39;&lt;div&gt;锄禾日当午&lt;/div&gt;&#39;
+// })
+        var domFun = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+            return <span style="color:#960050;background-color:#1e0010">{</span>
+                template: &#39;&lt;div&gt;锄禾日当午&lt;/div&gt;&#39;
+            }
+        }
+        return createElement<span style="color:#960050;background-color:#1e0010">(</span>domFun<span style="color:#960050;background-color:#1e0010">(</span>));
+    }
+});
+</code></pre></div><h3 id="3render函数的第二个参数">3、render函数的第二个参数</h3>
+<ul>
+<li>第二个参数可选,第二个参数是数据对象&mdash;-只能是Object</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Vue.component<span style="color:#960050;background-color:#1e0010">(</span>&#39;child&#39;, <span style="color:#960050;background-color:#1e0010">{</span>
+    render: function (<span style="color:#a6e22e">createElement</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        return createElement<span style="color:#960050;background-color:#1e0010">({</span>
+            template: &#39;&lt;div&gt;我是龙的传人&lt;/div&gt;&#39;
+        }, <span style="color:#960050;background-color:#1e0010">{</span>
+            &#39;class&#39;: <span style="color:#960050;background-color:#1e0010">{</span>
+                foo: true,
+                baz: false
+            },
+            style: <span style="color:#960050;background-color:#1e0010">{</span>
+                color: &#39;red&#39;,
+                fontSize: &#39;16px&#39;
+            },
+//正常的html特性
+            attrs: <span style="color:#960050;background-color:#1e0010">{</span>
+                id: &#39;foo&#39;,
+                src: &#39;http://baidu.com&#39;
+            },
+//用来写原生的Dom属性
+            domProps: <span style="color:#960050;background-color:#1e0010">{</span>
+                innerHTML: &#39;&lt;span style=&#34;color:blue;font-size: 1
+                8px&#34;&gt;我是蓝色&lt;/span&gt;&#39;
+            }
+        })
+    }
+});
+</code></pre></div><h3 id="4render函数的第三个参数">4、render函数的第三个参数</h3>
+<ul>
+<li>第三个参数也是可选===String | Array—作为我们构建函数的子节点来使用的</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Vue.component<span style="color:#960050;background-color:#1e0010">(</span>&#39;child&#39;,<span style="color:#960050;background-color:#1e0010">{</span>
+// ----第三个参数是可选的，可以是 String | Array---代表子节点
+    render: function (<span style="color:#a6e22e">createElement</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        return createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;div&#39;,<span style="color:#960050;background-color:#1e0010">[</span>
+            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;h1&#39;,&#39;我是h1标题&#39;),
+            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;h6&#39;,&#39;我是h6标题&#39;)
+        ])
+    }
+});
+</code></pre></div><h3 id="5thisslots在render函数中的应用">5、this.$slots在render函数中的应用</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;my-component&gt;
+    &lt;div slot=&#34;header&#34;&gt;1&lt;/div&gt;
+    &lt;div slot=&#34;default&#34;&gt;2&lt;/div&gt;
+    &lt;div slot=&#34;footer&#34;&gt;3&lt;/div&gt;
+&lt;/my-component&gt;
+
+Vue.component<span style="color:#960050;background-color:#1e0010">(</span>&#39;my-component&#39;,<span style="color:#960050;background-color:#1e0010">{</span>
+    render:function (<span style="color:#a6e22e">createElement</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        var header = this.$slots.header; //--这返回的内容就是含有=VNODE的数组
+        var main = this.$slots.default;
+        var footer = this.$slots.footer;
+        return createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;div&#39;,<span style="color:#960050;background-color:#1e0010">[</span>
+            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;header&#39;,header),
+            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;main&#39;,main),
+            createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;footer&#39;,footer)
+        ]);
+    }
+})
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-vue-dom/>http://www.yuyunzhi.com/js-vue-dom/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E8%99%9A%E6%8B%9Fdom/">
+                    #虚拟Dom</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/vue/">
+                    #Vue</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-code-optimization/" class="prev" rel="prev" title="代码优化思路"><i class="iconfont icon-left"></i>&nbsp;代码优化思路</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-vue-import/" class="next" rel="next" title="Vue全局引入文件">Vue全局引入文件&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

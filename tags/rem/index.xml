@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rem on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/rem/</link>
+    <description>Recent content in rem on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 09 Jul 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/rem/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>移动端是怎么做适配的？</title>
+      <link>http://www.yuyunzhi.com/js-mobile-adaptation/</link>
+      <pubDate>Mon, 09 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-mobile-adaptation/</guid>
+      <description>这里介绍个方案包含5个点：1、meta viewport；2、媒体查询；3、动态rem方案；4、对rem微调；5、其他细节补充。
+ 一、meta viewport &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&amp;#34;&amp;gt; 在head标签内部加上这段代码。
+该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度。
+width=device-width: 让当前viewport宽度等于设备的宽度 user-scalable=no: 禁止用户缩放 initial-scale=1.0: 设置页面的初始缩放值为不缩放 maximum-scale=1.0: 允许用户的最大缩放值为1.0 minimum-scale=1.0: 允许用户的最小缩放值为1.0 二、媒体查询（响应式） 1、格式一 @media （）and（）{} //满足（）里的条件，就执行大括号里css的样式 举例：
+&amp;lt;style&amp;gt; @media (max-width:320px){ body{ background:red; } } @media (min-width:321px) and (max-width:320px){ body{ background:orange; } } @media (min-width:376px) and (max-width:425px){ body{ background:green; } } @media (min-width:426px) and (max-width:768px){ body{ background:blue; } } @media (min-width:769px){ body{ background:grey; } } &amp;lt;/style&amp;gt; 2、格式二 并举例</description>
+    </item>
+    
+  </channel>
+</rss>

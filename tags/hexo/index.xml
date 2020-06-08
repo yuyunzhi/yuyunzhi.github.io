@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hexo on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/hexo/</link>
+    <description>Recent content in Hexo on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 28 Sep 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/hexo/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>部署hexo及配置next主题</title>
+      <link>http://www.yuyunzhi.com/common-hexo-next/</link>
+      <pubDate>Fri, 28 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-hexo-next/</guid>
+      <description>这个部署分为三个部分： 1、配置本地电脑与github的SSH(这里就不说了) 2、安装hexo，安装next主题 3、替换部分配置文件
+ 一、安装 1、安装hexo   进入一个安全的目录，比如 cd ~/Desktop 或者 cd ~/Documents，别在根目录 / 瞎搞。以后所有的教程第一步都是「进入一个安全的目录，别在根目录瞎搞」，只有 ~ 里面的目录是你能碰的！ 重新部署可省略该步骤
+  在 GitHub 上新建一个空 repo，repo 名称是「你的用户名.github.io」（注意个用户名是你的GitHub用户名，不是你的电脑用户名）
+  npm install -g hexo-cli，安装 Hexo
+  hexo init myBlog
+  cd myBlog
+  npm i
+  hexo new 开博大吉，你会看到一个 md 文件的路径 重新部署可省略该步骤
+  start xxxxx.md,编辑这个 md 文件，内容自己想（Ubuntu 系统用 xdg-open xxxxx.md 命令） 重新部署可省略该步骤
+  start _config.</description>
+    </item>
+    
+  </channel>
+</rss>

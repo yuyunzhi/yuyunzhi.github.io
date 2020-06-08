@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-http-curl/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-closure/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-function-excute/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           声明一个函数立即执行 | 余韵之
+       
+  </title>
+  <meta name="title" content="声明一个函数立即执行 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "声明一个函数立即执行",
+    "headline" : "声明一个函数立即执行",
+    "description" : "不要用全局变量做id 或变量，容易覆盖。如果偏要用，那么……声明一个函数立即执行。\n 一、声明一个函数立即执行的三种方式 1、在函数末尾加上.() function (){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) }.() 2、在函数末尾加上.call() function(){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) }.call() 3、声明完函数，立即调用 function xxx(){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) } xxx() 但是浏览器会报错，怎么解决？\n二、解决浏览器报错 1、技巧1：整体加括号 （function(){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) }.call()） 2、技巧2：对匿名函数加括号 （function(){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) }）.call() 3、技巧3：在函数前加-或\u002b或！或~号，告诉浏览器后面是一个值 -function(){ var parent = document.querySelector(\u0026#39;#self\u0026#39;) }.call() 注意：在一个{}里用let声明一个变量，这个变量的作用局就是在这个花括号里",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-05-03 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-05-03 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-function-excute\/",
+    "wordCount" : "51",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">声明一个函数立即执行</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-05-03 itemprop="datePublished">May 3, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>不要用全局变量做id 或变量，容易覆盖。如果偏要用，那么……声明一个函数立即执行。</p>
+</blockquote>
+<h2 id="一声明一个函数立即执行的三种方式">一、声明一个函数立即执行的三种方式</h2>
+<h3 id="1在函数末尾加上">1、在函数末尾加上.()</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function <span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}.<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><h3 id="2在函数末尾加上call">2、在函数末尾加上.call()</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}.call<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><h3 id="3声明完函数立即调用">3、声明完函数，立即调用</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function xxx<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}
+xxx<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><p>但是浏览器会报错，怎么解决？</p>
+<h2 id="二解决浏览器报错">二、解决浏览器报错</h2>
+<h3 id="1技巧1整体加括号">1、技巧1：整体加括号</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">（function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}.call<span style="color:#960050;background-color:#1e0010">(</span>)）
+</code></pre></div><h3 id="2技巧2对匿名函数加括号">2、技巧2：对匿名函数加括号</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">（function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}）.call<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><h3 id="3技巧3在函数前加-或或或号告诉浏览器后面是一个值">3、技巧3：在函数前加-或+或！或~号，告诉浏览器后面是一个值</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">-function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var parent = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">self</span>&#39;)
+}.call<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><p>注意：在一个{}里用let声明一个变量，这个变量的作用局就是在这个花括号里</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-function-excute/>http://www.yuyunzhi.com/js-function-excute/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-http-curl/" class="prev" rel="prev" title="http请求响应,curl命令用法"><i class="iconfont icon-left"></i>&nbsp;http请求响应,curl命令用法</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-closure/" class="next" rel="next" title="什么是闭包，闭包的用途是什么？">什么是闭包，闭包的用途是什么？&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

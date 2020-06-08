@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/git/</link>
+    <description>Recent content in Git on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 12 Jan 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Git配置命令缩写</title>
+      <link>http://www.yuyunzhi.com/common-git-abbreviation/</link>
+      <pubDate>Sat, 12 Jan 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-abbreviation/</guid>
+      <description>配置用户名之后git会在用户目录下面创建一个配置文件 .gitconfig  1、windows用户  一般在目录 $HOME 目录下, 注意, HOME是系统变量, 保存的是用户的目录. 运行以下命令则可以找到用户目录:  echo $HOME 2、Mac和Linux  配置在用户目录: ~/.gitconfig  3、推荐配置 [user] name = {Name} email = {Email} [alias] st = status cm = commit br = branch co = checkout df = diff rt = remote lg = log --color --graph --pretty=format:&amp;#39;%C(yellow)%h%Creset -%Cred%d%Creset %s %C(bold blue)(%cn %cr)%Creset&amp;#39; ll = log --color --graph --pretty=format:&amp;#39;%C(yellow)%h%Creset -%Cred%d%Creset %s %C(bold blue)(%cn %cr)%Creset&amp;#39; --no-merges --stat up = push origin master pr = pull --rebase [core] excludesfile = /Users/Kid7st/.</description>
+    </item>
+    
+    <item>
+      <title>git分支合并master</title>
+      <link>http://www.yuyunzhi.com/common-git-master/</link>
+      <pubDate>Fri, 06 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-master/</guid>
+      <description>假如我们现在在dev分支上，刚开发完项目，执行了下列命令  git add . git commit -m ‘dev&amp;#39; git push -u origin dev   然后我们要把dev分支的代码合并到master分支上 该如何？
+  首先切换到master分支上
+  git checkout master  如果是多人开发的话 需要把远程master上的代码pull下来  git pull origin master  然后我们把dev分支的代码合并到master上  //有权限改动master git merge dev //没有权限改动master git branch dev git merge master   这个时候打开编辑器，处理冲突的代码
+  这个时候打开编辑器，处理冲突的代码
+  这个时候打开编辑器，处理冲突的代码
+  然后查看状态
+  git status  执行下面命令即可  //有权限 git push origin master //无权限 git push origin dev  在merge的状态下，提交到仓库  git add .</description>
+    </item>
+    
+    <item>
+      <title>Git入门</title>
+      <link>http://www.yuyunzhi.com/common-git-get-started/</link>
+      <pubDate>Sun, 01 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-get-started/</guid>
+      <description>一、安装git 直接官网下载，持续按下一步即可。(这里就不重复啰嗦了)
+二、配置git 1、git bash打开后输入一下命令，否则Git无法使用 git config --global user.name xxx git config --global user.email yyy git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;#34;vim&amp;#34; 2、输入命令生成秘钥： ssh-keygen -t rsa -b 4096 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; //邮箱更换成自己的 然后直接三个回车会生成id_rsa 和id_rsa.pub文件 cat ~/.ssh/id_rsa.pub //输入命令打开id_rsa.pub 复制内容，在GitHub里新建SSH文件保存即 3、配置小插件（命令使用与查询）： 输入命令安装：npm install -g tldr 附上使用地址:命令行查询
+三、使用git仓库的方法 1、本地建立仓库  在D盘建立一个名为xxx的文件夹； 右击git bash打开; 输入命令git init回车，初始化仓库自动生成.git文件; 然后用户进行自定义创建，修改等步骤; 随后输入命令git add 文件名，把文件暂存; 输入命令git commit -m &amp;ldquo;修改解释&amp;rdquo;。 完成  2、将本地仓库上传到github上  在GitHub建立新的仓库，命名为xxx，与本地仓库名一致； 本地仓库修改完成了def的步骤后，依次在gitbash输入一下命令，直接复制最好；如果你有本地仓库，就直接输入第四行和第五行命令就行；  echo &amp;#34;abc&amp;#34; &amp;gt;&amp;gt; README.</description>
+    </item>
+    
+  </channel>
+</rss>

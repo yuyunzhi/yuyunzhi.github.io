@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-complexity/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-stackqueue/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-array/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           双指针算法 &amp;&amp; ArrayList实现方式 | 余韵之
+       
+  </title>
+  <meta name="title" content="双指针算法 &amp;&amp; ArrayList实现方式 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "双指针算法 \u0026\u0026 ArrayList实现方式",
+    "headline" : "双指针算法 \u0026\u0026 ArrayList实现方式",
+    "description" : "一、什么是数组？  数组由相同类型的元素（element）的集合所组成的结构 分配一块连续的内存来存储元素 利用元素的索引（index）可以计算出该元素对应的储存地址  二、数组Array的特性  在内存中为连续空间，定址公式： addr(curElem) = addr(intialElem) \u002bsizeof(curElem) * index 存储在数组中的元素是相同类型的 通过index获取数组元素的时间复杂度为O(1)  三、ArrayList的实现  Java中的声明: ArrayListlist = new ArrayList(); 基本操作   利用数组作为存储 初始化时需要指定ArrayList的容量 记得边界检查 当达到数组容量时再添加新元素时,需要resize操作对底层数组进行扩容  附上实现代码:\npublic class ArrayList { private int capacity; private int size; private int[] data; public ArrayList(int capacity){ this.capacity = capacity; this.size = 0; this.data = new int[capacity]; } public int get(int index){ if(index\u0026lt;0 || index\u0026gt;size){ \/\/throw Exception } return data[index]; } public void set(int index,int value){ if(index\u0026lt;0 || index\u0026gt;size){ \/\/throw Exception } data[index] = value; } public void add(int index , int value){ if(index \u0026lt; 0 || index \u0026gt; size){ \/\/throw Exception } if(size == capacity){ resize(); } size\u002b\u002b; for(int i = size -1; i\u0026gt;= index\u002b1;i--){ data[i] = data[i-1]; } data[index] = value; } public void remove(int index){ if(index \u0026lt; 0 || index \u0026gt; size){ \/\/throw Exception } size--; for(int i = index;i\u0026lt;size;i\u002b\u002b){ data[i] = data[i\u002b1]; } } private void resize(){ capacity*=2; int[] new_data = new int[capacity]; for(int i = 0;i\u0026lt;size;i\u002b\u002b){ new_data[i] = data[i]; } data = new_data; } 四、例题 1、两数之和 思路1 ： 暴力遍历，遍历取一个数，计算它与其它数字之和，遍历全部情况得到想要的结果对。时间复杂度为: O(n2)",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-10-31 12:00:23 \u002b0800 CST",
+    "dateModified" : "2019-10-31 12:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-array\/",
+    "wordCount" : "665",
+    "keywords" : [ "数组", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">双指针算法 &amp;&amp; ArrayList实现方式</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-10-31 itemprop="datePublished">October 31, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一什么是数组">一、什么是数组？</h1>
+<ul>
+<li>数组由相同类型的元素（element）的集合所组成的结构</li>
+<li>分配一块连续的内存来存储元素</li>
+<li>利用元素的索引（index）可以计算出该元素对应的储存地址</li>
+</ul>
+<h1 id="二数组array的特性">二、数组Array的特性</h1>
+<ul>
+<li>在内存中为连续空间，定址公式： addr(curElem) = addr(intialElem) +sizeof(curElem) * index</li>
+<li>存储在数组中的元素是相同类型的</li>
+<li>通过index获取数组元素的时间复杂度为O(1)</li>
+</ul>
+<h1 id="三arraylist的实现">三、ArrayList的实现</h1>
+<ul>
+<li>Java中的声明: ArrayList<!-- raw HTML omitted --> list = new ArrayList<!-- raw HTML omitted -->();</li>
+<li>基本操作</li>
+</ul>
+<p><img src="/algorithm/arraylist.jpeg" alt="ArrayList基本操作API"></p>
+<ul>
+<li>利用数组作为存储</li>
+<li>初始化时需要指定ArrayList的容量</li>
+<li>记得边界检查</li>
+<li>当达到数组容量时再添加新元素时,需要resize操作对底层数组进行扩容</li>
+</ul>
+<p><strong>附上实现代码:</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public class ArrayList <span style="color:#960050;background-color:#1e0010">{</span>
+    private int capacity;
+    private int size;
+    private int<span style="color:#960050;background-color:#1e0010">[</span>] data;
+
+    public ArrayList<span style="color:#960050;background-color:#1e0010">(</span>int capacity)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.capacity = capacity;
+        this.size = 0;
+        this.data = new int[<span style="color:#a6e22e">capacity</span>];
+    }
+
+    public int get<span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>index&lt;0 || index&gt;size)<span style="color:#960050;background-color:#1e0010">{</span>
+            //throw Exception
+        }
+        return data[<span style="color:#a6e22e">index</span>];
+    }
+
+    public void set<span style="color:#960050;background-color:#1e0010">(</span>int index,int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>index&lt;0 || index&gt;size)<span style="color:#960050;background-color:#1e0010">{</span>
+            //throw Exception
+        }
+        data[<span style="color:#a6e22e">index</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">value;</span>
+    }
+
+    public void add<span style="color:#960050;background-color:#1e0010">(</span>int index , int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>index &lt; 0 || index &gt; size)<span style="color:#960050;background-color:#1e0010">{</span>
+            //throw Exception
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>size == capacity)<span style="color:#960050;background-color:#1e0010">{</span> 
+            resize<span style="color:#960050;background-color:#1e0010">(</span>);
+        }
+        size++;
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = size -1; i&gt;= index+1;i--)<span style="color:#960050;background-color:#1e0010">{</span>
+            data[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">data[i-1];</span>
+        }
+        data[<span style="color:#a6e22e">index</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">value;</span>
+    }
+
+    public void remove<span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>index &lt; 0 || index &gt; size)<span style="color:#960050;background-color:#1e0010">{</span>
+            //throw Exception
+        }
+        size--;
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = index;i&lt;size;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            data[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">data[i+1];</span>
+        }
+    }
+
+    private void resize<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+        capacity<span style="color:#960050;background-color:#1e0010">*</span>=2;
+        int<span style="color:#960050;background-color:#1e0010">[</span>] new_data = new int[<span style="color:#a6e22e">capacity</span>];
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = 0;i&lt;size;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            new_data[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">data[i];</span>
+        }
+        data = new_data;
+    }
+
+</code></pre></div><h1 id="四例题">四、例题</h1>
+<h3 id="1两数之和">1、两数之和</h3>
+<p><img src="/algorithm/twoSum.jpeg" alt="两数之和"></p>
+<p><strong>思路1</strong> ： 暴力遍历，遍历取一个数，计算它与其它数字之和，遍历全部情况得到想要的结果对。时间复杂度为: O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> public int<span style="color:#960050;background-color:#1e0010">[</span>] twoSum<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target) <span style="color:#960050;background-color:#1e0010">{</span>
+        int<span style="color:#960050;background-color:#1e0010">[</span>] result = new int[<span style="color:#a6e22e">2</span>];
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums.length &lt; 2) return result;
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = 0;i&lt;(<span style="color:#a6e22e">nums.length-1</span>);i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            for<span style="color:#960050;background-color:#1e0010">(</span>int j = i+1 ; j&lt;nums.length;j++)<span style="color:#960050;background-color:#1e0010">{</span>
+                if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">i</span>]+nums[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+                    result[<span style="color:#a6e22e">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[i];</span>
+                    result[<span style="color:#a6e22e">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[j];</span>
+                }
+            }
+        }
+        return result;
+  }
+</code></pre></div><p><strong>思路2</strong> ：排序 + 两根指针</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int<span style="color:#960050;background-color:#1e0010">[</span>] twoSum<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target) <span style="color:#960050;background-color:#1e0010">{</span>
+    int<span style="color:#960050;background-color:#1e0010">[</span>] result = new int[<span style="color:#a6e22e">2</span>];
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    int start = 0, end = nums.length -1;
+    while<span style="color:#960050;background-color:#1e0010">(</span>start &lt; end)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            result[<span style="color:#a6e22e">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[start];</span>
+            result[<span style="color:#a6e22e">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[end];</span>
+            return result;
+        }       
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &gt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+            end--;
+        }       
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &lt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+            start++;
+        }
+    }
+    return result;
+}
+</code></pre></div><ul>
+<li>
+<p>核心想法：如果现在两根指针所指元素之和大于目标值，则表明现在两数之和过大，应使end指针指向更小的数，即索引减小（end&ndash;）， 反之则表明现在两数之和过小，应使start指针指向更大的数，即索引增加（start++）</p>
+</li>
+<li>
+<p>通过对数组排序与两根指针组合，减少无意义的遍历</p>
+</li>
+<li>
+<p>时间复杂度分析：排序： O(nlogn), 两根指针算法：O(n)</p>
+</li>
+<li>
+<p>时间复杂度： O(nlogn) + O(n) = O(nlogn)</p>
+</li>
+</ul>
+<h3 id="2三数之和">2、三数之和</h3>
+<p><img src="/algorithm/threeSum.jpeg" alt="三数之和"></p>
+<p><strong>思路1</strong> ： 当然可以用暴力遍历求解，时间复杂度为O(n<!-- raw HTML omitted -->3<!-- raw HTML omitted -->)</p>
+<p><strong>思路2</strong> ： 排序 + 两根指针算法求解O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int<span style="color:#960050;background-color:#1e0010">[</span>] threeSum<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int target) <span style="color:#960050;background-color:#1e0010">{</span>
+    int<span style="color:#960050;background-color:#1e0010">[</span>] result = new int[<span style="color:#a6e22e">3</span>];
+    if<span style="color:#960050;background-color:#1e0010">(</span>nums.length &lt; 3) return nums;
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i =0; i &lt; nums.length-2;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        int start = i+1,end = nums.length-1,new_target = target-nums[<span style="color:#a6e22e">i</span>];
+        while <span style="color:#960050;background-color:#1e0010">(</span>start &lt; end) <span style="color:#960050;background-color:#1e0010">{</span>
+            if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                result[<span style="color:#a6e22e">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[start];</span>
+                result[<span style="color:#a6e22e">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[end];</span>
+                result[<span style="color:#a6e22e">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[i];</span>
+                return result;
+            }
+            if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &gt; new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                end--;
+            }
+            if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &lt; new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                start++;
+            }
+        }
+    }
+    return result;
+}
+</code></pre></div><ul>
+<li>遍历第一个数字num1，看看另外两数之和是否能满足target – num1，这就转化为两数之和的问题</li>
+<li>时间复杂度：O(nlogn) + n * O(n) =O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</li>
+</ul>
+<h3 id="3k-sum解法总结">3、K-Sum解法总结</h3>
+<ul>
+<li>排序</li>
+<li>尝试遍历第一个数，将问题转化为 k–1 Sum</li>
+<li>2-Sum: O(nlogn) + O(n) = O(nlogn)</li>
+<li>3-Sum: O(nlogn) + O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->) = O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</li>
+<li>4-Sum: O(nlogn) + O(n<!-- raw HTML omitted -->3<!-- raw HTML omitted -->) = O(n<!-- raw HTML omitted -->3<!-- raw HTML omitted -->)</li>
+<li>k-Sum: O(nlogn) + O(n<!-- raw HTML omitted -->k-1<!-- raw HTML omitted -->) = O(n<!-- raw HTML omitted -->k-1<!-- raw HTML omitted -->)</li>
+</ul>
+<p><strong>四数之和举例</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int<span style="color:#960050;background-color:#1e0010">[</span>] fourSum<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int target) <span style="color:#960050;background-color:#1e0010">{</span>
+    int<span style="color:#960050;background-color:#1e0010">[</span>] result = new int[<span style="color:#a6e22e">4</span>];
+    if<span style="color:#960050;background-color:#1e0010">(</span>nums.length &lt; 4) return nums;
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i =0; i &lt; nums.length-2;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        for<span style="color:#960050;background-color:#1e0010">(</span>int j = i+1 ; j&lt;nums.length-3;j++)<span style="color:#960050;background-color:#1e0010">{</span>
+            int start = j+1,end = nums.length-1,new_target = target-nums[<span style="color:#a6e22e">i</span>]-nums[<span style="color:#a6e22e">j</span>];
+            while <span style="color:#960050;background-color:#1e0010">(</span>start &lt; end) <span style="color:#960050;background-color:#1e0010">{</span>
+                if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                    result[<span style="color:#a6e22e">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[start];</span>
+                    result[<span style="color:#a6e22e">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[end];</span>
+                    result[<span style="color:#a6e22e">2</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[i];</span>
+                    result[<span style="color:#a6e22e">3</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[j];</span>
+                    return result;
+                }
+                if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &gt; new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                    end--;
+                }
+                if <span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] + nums[<span style="color:#a6e22e">end</span>] &lt; new_target) <span style="color:#960050;background-color:#1e0010">{</span>
+                    start++;
+                }
+            }
+        }
+    }
+    return result;
+}
+</code></pre></div><h3 id="4反转数组">4、反转数组</h3>
+<p>给定一个数组，反转数组中所有的数字，例如：Input:{1,2,3,4,5},Output:{5,4,3,2,1}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void reverseArray<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums) <span style="color:#960050;background-color:#1e0010">{</span>
+        int start = 0 , end = nums.length - 1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start &lt; end)<span style="color:#960050;background-color:#1e0010">{</span>
+            int temp = nums[<span style="color:#a6e22e">start</span>];
+            nums[<span style="color:#a6e22e">start</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[end];</span>
+            nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">temp;</span>
+            start++;
+            end--;
+        }
+}
+</code></pre></div><ul>
+<li>思路：双指针，首尾交换，时间复杂度O(n)</li>
+</ul>
+<h3 id="5奇数偶数排序">5、奇数偶数排序</h3>
+<p>给定一组整数，对它们进行排序，以便所有奇数整数在偶数整数之前出现。 元素的顺序可以改变。排序的奇数和偶数的顺序无关紧要。例如：Input:{4,3,5,2,1,11,0},Output:{9,3,5,11,0,2,4}</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void oddEvenSort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums) <span style="color:#960050;background-color:#1e0010">{</span>
+        int first = 0 , second = nums.length - 1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>first &lt; second)<span style="color:#960050;background-color:#1e0010">{</span>
+            // 奇数的话，第一根指针就往后面移动一位，直到为偶数停下来
+            while<span style="color:#960050;background-color:#1e0010">(</span>first &lt; second &amp;&amp; nums[<span style="color:#a6e22e">first</span>] % 2==1)<span style="color:#960050;background-color:#1e0010">{</span>
+                first++;
+            }
+            // 偶数的话，第二根指针就往前移动一位，直到为奇数停下
+            while<span style="color:#960050;background-color:#1e0010">(</span>first &lt; second &amp;&amp; nums[<span style="color:#a6e22e">first</span>] % 2==0)<span style="color:#960050;background-color:#1e0010">{</span>
+                second--;
+            }
+            if<span style="color:#960050;background-color:#1e0010">(</span>first &lt; second)<span style="color:#960050;background-color:#1e0010">{</span>
+                int temp = nums[<span style="color:#a6e22e">first</span>];
+                nums[<span style="color:#a6e22e">first</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[second];</span>
+                nums[<span style="color:#a6e22e">second</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">temp;</span>
+                first++;
+                second--;
+            }
+        }
+}
+</code></pre></div><ul>
+<li>思路：双指针，在一定条件下进行首尾交换，时间复杂度O(n)</li>
+</ul>
+<h3 id="6合并两个有序数组">6、合并两个有序数组</h3>
+<p>给定两个有序整数数组 nums1 和 nums2，请按递增顺序将它们合并到一个排序数组中。例如：Input: {1, 3, 5}, {2, 4, 6}，Output: {1, 2, 3, 4, 5, 6}</p>
+<p><strong>思路1</strong>：对两个数组合并O(n),合并后排序O(nlogn),时间复杂度：O(n)+O(nlogn)=0(nlogn)</p>
+<p><strong>思路2</strong>：双指针 O(n)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int<span style="color:#960050;background-color:#1e0010">[</span>] merge<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] arr1,int<span style="color:#960050;background-color:#1e0010">[</span>] arr2)<span style="color:#960050;background-color:#1e0010">{</span>
+    int<span style="color:#960050;background-color:#1e0010">[</span>] result = new int<span style="color:#960050;background-color:#1e0010">[</span>arr1.length + arr2.length];
+    int index=0,index1=0,index2=0;
+    while<span style="color:#960050;background-color:#1e0010">(</span>index1 &lt; arr1.length &amp;&amp; index2 &lt; arr2.length)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>arr1[<span style="color:#a6e22e">index1</span>]&lt;arr2[<span style="color:#a6e22e">index2</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+            result<span style="color:#960050;background-color:#1e0010">[</span>index++] = arr1<span style="color:#960050;background-color:#1e0010">[</span>index1++];
+        }else<span style="color:#960050;background-color:#1e0010">{</span>
+            result<span style="color:#960050;background-color:#1e0010">[</span>index++] = arr2<span style="color:#960050;background-color:#1e0010">[</span>index2++];
+        }
+    }
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = index1;i&lt;arr1.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        result<span style="color:#960050;background-color:#1e0010">[</span>index++] = arr1[<span style="color:#a6e22e">i</span>];
+    }
+
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = index2;i&lt;arr2.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        result<span style="color:#960050;background-color:#1e0010">[</span>index++] = arr2[<span style="color:#a6e22e">i</span>];
+    }
+    return result;
+}
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-array/>http://www.yuyunzhi.com/algorithm-array/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E6%95%B0%E7%BB%84/">
+                    #数组</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-complexity/" class="prev" rel="prev" title="算法复杂度"><i class="iconfont icon-left"></i>&nbsp;算法复杂度</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-stackqueue/" class="next" rel="next" title="栈Stack和队列Quene">栈Stack和队列Quene&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

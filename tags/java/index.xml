@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/java/</link>
+    <description>Recent content in Java on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 11 Jun 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Java的数据类型</title>
+      <link>http://www.yuyunzhi.com/java-type/</link>
+      <pubDate>Tue, 11 Jun 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/java-type/</guid>
+      <description>真正了不起的程序员对自己的程序的每一个字节都了如指掌
+ 一、数据在计算机中是如何储存的？ 1、字节和字节码 byte是计算机最小的存储单位，一个byte里分了8个&amp;quot;小格子&amp;rdquo;,每个小格子称作bit。比如
+int i = 0 一个int是4个bytes,一共32位 所能表示的上限（二进制）是31个1，开头的位数表示符号
+2、ASCII码 short 是2个字节 char 是2个字节
+short s = 65 char c =65
+虽然二进制存储的内容都是一样的 0100 0001 ，由于类型不同他们会以不同的方式所解释，
+short s = 65; char c =65; System.out.println(&amp;#34;c = &amp;#34; + c); //c=A System.out.println(&amp;#34;s = &amp;#34; + s); //s=65 原因就是 ASCII码
+计算机的内容只能存0和1的数据，将这样的数据解释成A，这样的表叫ASCII码表
+二、基本数据类型 在Java中，有两种数据类型：原生数据、引用数据
+1、原生数据类型 当你声明 int a = 1 a就是这个值
+  byte 2个字节 =&amp;gt; 装箱数据类型 Byte 最大值 Byte.MAX_VALUE为127 最小值 Byte.MIN_VALUE为-128</description>
+    </item>
+    
+  </channel>
+</rss>

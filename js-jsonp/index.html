@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-var-let-const/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-jquery/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-jsonp/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           JSONP是个什么鬼？ | 余韵之
+       
+  </title>
+  <meta name="title" content="JSONP是个什么鬼？ | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "JSONP是个什么鬼？",
+    "headline" : "JSONP是个什么鬼？",
+    "description" : "花了一天的时间学习JSONP，总结一下以后方便回顾。在了解什么是JSONP前，需要先了解什么是数据库，如何向服务器进行请求得到响应，可以用那些方式发送请求？如何向不同的服务器发送请求并获得响应？然后推出啥是JSOPN？内容有些长~~\n 一、数据库是什么？   文件系统就是一种数据库：能长久存数据，能够对内容进行增、删、改、储存\n  MySQL是一种数据库\n  二、向数据库做加法  要做的流程如下： 点击“提交1元钱”发送请求给服务器，服务器修改数据库内容，响应返回所需数据。 用两种方式来做：图片请求；script请求；\n 方案一：用图片的src向服务器发送get请求\nhtml代码如下：\n\u0026lt;body\u0026gt; \u0026lt;p\u0026gt;账户金额：\u0026lt;span id=\u0026#34;amount\u0026#34;\u0026gt;!!!amount!!!\u0026lt;\/span\u0026gt;\u0026lt;\/p\u0026gt; \u0026lt;button id=\u0026#34;button\u0026#34;\u0026gt;付款1元钱\u0026lt;\/button\u0026gt; \u0026lt;script\u0026gt; button.addEventListener(\u0026#39;click\u0026#39;, (e)=\u0026gt;{ let image = document.createElement(\u0026#39;img\u0026#39;) image.src = \u0026#39;\/pay\u0026#39; image.onload = function(){ \/\/ 状态码是 200~299 则表示图片请求成功 alert(\u0026#39;成功\u0026#39;) } amount.innerText = amount.innerText -1 image.onerror = function(){ \/\/ 状态码大于等于 400 则表示图片请求失败 alert(\u0026#39;失败\u0026#39;) } }) \u0026lt;\/script\u0026gt; \u0026lt;\/body\u0026gt; 其中!!!amount!!!表示一个占位符，后端通过获取这个占位符把数据库里的内容赋值给它。\n**解释：**当用户点击button按钮的时候，用图片发送了路径为\/pay的GET请求给服务器。服务器收到后执行下面的代码，依次是： 1、判断路径 2、读取数据库的内容，假如是9966。原始数据设置的是10000 3、在最新的内容减1，并保存给变量newAmount 4、把newAmount保存到数据库，那么这个时候的值应该为9965 5、确定返回给浏览器的内容类型为 image\/jpg 6、返回一张图片 7、结束",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-08-02 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-08-02 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-jsonp\/",
+    "wordCount" : "379",
+    "keywords" : [ "JSONP","跨域", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JSONP是个什么鬼？</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-08-02 itemprop="datePublished">August 2, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>花了一天的时间学习JSONP，总结一下以后方便回顾。在了解什么是JSONP前，需要先了解什么是数据库，如何向服务器进行请求得到响应，可以用那些方式发送请求？如何向不同的服务器发送请求并获得响应？然后推出啥是JSOPN？内容有些长~~</p>
+</blockquote>
+<h2 id="一数据库是什么">一、数据库是什么？</h2>
+<ul>
+<li>
+<p>文件系统就是一种数据库：能长久存数据，能够对内容进行增、删、改、储存</p>
+</li>
+<li>
+<p>MySQL是一种数据库</p>
+</li>
+</ul>
+<h2 id="二向数据库做加法">二、向数据库做加法</h2>
+<blockquote>
+<p>要做的流程如下：
+点击“提交1元钱”发送请求给服务器，服务器修改数据库内容，响应返回所需数据。
+用两种方式来做：图片请求；script请求；</p>
+</blockquote>
+<!-- raw HTML omitted -->
+<p><strong>方案一：用图片的src向服务器发送get请求</strong></p>
+<p>html代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;body&gt;
+    &lt;p&gt;账户金额：&lt;span id=&#34;amount&#34;&gt;!!!amount!!!&lt;/span&gt;&lt;/p&gt;
+    &lt;button id=&#34;button&#34;&gt;付款1元钱&lt;/button&gt;
+    &lt;script&gt;
+        button.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+            let image = document.createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;img&#39;)
+            image.src = &#39;/pay&#39;
+            image.onload = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span> // 状态码是 200~299 则表示图片请求成功
+                alert<span style="color:#960050;background-color:#1e0010">(</span>&#39;成功&#39;)
+            }
+            amount.innerText = amount.innerText -1
+            image.onerror = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span> // 状态码大于等于 400 则表示图片请求失败
+                alert<span style="color:#960050;background-color:#1e0010">(</span>&#39;失败&#39;)
+            }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre></div><p>其中!!!amount!!!表示一个占位符，后端通过获取这个占位符把数据库里的内容赋值给它。</p>
+<p>**解释：**当用户点击button按钮的时候，用图片发送了路径为/pay的GET请求给服务器。服务器收到后执行下面的代码，依次是：
+1、判断路径
+2、读取数据库的内容，假如是9966。原始数据设置的是10000
+3、在最新的内容减1，并保存给变量newAmount
+4、把newAmount保存到数据库，那么这个时候的值应该为9965
+5、确定返回给浏览器的内容类型为 image/jpg
+6、返回一张图片
+7、结束</p>
+<p>服务器代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">if<span style="color:#960050;background-color:#1e0010">(</span>path === &#39;/&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    let string = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./index.html&#39;,&#39;utf8&#39;)
+    let amount = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,&#39;utf8&#39;) //db.xxx文件储存字符串10000
+    string = string.replace<span style="color:#960050;background-color:#1e0010">(</span>&#39;!!!amount!!!&#39;,amount)
+    response.statusCode = 200
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;text/html;charset=utf-8&#39;)
+    response.write(<span style="color:#a6e22e">string</span>)
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+  }else if<span style="color:#960050;background-color:#1e0010">(</span>path === &#39;/style.css&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    let string = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./style.css&#39;,&#39;utf8&#39;)    
+    response.statusCode = 200
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;text/css;charset=utf-8&#39;)
+    response.write(<span style="color:#a6e22e">string</span>)
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+  }else if<span style="color:#960050;background-color:#1e0010">(</span>path ===&#39;/pay&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    let amount = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,&#39;utf8&#39;)
+    var newAmount = amount -1
+    fs.writeFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,newAmount)    
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;image/jpg&#39;)    
+    response.write<span style="color:#960050;background-color:#1e0010">(</span>fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./1.jpg&#39;))
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+  }else<span style="color:#960050;background-color:#1e0010">{</span>
+    response.statusCode = 404
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;text/html;charset=utf-8&#39;)
+    response.write<span style="color:#960050;background-color:#1e0010">(</span>&#39;呜呜呜&#39;)
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+  }
+</code></pre></div><p>**image发送get请求的缺点：**得返回一张图片，同时无法获取其他的数据内容。</p>
+<!-- raw HTML omitted -->
+<p><strong>方案二：用script的src向服务器发送get请求</strong></p>
+<p>html代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;body&gt;
+    &lt;p&gt;账户金额：&lt;span id=&#34;amount&#34;&gt;!!!amount!!!&lt;/span&gt;&lt;/p&gt;
+    &lt;button id=&#34;button&#34;&gt;付款1元钱&lt;/button&gt;
+    &lt;script&gt;      
+    button.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+        let script = document.createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;script&#39;)
+        script.src = &#39;/pay&#39;
+        document.body.appendChild(<span style="color:#a6e22e">script</span>)  //image是不需要插入，但script要插入，记住
+        script.onload = function(<span style="color:#a6e22e">e</span>)<span style="color:#960050;background-color:#1e0010">{</span>   // 状态码是 200~299 则表示图片请求成功
+            e.currentTarget.remove<span style="color:#960050;background-color:#1e0010">(</span>)   //删除script标签 
+            alert<span style="color:#960050;background-color:#1e0010">(</span>&#39;成功&#39;)
+        }
+        script.onerror = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span> // 状态码大于等于 400 则表示图片请求失败
+            e.currentTarget.remove<span style="color:#960050;background-color:#1e0010">(</span>)   //删除script标签 
+            alert<span style="color:#960050;background-color:#1e0010">(</span>&#39;失败&#39;)
+    }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre></div><p>**解释：**当用户点击button按钮的时候，用scrip发送了路径为/pay的GET请求给服务器。服务器收到后执行下面的代码，依次是：
+1、判断路径
+2、读取数据库的内容，假如是9966。原始数据设置的是10000
+3、在最新的内容减1，并保存给变量newAmount
+4、把newAmount保存到数据库，那么这个时候的值应该为9965
+5、确定返回给浏览器的内容类型为 JavaScript
+6、返回一段JS代码，用来更改浏览器用户看到的数字
+7、结束</p>
+<p>服务器代码如下（只有path ===&rsquo;/pay&rsquo;变动）：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">else if<span style="color:#960050;background-color:#1e0010">(</span>path ===&#39;/pay&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    let amount = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,&#39;utf8&#39;)
+    var newAmount = amount -1
+    fs.writeFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,newAmount)   
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;application/javascript&#39;)  //返回内容类型为 js
+    response.write<span style="color:#960050;background-color:#1e0010">(</span>`
+    amount.innerText=amount.innerText-1      
+    `)   //返回JS代码执行，账户余额减1
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+}
+</code></pre></div><p>**script请求与image请求相比优劣：**不用返回一个图片，速度回更快一些,同时可以返回其他的内容。但动态创建的script会被执行，响应结束立刻删除e.currentTarget.remove()</p>
+<!-- raw HTML omitted -->
+<p>这种技术就叫做 SRJ - Server Rendered JavaScript
+这种技术就叫做 SRJ - Server Rendered JavaScript
+这种技术就叫做 SRJ - Server Rendered JavaScript</p>
+<h2 id="三跨域srj---jsonp">三、跨域SRJ - JSONP</h2>
+<h3 id="1什么是jsonp文字解释">1、什么是JSONP（文字解释）</h3>
+<!-- raw HTML omitted -->
+<h3 id="2代码解释">2、代码解释</h3>
+<p>html代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;body&gt;
+    &lt;p&gt;账户金额：&lt;span id=&#34;amount&#34;&gt;!!!amount!!!&lt;/span&gt;&lt;/p&gt;
+    &lt;button id=&#34;button&#34;&gt;付款1元钱&lt;/button&gt;
+    &lt;script&gt;
+    button.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+        /<span style="color:#960050;background-color:#1e0010">**</span>*<span style="color:#a6e22e">以下内容为服务器获取参数返回相关值并调用的函数</span><span style="color:#960050;background-color:#1e0010">***</span>/
+        let functionName = &#39;frank&#39;+parseInt<span style="color:#960050;background-color:#1e0010">(</span>Math.random<span style="color:#960050;background-color:#1e0010">(</span>)*<span style="color:#a6e22e">10000</span>,10)
+        //frank12312423423
+        window[<span style="color:#a6e22e">functionName</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">function(result){</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>result === &#39;success&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+            amount.innerText = amount.innerText -1
+        }else<span style="color:#960050;background-color:#1e0010">{</span>
+        }
+    }
+        /<span style="color:#960050;background-color:#1e0010">*****</span>*<span style="color:#a6e22e">以下内容为动态创建script发送请求</span>,提供参数<span style="color:#960050;background-color:#1e0010">*********</span>/
+        let script = document.createElement<span style="color:#960050;background-color:#1e0010">(</span>&#39;script&#39;)
+        script.src = &#39;http://jack.com:8002/pay?callbackName=&#39;+functionName
+        document.body.appendChild(<span style="color:#a6e22e">script</span>)  //image是不需要插入，但script要插入，记住
+        script.onload = function(<span style="color:#a6e22e">e</span>)<span style="color:#960050;background-color:#1e0010">{</span>   // 状态码是 200~299 则表示图片请求成功
+            e.currentTarget.remove<span style="color:#960050;background-color:#1e0010">(</span>)   //删除script标签 
+            delete window[<span style="color:#a6e22e">functionName</span>]
+        }
+        script.onerror = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span> // 状态码大于等于 400 则表示图片请求失败
+            e.currentTarget.remove<span style="color:#960050;background-color:#1e0010">(</span>)   //删除script标签 
+            delete window[<span style="color:#a6e22e">functionName</span>]
+    }
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre></div><p>**解释：**请求方为http://frank.com，请求http://jack.com的服务器（响应方），通过动态script标签来请求的。服务器收到请求后执行：</p>
+<p>1、判断路径
+2、读取数据库的内容，假如是9966。原始数据设置的是10000
+3、在最新的内容减1，并保存给变量newAmount
+4、把newAmount保存到数据库，那么这个时候的值应该为9965
+5、确定返回给浏览器的内容类型为 JavaScript
+6、返回内容为：用${query.callbackName}获取浏览器提供的参数yyy，返回请求方所需要的数据，可以是JSONP
+7、结束</p>
+<p>服务器代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">else if<span style="color:#960050;background-color:#1e0010">(</span>path ===&#39;/pay&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+      let amount = fs.readFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,&#39;utf8&#39;)//100
+      var newAmount = amount -1
+      fs.writeFileSync<span style="color:#960050;background-color:#1e0010">(</span>&#39;./db.xxx&#39;,newAmount)   
+      response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;application/javascript&#39;)
+      response.write<span style="color:#960050;background-color:#1e0010">(</span>`
+        $<span style="color:#960050;background-color:#1e0010">{</span>query.callbackName}.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,<span style="color:#960050;background-color:#1e0010">{</span>
+            &#34;success&#34;:true,
+            &#34;left&#34;:$<span style="color:#960050;background-color:#1e0010">{</span>newAmount}
+        `})     
+      )
+      response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+  }
+</code></pre></div><p><strong>约定：</strong>
+1、callbackName 必须叫做 callback / jQuery callback
+2、funcitonName 为 随机数 frank12312312312321325()</p>
+<h3 id="3用jquery来实现jsonp代码更加的简洁">3、用jquery来实现JSONP，代码更加的简洁</h3>
+<p>服务器代码不变,html代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;body&gt;
+   &lt;p&gt;账户金额：&lt;span id=&#34;amount&#34;&gt;!!!amount!!!&lt;/span&gt;&lt;/p&gt;
+   &lt;button id=&#34;button&#34;&gt;付款1元钱&lt;/button
+   &lt;script&gt;
+   button.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+  
+      //这个方法不是ajax，只是一个动态script
+       $.ajax<span style="color:#960050;background-color:#1e0010">({</span>
+           url: &#34;http://jack.com:8002/pay&#34;,
+           dataType: &#34;jsonp&#34;,
+           success: function<span style="color:#960050;background-color:#1e0010">(</span> response ) <span style="color:#960050;background-color:#1e0010">{</span>
+               if<span style="color:#960050;background-color:#1e0010">(</span>response === &#39;success&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+                    amount.innerText = amount.innerText - 1
+                }
+            }
+         })
+         $.jsonp<span style="color:#960050;background-color:#1e0010">(</span>)
+     })
+ &lt;/script&gt;
+     &lt;script src=&#39;https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js&#39;&gt;&lt;/script&gt;
+&lt;/body&gt;
+</code></pre></div><p>**解释：**url写明响应方的路径；dataType写明回应的内容类型；当响应成功执行什么样的函数；其他复杂的删减内容jQuery已经做完了。注意这个方法不是ajax，只是一个动态script进行跨域请求，可以叫做JSONP。</p>
+<h2 id="四两个问题">四、两个问题</h2>
+<h3 id="1什么是jsonp">1、什么是JSONP</h3>
+<!-- raw HTML omitted -->
+<h3 id="2jsonp为什么不支持post请求">2、JSONP为什么不支持POST请求？</h3>
+<p>因为JSONP是通过动态创建script来实现的跨域请求的，而script只能发送GET请求。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-jsonp/>http://www.yuyunzhi.com/js-jsonp/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/jsonp/">
+                    #JSONP</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E8%B7%A8%E5%9F%9F/">
+                    #跨域</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-var-let-const/" class="prev" rel="prev" title="var、let、const的区别是什么？"><i class="iconfont icon-left"></i>&nbsp;var、let、const的区别是什么？</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-jquery/" class="next" rel="next" title="初学jQuery,从封装函数开始">初学jQuery,从封装函数开始&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

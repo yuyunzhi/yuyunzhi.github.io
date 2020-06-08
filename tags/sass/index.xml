@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SASS on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/sass/</link>
+    <description>Recent content in SASS on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 01 Oct 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/sass/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>SASS常用方法</title>
+      <link>http://www.yuyunzhi.com/js-sass/</link>
+      <pubDate>Mon, 01 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-sass/</guid>
+      <description>一、基于Vue的SASS安装  安装Vue-cli 这里不介绍了 安装SASS  npm install node-sass --save-dev npm install sass-loader --save-dev  在webpack.base.conf.js文件添加scss  { test: /\.scss$/, loaders: [&amp;#34;style&amp;#34;, &amp;#34;css&amp;#34;, &amp;#34;sass&amp;#34;] },  在Vue单文件里使用SASS  &amp;lt;style scoped lang=&amp;#34;scss&amp;#34; type=&amp;#34;text/css&amp;#34;&amp;gt;  启动 npm run dev 会热更新  二、SASS与SCSS的区别  主要是写法不一样，语法一样 SASS格式  #sidebar width: 30% background-color: #faa  SCSS格式  #sidebar { width: 30%; background-color: #faa; } 三、SASS语法 1、变量  SASS允许使用变量，所有变量以$开头  $blue : #1875e7;　div{ color : $blue; } 如果变量需要镶嵌在字符串之中，就必须需要写在#{}之中</description>
+    </item>
+    
+  </channel>
+</rss>

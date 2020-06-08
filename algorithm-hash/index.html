@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-sort/" />
+  <link rel="next" href="http://www.yuyunzhi.com/interview-html/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-hash/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           哈希表 Hash 开散列 VS 闭散列 | 余韵之
+       
+  </title>
+  <meta name="title" content="哈希表 Hash 开散列 VS 闭散列 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "哈希表 Hash 开散列 VS 闭散列",
+    "headline" : "哈希表 Hash 开散列 VS 闭散列",
+    "description" : "一、什么是哈希表  设计精妙、用途广泛的数据结构之一 拥有键值对元素的无序集合 键的值是唯一的，键对应的值可以通过键来获取、更新或移除 无论这个哈希表有多大，这些操作基本上通过常量时间的键比较就可完成  基础操作时间复杂度：\n Insert O(1) Delete O(1) Find O(1)  java hash的基本操作\nHashMap的遍历方式：\nIterator\u0026lt;Entry\u0026lt;String,String\u0026gt;\u0026gt; iterator = map.entrySet().iterator(); while(iterator.hasNext()){ Map.Entry\u0026lt;String,String\u0026gt; entry = (Map.Entry\u0026lt;String,String\u0026gt;) iterator.next(); System.out.println(\u0026#34;Key:\u0026#34; \u002b entry.getKey() \u002b \u0026#34;Value:\u0026#34; \u002b entry.getValue()); } for(Map.Entry\u0026lt;String,String \u0026gt; entry : map.entrySet()){ System.out.println(\u0026#34;Key:\u0026#34; \u002b entry.getKey() \u002b \u0026#34;Value:\u0026#34; \u002b entry.getValue()); } for(Object entry : map.entrySet()){ System.out.println(\u0026#34;Key:\u0026#34; \u002b entry.getKey() \u002b \u0026#34;Value:\u0026#34; \u002b entry.getValue()); } map.entrySet().forEach(entry -\u0026gt; System.out.println(\u0026#34;Key:\u0026#34; \u002b entry.getKey() \u002b \u0026#34;Value:\u0026#34; \u002b entry.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-30 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-30 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-hash\/",
+    "wordCount" : "302",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">哈希表 Hash 开散列 VS 闭散列</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-30 itemprop="datePublished">November 30, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一什么是哈希表">一、什么是哈希表</h1>
+<ul>
+<li>设计精妙、用途广泛的数据结构之一</li>
+<li>拥有键值对元素的无序集合</li>
+<li>键的值是唯一的，键对应的值可以通过键来获取、更新或移除</li>
+<li>无论这个哈希表有多大，这些操作基本上通过常量时间的键比较就可完成</li>
+</ul>
+<p><strong>基础操作时间复杂度</strong>：</p>
+<ul>
+<li>Insert O(1)</li>
+<li>Delete O(1)</li>
+<li>Find O(1)</li>
+</ul>
+<p><strong>java hash的基本操作</strong></p>
+<p><img src="/algorithm/11.png" alt="API"></p>
+<p><strong>HashMap的遍历方式</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Iterator&lt;Entry&lt;String,String&gt;&gt; iterator = map.entrySet<span style="color:#960050;background-color:#1e0010">(</span>).iterator<span style="color:#960050;background-color:#1e0010">(</span>);
+while<span style="color:#960050;background-color:#1e0010">(</span>iterator.hasNext<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+    Map.Entry&lt;String,String&gt; entry = <span style="color:#960050;background-color:#1e0010">(</span>Map.Entry&lt;String,String&gt;) iterator.next<span style="color:#960050;background-color:#1e0010">(</span>);
+    System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Key:&#34; + entry.getKey<span style="color:#960050;background-color:#1e0010">(</span>) + &#34;Value:&#34; + entry.getValue<span style="color:#960050;background-color:#1e0010">(</span>));
+}
+
+for<span style="color:#960050;background-color:#1e0010">(</span>Map.Entry&lt;String,String &gt; entry : map.entrySet<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+    System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Key:&#34; + entry.getKey<span style="color:#960050;background-color:#1e0010">(</span>) + &#34;Value:&#34; + entry.getValue<span style="color:#960050;background-color:#1e0010">(</span>));
+}
+
+for<span style="color:#960050;background-color:#1e0010">(</span>Object entry : map.entrySet<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+    System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Key:&#34; + entry.getKey<span style="color:#960050;background-color:#1e0010">(</span>) + &#34;Value:&#34; + entry.getValue<span style="color:#960050;background-color:#1e0010">(</span>));
+}
+
+map.entrySet<span style="color:#960050;background-color:#1e0010">(</span>).forEach<span style="color:#960050;background-color:#1e0010">(</span>entry -&gt; System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Key:&#34; + entry.getKey<span style="color:#960050;background-color:#1e0010">(</span>) + &#34;Value:&#34; + entry.getValue<span style="color:#960050;background-color:#1e0010">(</span>)); );
+
+</code></pre></div><h1 id="二哈希函数">二、哈希函数</h1>
+<ul>
+<li>哈希函数是用来将一个字符串（或任何其他类型）转化为小于哈希表大小且大于等于零的整数</li>
+<li>一个好的哈希函数：可以尽可能少地产生冲突，算得快</li>
+</ul>
+<p><strong>一种广泛使用的哈希函数算法</strong>：</p>
+<p>hashcode(&ldquo;abcd&rdquo;) = (ascii(a) * 33 ^ 3 + ascii(b) * 33 ^2 + ascii(c) <em>33 + ascii(d)) % HASH_SIZE= (97</em> 33 ^ 3 + 98 * 33 ^ 2 +99 * 33 +100) % HASH_SIZE= 3595978 % HASH_SIZE</p>
+<ul>
+<li>其中HASH_SIZE表示哈希表的大小(可以假设一个哈希表就是一个索引0 ~ HASH_SIZE-1的数组)。</li>
+<li>给出一个字符串作为key和一个哈希表的大小，返回这个字符串的哈希值。</li>
+</ul>
+<p><strong>对于上述算法用函数来表示</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int hashCode <span style="color:#960050;background-color:#1e0010">(</span>char<span style="color:#960050;background-color:#1e0010">[</span>] key, int hashSize)<span style="color:#960050;background-color:#1e0010">{</span>
+    long result = 0;
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = 0; i&lt;key.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        result = <span style="color:#960050;background-color:#1e0010">(</span>result <span style="color:#960050;background-color:#1e0010">*</span> 33 + (<span style="color:#a6e22e">int</span>)key[<span style="color:#a6e22e">i</span>]) % hashSize
+    }
+    return (<span style="color:#a6e22e">int</span>) result;
+}
+</code></pre></div><p><strong>然而 冲突 不可避免:</strong></p>
+<ul>
+<li>无论使用什么hash function，都需要考虑冲突问题</li>
+<li>为啥会有冲突:有一些key会map到相同的index上,无限空间往有限空间映射</li>
+</ul>
+<p><img src="/algorithm/12.jpeg" alt="hash冲突示意图"></p>
+<p><strong>如何解决冲突？</strong></p>
+<ul>
+<li>没有排满，得到相同的index会冲突</li>
+<li>空间 size 小于放入的值的数量也一定会冲突</li>
+</ul>
+<h1 id="三开散列-vs-闭散列">三、开散列 VS 闭散列</h1>
+<p><strong>解决方式</strong>：</p>
+<ul>
+<li>步骤1：改变index ：Open hashing / Closed hashing</li>
+<li>步骤2：扩容装填因子Load factor: size/capacity，Java: LF &gt; 0.75, resize()</li>
+</ul>
+<p><strong>Open hashing</strong>：</p>
+<p>把底层的int[] 声明成 LinkList[],每一次存的时候都把key value存到ListNode,如果index重复了就遍历LinkList，找到正确的位置把key,value链接在该链表上。</p>
+<p>当链表长度大于8的时候，就会把链表变成树BST(红黑树)，这样可以提高查找速度</p>
+<p><img src="/algorithm/13.jpeg" alt="底层示意图"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">class ListNode <span style="color:#960050;background-color:#1e0010">{</span>
+    private int key;
+    private int value;
+    private ListNode next;
+
+    public ListNode<span style="color:#960050;background-color:#1e0010">(</span>int key, int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.value = value;
+        this.key = key;
+    }
+}
+</code></pre></div><p><strong>扩容：重哈希rehashing</strong></p>
+<p>哈希表容量的大小在一开始是不确定的。如果哈希表存储的元素太多，我们应该将哈希表容量扩大一倍，并将所有的哈希值重新安排。</p>
+<p><img src="/algorithm/14.jpeg" alt="重哈希rehashing"></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public ListNode<span style="color:#960050;background-color:#1e0010">[</span>] rehashing<span style="color:#960050;background-color:#1e0010">(</span>ListNode<span style="color:#960050;background-color:#1e0010">[</span>] hashTable)<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>hashTable == null || hashTable.length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+        return null;
+    }
+    int capacity =hashTable.length;
+    int newCapacity = capacity*<span style="color:#a6e22e">2</span>;
+    ListNode<span style="color:#960050;background-color:#1e0010">[</span>] newHashTable = new ListNode[<span style="color:#a6e22e">newCapacity</span>];
+    for<span style="color:#960050;background-color:#1e0010">(</span>ListNode head : hashTable)<span style="color:#960050;background-color:#1e0010">{</span>
+        while<span style="color:#960050;background-color:#1e0010">(</span>head != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            int value = head.value;
+            int key = head.key;
+            int hashcode = <span style="color:#960050;background-color:#1e0010">(</span>key % newCapacity + newCapacity) % newCapacity;
+
+            if<span style="color:#960050;background-color:#1e0010">(</span>newHashTable[<span style="color:#a6e22e">hashcode</span>] != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                ListNode node = newHashTable[<span style="color:#a6e22e">hashcode</span>];
+                ListNode keyNode = new ListNode<span style="color:#960050;background-color:#1e0010">(</span>key,value);
+
+                while<span style="color:#960050;background-color:#1e0010">(</span>node != null &amp;&amp; node.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                    node = node.next;
+                }
+                node.next = keyNode;
+            }
+            else<span style="color:#960050;background-color:#1e0010">{</span>
+                newHashTable[<span style="color:#a6e22e">hashcode</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">new</span> ListNode<span style="color:#960050;background-color:#1e0010">(</span>key,value)
+            }
+            head = head.next;
+        }
+    }
+    return newHashTable;
+}
+</code></pre></div><p><strong>Closed hashing</strong>：</p>
+<ul>
+<li>如果index重复了，就找下面空的位置填充,当数组length达到一定的长度的时候就继续扩容，始终保持闭散列方式存在空的位置。</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-hash/>http://www.yuyunzhi.com/algorithm-hash/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-sort/" class="prev" rel="prev" title="排序算法 Sort 冒泡、归并、快速、插入"><i class="iconfont icon-left"></i>&nbsp;排序算法 Sort 冒泡、归并、快速、插入</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/interview-html/" class="next" rel="next" title="HTML、CSS">HTML、CSS&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

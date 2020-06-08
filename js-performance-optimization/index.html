@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-tools/" />
+  <link rel="next" href="http://www.yuyunzhi.com/common-git-abbreviation/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-performance-optimization/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           前端性能优化 | 余韵之
+       
+  </title>
+  <meta name="title" content="前端性能优化 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "前端性能优化",
+    "headline" : "前端性能优化",
+    "description" : "1、使用懒加载  组件懒加载  const xxx =()=\u0026gt;import(\u0026#39;.\/components\/xxx.vue\u0026#39;)  路由懒加载  2、减少或合并DOM操作或使用虚拟DOM \/\/ 不好的方式 \/\/var elem = $(\u0026#39;#elem\u0026#39;); \/\/for (var i = 0; i \u0026lt; 100; i\u002b\u002b) { \/\/ elem.append(\u0026#39;\u0026lt;li\u0026gt;element \u0026#39;\u002bi\u002b\u0026#39;\u0026lt;\/li\u0026gt;\u0026#39;); \/\/} \/\/ 好的方式 var elem = $(\u0026#39;#elem\u0026#39; ), arr = []; for (var i = 0; i \u0026lt; 100; i\u002b\u002b) { arr.push(\u0026#39;\u0026lt;li\u0026gt;element \u0026#39; \u002bi\u002b\u0026#39;\u0026lt;\/li\u0026gt;\u0026#39; ); } elem.append(arr. join(\u0026#39;\u0026#39;)); 3、减少监听器，使用事件委托 function listen(element, eventType, selector, fn) { element.addEventListener(eventType, e =\u0026gt; { let el = e.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-11-21 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-11-21 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-performance-optimization\/",
+    "wordCount" : "141",
+    "keywords" : [ "性能优化", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">前端性能优化</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-11-21 itemprop="datePublished">November 21, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="1使用懒加载">1、使用懒加载</h2>
+<ul>
+<li>组件懒加载</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const xxx =<span style="color:#960050;background-color:#1e0010">(</span>)=&gt;import<span style="color:#960050;background-color:#1e0010">(</span>&#39;./components/xxx.vue&#39;)
+</code></pre></div><ul>
+<li>路由懒加载</li>
+</ul>
+<h2 id="2减少或合并dom操作或使用虚拟dom">2、减少或合并DOM操作或使用虚拟DOM</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// 不好的方式
+//var elem = $<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">elem</span>&#39;);
+//for <span style="color:#960050;background-color:#1e0010">(</span>var i = 0; i &lt; 100; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+//  elem.append<span style="color:#960050;background-color:#1e0010">(</span>&#39;&lt;li&gt;element &#39;+i+&#39;&lt;/li&gt;&#39;);
+//}
+
+// 好的方式
+var elem = $<span style="color:#960050;background-color:#1e0010">(</span>&#39;#<span style="color:#a6e22e">elem</span>&#39; ),
+arr = <span style="color:#960050;background-color:#1e0010">[</span>];
+for <span style="color:#960050;background-color:#1e0010">(</span>var i = 0;  i &lt; 100; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+  arr.push<span style="color:#960050;background-color:#1e0010">(</span>&#39;&lt;li&gt;element &#39; +i+&#39;&lt;/li&gt;&#39; );
+}
+elem.append<span style="color:#960050;background-color:#1e0010">(</span>arr. join<span style="color:#960050;background-color:#1e0010">(</span>&#39;&#39;));
+</code></pre></div><h2 id="3减少监听器使用事件委托">3、减少监听器，使用事件委托</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function listen<span style="color:#960050;background-color:#1e0010">(</span>element, eventType, selector, fn) <span style="color:#960050;background-color:#1e0010">{</span>
+element.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>eventType, e =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+     let el = e.target
+     while <span style="color:#960050;background-color:#1e0010">(</span>!el.matches(<span style="color:#a6e22e">selector</span>)) <span style="color:#960050;background-color:#1e0010">{</span>
+         if <span style="color:#960050;background-color:#1e0010">(</span>element === el) <span style="color:#960050;background-color:#1e0010">{</span>
+             el = null
+             break
+         }
+         el = el.parentNode
+     }
+     el &amp;&amp; fn.call<span style="color:#960050;background-color:#1e0010">(</span>el, e, el)
+})
+return element
+} 
+listen<span style="color:#960050;background-color:#1e0010">(</span>ul, &#39;click&#39;, &#39;li&#39;, <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>})
+</code></pre></div><h2 id="4对大量数据计算使用缓存">4、对大量数据计算使用缓存</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// data.length === 100000
+   for<span style="color:#960050;background-color:#1e0010">(</span>var i = 0;i &lt; data.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+     // do something...
+   }
+   //上面的代码没有下面的好
+   for<span style="color:#960050;background-color:#1e0010">(</span>var i = 0,len = data.length;i &lt; len;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+     // do something...
+   }
+</code></pre></div><h2 id="5使用settimeout降低调用接口频率">5、使用setTimeout降低调用接口频率</h2>
+<h2 id="6cssjs请求优化">6、CSS、JS请求优化</h2>
+<ul>
+<li>
+<p>使用CDN：用CDN请求静态资源同时可以增大同时下载数量，内容分发网络（CDN）可以使请求总时间降低</p>
+</li>
+<li>
+<p>CSS放在head里：因为chrome需要下载完所有的css后才渲染页面</p>
+</li>
+<li>
+<p>JS放在body里的最后：JS放后面保证用户能尽早看到完整的页面，再继续下载js文件。</p>
+</li>
+</ul>
+<h2 id="7优化tcp协议">7、优化TCP协议</h2>
+<ul>
+<li>使用keep-alive：连接回复加上请求头：keep-alive。第一次请求不断开，第二次请求复用。</li>
+<li>使用http 2.0版本：复用率会更高</li>
+</ul>
+<h2 id="8用户体验上">8、用户体验上</h2>
+<ul>
+<li>用户看到哪些内容就请求哪些内容</li>
+<li>加一个loading动画用户会感觉时间变快</li>
+</ul>
+<h2 id="9优化dns查询">9、优化DNS查询</h2>
+<ul>
+<li>减少域名：尽量把所有的资源放在一个域名下</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-performance-optimization/>http://www.yuyunzhi.com/js-performance-optimization/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                    #性能优化</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-tools/" class="prev" rel="prev" title="常用在线工具"><i class="iconfont icon-left"></i>&nbsp;常用在线工具</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/common-git-abbreviation/" class="next" rel="next" title="Git配置命令缩写">Git配置命令缩写&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

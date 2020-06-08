@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TDD on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/tdd/</link>
+    <description>Recent content in TDD on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 25 Jan 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/tdd/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vue-test-utils&amp;持续集成</title>
+      <link>http://www.yuyunzhi.com/js-vue-test-utils/</link>
+      <pubDate>Fri, 25 Jan 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-test-utils/</guid>
+      <description>一、测试有哪些分类 1、黑白测试  根据代码的思路写测试叫白盒测试 不知道代码的思路测试叫黑盒测试（大部分人工测试都是这个）  2、规模（小-&amp;gt;大）  单元测试（最小的测试是函数，也是白盒测试） 模块测试（根据API测试） 功能测试 集成测试（多个系统端对端测试E2E，也是黑盒测试）  二、单元测试的必要性  你不一定一辈子当前端 开发库（公司里的库必须要有），没有单元测试公司很难有优质代码的积累 测试驱动开发  三、前端业务代码是否需要测试  不需要 业务代码中的共用代码才需要测试：比如表单验证（抽离出组件，测组件） 然后做高质量的组件，输出给团队用  四、什么才算是好的单元测试  测试覆盖率&amp;gt;90%，基本上都是好的测试 测试内容：语句、分支、函数、行  五、测试工具介绍  这里使用Karma + Mocha做单元测试，TravisCI做持续集成 Karma（[ˈkɑrmə] 卡玛）是一个测试运行器，它可以呼起浏览器，加载测试脚本，然后运行测试用例 Mocha（[ˈmoʊkə] 摩卡）是一个单元测试框架/库，它可以用来写测试用例 Sinon（西农）是一个 spy / stub / mock 库，用以辅助测试 karma-coverage 来设置 Karma 的代码覆盖率 chaijs 提供了dscribe it断言  除此之外了解两个词语：
+ BDD 行为驱动开发 Behavior Driven Development TDD 测试驱动开发 Test Driven Development  五、安装工具及配置 1、创建karma 配置  安装依赖  npm add -D karma karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack chai sinon sinon-chai 安装成功：  创建 karma.</description>
+    </item>
+    
+  </channel>
+</rss>

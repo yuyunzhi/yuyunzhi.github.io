@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-vue-dom/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-vue-business-functions/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-vue-import/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Vue全局引入文件 | 余韵之
+       
+  </title>
+  <meta name="title" content="Vue全局引入文件 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Vue全局引入文件",
+    "headline" : "Vue全局引入文件",
+    "description" : " 写Vue项目的时候，需要对代码进行优化，重复使用的组件、样式、JS进行全局引入并统一管理，这样对代码的维护会很好。\n 1、全局引入scss文件 安装sass-resources-loader\nnpm i sass-resources-loader --save-dev 然后修改vue-cli的build\/utils.js，找到scss的加载设置替换\nscss: generateLoaders(\u0026#39;sass\u0026#39;) 替换成\nscss: generateLoaders(\u0026#39;sass\u0026#39;).concat({ loader:\u0026#39;sass-resources-loader\u0026#39;, options:{ resources:path.resolve(__dirname,\u0026#39;.\/..\/src\/assets\/scss\/base.scss\u0026#39;) } }), 2、全局引入JS文件 在main.js 引入，并挂在到原型链上，如api.js\nimport API from \u0026#39;.\/assets\/js\/api\/api.js\u0026#39; Vue.prototype.$api = API; 3、全局引入基础组件 在main.js 引入\nimport Icon from \u0026#39;.\/components\/y-c\/icon.vue\u0026#39; Vue.component(\u0026#39;y-icon\u0026#39;,Icon) 4、全局引入函数 在main.js引入，并挂在到原型链上\nVue.prototype.$xxx = function(){} ",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-03-01 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-03-01 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-vue-import\/",
+    "wordCount" : "41",
+    "keywords" : [ "Vue", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Vue全局引入文件</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-03-01 itemprop="datePublished">March 1, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>写Vue项目的时候，需要对代码进行优化，重复使用的组件、样式、JS进行全局引入并统一管理，这样对代码的维护会很好。</p>
+</blockquote>
+<h2 id="1全局引入scss文件">1、全局引入scss文件</h2>
+<p>安装sass-resources-loader</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm i sass-resources-loader --save-dev
+</code></pre></div><p>然后修改vue-cli的build/utils.js，找到scss的加载设置替换</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">scss: generateLoaders<span style="color:#960050;background-color:#1e0010">(</span>&#39;sass&#39;)
+</code></pre></div><p>替换成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">scss: generateLoaders<span style="color:#960050;background-color:#1e0010">(</span>&#39;sass&#39;).concat<span style="color:#960050;background-color:#1e0010">({</span>
+  loader:&#39;sass-resources-loader&#39;,
+  options:<span style="color:#960050;background-color:#1e0010">{</span>
+    resources:path.resolve<span style="color:#960050;background-color:#1e0010">(</span>__dirname,&#39;./../src/assets/scss/base.scss&#39;)
+  }
+}),
+</code></pre></div><h2 id="2全局引入js文件">2、全局引入JS文件</h2>
+<p>在main.js 引入，并挂在到原型链上，如api.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">import API from &#39;./assets/js/api/api.js&#39;
+Vue.prototype.$api = API;
+</code></pre></div><h2 id="3全局引入基础组件">3、全局引入基础组件</h2>
+<p>在main.js 引入</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">import Icon from &#39;./components/y-c/icon.vue&#39;
+Vue.component<span style="color:#960050;background-color:#1e0010">(</span>&#39;y-icon&#39;,Icon)
+</code></pre></div><h2 id="4全局引入函数">4、全局引入函数</h2>
+<p>在main.js引入，并挂在到原型链上</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Vue.prototype.$xxx = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>}
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-vue-import/>http://www.yuyunzhi.com/js-vue-import/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/vue/">
+                    #Vue</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-vue-dom/" class="prev" rel="prev" title="Vue虚拟DOM"><i class="iconfont icon-left"></i>&nbsp;Vue虚拟DOM</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-vue-business-functions/" class="next" rel="next" title="Vue实现业务功能">Vue实现业务功能&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

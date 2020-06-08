@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-stackqueue/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-binary-search/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-recursion/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           递归 Recursion、回溯法 Backtracking | 余韵之
+       
+  </title>
+  <meta name="title" content="递归 Recursion、回溯法 Backtracking | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "递归 Recursion、回溯法 Backtracking",
+    "headline" : "递归 Recursion、回溯法 Backtracking",
+    "description" : "一、什么是递归  在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。 递归指在函数的定义中使用函数自身的方法  二、递归三要素  拆解寻找子问题（得到递归规则） 解决最小子问题是指可以直接得到答案问题并不需递归计算 递归终止退出条件  三、递归举例 1、菲波那切数列  基本情况 ： F(0) = 0, F(1) = 1 ,F(2) = F(0) \u002b F(1) = 1 递归规则 ： F(n) = F(n-1) \u002b F(n-2)  1，1，2，3，5，8，13……\nint Fibonacci (int n ){ if(n==0) return 0; if(n==1) return 1; return Fibonacci(n-1) \u002b Fibonacci(n-2); } 后面用动态规划的方法或记忆搜索的方式来优化重复计算的代码。\n2、汉诺塔   有三根杆子A，B，C。A杆上有N个(N\u0026gt;1)穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至C杆。规则1：每次只能移动一个圆盘；规则2：大盘不能叠在小盘上面。\n  递归规则:1. 将A上的前n-1个盘子从A移到B；2. 将第n个盘子，也就是最底下的盘子从A移到C；3. 将B上剩下的n-1个盘子从B移到C。\n  递归函数：MoveHanoi(int n, char origin, char destination, char buffer) n表示n个盘子,origin表示出发的地方，destination表示目的地,buffer表示缓存的地方。这三个char分别代表着三根杆子",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-03 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-03 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-recursion\/",
+    "wordCount" : "375",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">递归 Recursion、回溯法 Backtracking</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-03 itemprop="datePublished">November 3, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一什么是递归">一、什么是递归</h1>
+<ul>
+<li>在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。</li>
+<li>递归指在函数的定义中使用函数自身的方法</li>
+</ul>
+<h1 id="二递归三要素">二、递归三要素</h1>
+<ul>
+<li>拆解寻找子问题（得到递归规则）</li>
+<li>解决最小子问题是指可以直接得到答案问题并不需递归计算</li>
+<li>递归终止退出条件</li>
+</ul>
+<h1 id="三递归举例">三、递归举例</h1>
+<h3 id="1菲波那切数列">1、菲波那切数列</h3>
+<ul>
+<li>基本情况 ： F(0) = 0, F(1) = 1 ,F(2) = F(0) + F(1) = 1</li>
+<li>递归规则 ： F(n) = F(n-1) + F(n-2)</li>
+</ul>
+<p>1，1，2，3，5，8，13……</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   int Fibonacci <span style="color:#960050;background-color:#1e0010">(</span>int n )<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>n==0) return 0;
+        if<span style="color:#960050;background-color:#1e0010">(</span>n==1) return 1;
+        
+        return Fibonacci(<span style="color:#a6e22e">n-1</span>) + Fibonacci(<span style="color:#a6e22e">n-2</span>);
+    }
+</code></pre></div><p>后面用动态规划的方法或记忆搜索的方式来优化重复计算的代码。</p>
+<h3 id="2汉诺塔">2、汉诺塔</h3>
+<p><img src="/algorithm/hnt.jpeg" alt="汉诺塔"></p>
+<ul>
+<li>
+<p>有三根杆子A，B，C。A杆上有N个(N&gt;1)穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至C杆。规则1：每次只能移动一个圆盘；规则2：大盘不能叠在小盘上面。</p>
+</li>
+<li>
+<p>递归规则:1. 将A上的前n-1个盘子从A移到B；2. 将第n个盘子，也就是最底下的盘子从A移到C；3. 将B上剩下的n-1个盘子从B移到C。</p>
+</li>
+<li>
+<p>递归函数：MoveHanoi(int n, char origin, char destination, char buffer)  n表示n个盘子,origin表示出发的地方，destination表示目的地,buffer表示缓存的地方。这三个char分别代表着三根杆子</p>
+</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void MoveHanoi<span style="color:#960050;background-color:#1e0010">(</span>int n,char origin,char destination,char buffer)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>n==1)<span style="color:#960050;background-color:#1e0010">{</span>
+            System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Move Step:&#34; + origin + &#34;to&#34; + destination);
+            return;
+        }
+        MoveHanoi<span style="color:#960050;background-color:#1e0010">(</span>n-1,origin,buffer,destination);
+        System.out.println<span style="color:#960050;background-color:#1e0010">(</span>&#34;Move Step:&#34; + origin + &#34;to&#34; + destination);
+        MoveHanoi<span style="color:#960050;background-color:#1e0010">(</span>n-1,buffer,destination,origin);
+}
+</code></pre></div><h1 id="四回溯法">四、回溯法</h1>
+<ul>
+<li>
+<p><strong>什么是回溯法</strong>：回溯法是一种选优搜索法，按选优条件向前搜索，以达到目标。但当探索到某一步时，发现原先选择并不优或达不到目标，就退。回一步重新选择，这种走不通就退回再走的技术为回溯法。满足回溯条件的某个状态的点称为“回溯点”。</p>
+</li>
+<li>
+<p><strong>回溯法的思想</strong>：在包含问题的所有解的解空间树中，按照深度优先搜索的策略，从根结点出发深度探索解空间树。当探索到某一结点时，要先判断该结点是否包含问题的解，如果包含，就从该结点出发继续探索下去，如果该结点不包含问题的解，则逐层向其祖先结点回溯。（其实回溯法就是对隐式图的深度优先搜索算法）。若用回溯法求问题的所有解时，要回溯到根，且根结点的所有可行的子树都要已被搜索遍才结束。而若使用回溯法求任一个解时，只要搜索到问题的一个解就可以结束。</p>
+</li>
+<li>
+<p><strong>回溯法步骤</strong>：针对所给问题，确定问题的解空间：首先应明确定义问题的解空间，问题的解空间应至少包含问题的一个（最优）解。确定结点的扩展搜索规则以深度优先方式搜索解空间，并在搜索过程中用剪枝函数避免无效搜索。</p>
+</li>
+</ul>
+<h3 id="1回溯法模板">1、回溯法模板</h3>
+<p><strong>题目</strong>：给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。说明：解集不能包含重复的子集</p>
+<ul>
+<li>输入： nums = [1,2,3]</li>
+<li>输出：[ [3], [1], [2], [1,2,3], [1,3], [2,3],[1,2], [] ]</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public List&lt;List&lt;Integer&gt;&gt; subsets<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums)<span style="color:#960050;background-color:#1e0010">{</span>
+    // result 为解集空间
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;List&lt;Integer&gt;&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    if<span style="color:#960050;background-color:#1e0010">(</span>nums == null || nums.length ==0)<span style="color:#960050;background-color:#1e0010">{</span>
+        return result;
+    }
+    // list为单一解
+    List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    // 递归函数subsetHelp
+    subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums,0);
+    return result;
+}
+
+private void subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>List&lt;List&lt;Integer&gt;&gt; result,List&lt;Integer&gt;list,int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int pos)<span style="color:#960050;background-color:#1e0010">{</span>
+    result.add<span style="color:#960050;background-color:#1e0010">(</span>new ArrayList&lt;Integer&gt;(<span style="color:#a6e22e">list</span>));
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = pos;i&lt;nums.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        list.add<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">i</span>]);
+        subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums,i+1);
+        list.remove<span style="color:#960050;background-color:#1e0010">(</span>list.size<span style="color:#960050;background-color:#1e0010">(</span>)-1);
+    }
+}
+</code></pre></div><p><strong>subsetHelp的for循环逻辑</strong>：nums=[1,2,3],对nums循环每一次循环取出1个数，然后包含该数所有的子集。取完后取第N个数，然后包含该数（排除第前N个数）的所有子集。</p>
+<p><img src="/algorithm/3.jpeg" alt="图解"></p>
+<h3 id="2求子集">2、求子集</h3>
+<p><strong>题目</strong>：给定一个可能包含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。说明：解集不能包含重复的子集</p>
+<ul>
+<li>输入: [1,2,2]</li>
+<li>输出: [ [2], [1], [1,2,2], [2,2], [1,2], [] ]</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public List&lt;List&lt;Integer&gt;&gt; subsets<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums)<span style="color:#960050;background-color:#1e0010">{</span>
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;List&lt;Integer&gt;&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    if<span style="color:#960050;background-color:#1e0010">(</span>nums == null || nums.length ==0)<span style="color:#960050;background-color:#1e0010">{</span>
+        return result;
+    }
+    List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums,0);
+    return result;
+}
+
+private void subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>List&lt;List&lt;Integer&gt;&gt; result,List&lt;Integer&gt;list,int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int pos)<span style="color:#960050;background-color:#1e0010">{</span>
+    result.add<span style="color:#960050;background-color:#1e0010">(</span>new ArrayList&lt;Integer&gt;(<span style="color:#a6e22e">list</span>));
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = pos;i&lt;nums.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>i != pos &amp;&amp; nums[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> nums[<span style="color:#a6e22e">i-1</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+            continue;
+        }
+        list.add<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">i</span>]);
+        subsetHelp<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums,i+1);
+        list.remove<span style="color:#960050;background-color:#1e0010">(</span>list.size<span style="color:#960050;background-color:#1e0010">(</span>)-1);
+    }
+}
+</code></pre></div><h4 id="3全排列">3、全排列</h4>
+<p><strong>题目</strong>：给定一个没有重复数字的序列，返回其所有可能的全排列。</p>
+<ul>
+<li>输入：[1,2,3]</li>
+<li>输出：[ [1,2,3], [1,3,2], [2,1,3], [2,3,1],[3,1,2], [3,2,1] ]</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public List&lt;List&lt;Integer&gt;&gt; subsets<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums)<span style="color:#960050;background-color:#1e0010">{</span>
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;List&lt;Integer&gt;&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    if<span style="color:#960050;background-color:#1e0010">(</span>nums == null || nums.length ==0)<span style="color:#960050;background-color:#1e0010">{</span>
+        return result;
+    }
+    List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    Arrays.sort(<span style="color:#a6e22e">nums</span>);
+    permuteHelper<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums);
+    return result;
+}
+
+private void permuteHelper<span style="color:#960050;background-color:#1e0010">(</span>List&lt;List&lt;Integer&gt;&gt; result,List&lt;Integer&gt;list,int<span style="color:#960050;background-color:#1e0010">[</span>] nums)<span style="color:#960050;background-color:#1e0010">{</span>
+   if<span style="color:#960050;background-color:#1e0010">(</span>list.size<span style="color:#960050;background-color:#1e0010">(</span>) == nums.length)<span style="color:#960050;background-color:#1e0010">{</span>
+       result.add<span style="color:#960050;background-color:#1e0010">(</span>new ArrayList&lt;Integer&gt;(<span style="color:#a6e22e">list</span>));
+   }
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = 0;i&lt;nums.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>list.contains<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">i</span>]))<span style="color:#960050;background-color:#1e0010">{</span>
+            continue;
+        }
+        list.add<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">i</span>]);
+        permuteHelper<span style="color:#960050;background-color:#1e0010">(</span>result,list,nums);
+        list.remove<span style="color:#960050;background-color:#1e0010">(</span>list.size<span style="color:#960050;background-color:#1e0010">(</span>)-1);
+    }
+}
+</code></pre></div><h4 id="3组合总和">3、组合总和</h4>
+<p><strong>题目</strong>：给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public List&lt;List&lt;Integer&gt;&gt; subsets<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] candidates,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+    List&lt;List&lt;Integer&gt;&gt; result = new ArrayList&lt;List&lt;Integer&gt;&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    if<span style="color:#960050;background-color:#1e0010">(</span>candidates == null || candidates.length ==0)<span style="color:#960050;background-color:#1e0010">{</span>
+        return result;
+    }
+    List&lt;Integer&gt; list = new ArrayList&lt;Integer&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+    Arrays.sort(<span style="color:#a6e22e">candidates</span>);
+    helper<span style="color:#960050;background-color:#1e0010">(</span>result,list,candidates,target,0);
+    return result;
+}
+
+private void helper<span style="color:#960050;background-color:#1e0010">(</span>List&lt;List&lt;Integer&gt;&gt; result,List&lt;Integer&gt;list,int<span style="color:#960050;background-color:#1e0010">[</span>] candidates,int target,int pos)<span style="color:#960050;background-color:#1e0010">{</span>
+   if<span style="color:#960050;background-color:#1e0010">(</span>target==0)<span style="color:#960050;background-color:#1e0010">{</span>
+       result.add<span style="color:#960050;background-color:#1e0010">(</span>new ArrayList&lt;Integer&gt;(<span style="color:#a6e22e">list</span>));
+       return;
+   }else if<span style="color:#960050;background-color:#1e0010">(</span>target &lt; 0)<span style="color:#960050;background-color:#1e0010">{</span>
+       return;
+   }
+    for<span style="color:#960050;background-color:#1e0010">(</span>int i = pos;i&lt;candidates.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+        list.add<span style="color:#960050;background-color:#1e0010">(</span>candidates[<span style="color:#a6e22e">i</span>]);
+        helper<span style="color:#960050;background-color:#1e0010">(</span>result,list,candidates,target-candidates[<span style="color:#a6e22e">i</span>],i);
+        list.remove<span style="color:#960050;background-color:#1e0010">(</span>list.size<span style="color:#960050;background-color:#1e0010">(</span>)-1);
+    }
+}
+</code></pre></div><h1 id="五递归回溯法剪枝总结">五、递归+回溯法+剪枝总结</h1>
+<ul>
+<li>初始化解集空间变量及类型 result</li>
+<li>初始化单一解变量及类型  list</li>
+<li>画图
+<ul>
+<li>根据图确定循环起始值</li>
+<li>根据图确定添加结果条件、过滤某个循环条件、终止条件</li>
+<li>根据上两点，确定递归参数</li>
+</ul>
+</li>
+<li>套用回溯法模板</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-recursion/>http://www.yuyunzhi.com/algorithm-recursion/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-stackqueue/" class="prev" rel="prev" title="栈Stack和队列Quene"><i class="iconfont icon-left"></i>&nbsp;栈Stack和队列Quene</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-binary-search/" class="next" rel="next" title="二分搜索 Binary Search">二分搜索 Binary Search&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/interview-js-console/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-asynchronous-order/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/interview-js-api/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           JavaScript一些常用方法 | 余韵之
+       
+  </title>
+  <meta name="title" content="JavaScript一些常用方法 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "JavaScript一些常用方法",
+    "headline" : "JavaScript一些常用方法",
+    "description" : "一、instanceof 和 typeof 1、typeof使用: typeof一般被用于判断一个变量的类型是否为以下7种 ：number, string, object, boolean, function, undefined, symbol。但是typeof 在判断一个 object的数据的时候只能告诉我们这个数据是 object, 而不能细致的具体到是哪一种 object\ntypeof 1 \/\/ number typeof \u0026#34;1\u0026#34; \/\/ string typeof [] \/\/object typeof function(){} \/\/ function typeof {} \/\/ object typeof null \/\/ object typeof undefined \/\/ undefined typeof true \/\/ boolean typeof Object \/\/ function 2、typeof null 为什么结果是 object ?因为底层储存变量的时候000表示对象，而 null 的所有机器码也均为0, undefined 用 −2^30 整数来表示。所以 typeof null 结果为object。\n3、Object.prototype.toString.call 使用这个方法来对一个变量类型进行比较准确的判断。\nObject.prototype.toString.call(1) \/\/ \u0026#34;[object Number]\u0026#34; Object.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-03 23:00:23 \u002b0800 CST",
+    "dateModified" : "2020-01-03 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/interview-js-api\/",
+    "wordCount" : "1877",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JavaScript一些常用方法</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-01-03 itemprop="datePublished">January 3, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E9%9D%A2%E8%AF%95/"> 面试 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一instanceof-和-typeof">一、instanceof 和 typeof</h1>
+<h3 id="1typeof使用">1、typeof使用:</h3>
+<p>typeof一般被用于判断一个变量的类型是否为以下7种 ：number, string, object, boolean, function, undefined, symbol。但是typeof 在判断一个 object的数据的时候只能告诉我们这个数据是 object, 而不能细致的具体到是哪一种 object</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">typeof 1 // number
+typeof &#34;1&#34; // string
+typeof <span style="color:#960050;background-color:#1e0010">[</span>] //object
+typeof function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>} // function
+typeof <span style="color:#960050;background-color:#1e0010">{</span>} // object
+typeof null // object
+typeof undefined // undefined
+typeof true // boolean
+typeof Object // function
+</code></pre></div><h3 id="2typeof-null">2、typeof null</h3>
+<p>为什么结果是 object ?因为底层储存变量的时候000表示对象，而 null 的所有机器码也均为0, undefined 用 −2^30 整数来表示。所以 typeof null 结果为object。</p>
+<h3 id="3objectprototypetostringcall">3、Object.prototype.toString.call</h3>
+<p>使用这个方法来对一个变量类型进行比较准确的判断。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Object.prototype.toString.call(<span style="color:#a6e22e">1</span>) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Number]&#34;
+Object.prototype.toString.call<span style="color:#960050;background-color:#1e0010">(</span>&#39;hello&#39;) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object String]&#34;
+Object.prototype.toString.call<span style="color:#960050;background-color:#1e0010">({</span>a:&#39;a&#39;}) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Object]&#34;
+Object.prototype.toString.call<span style="color:#960050;background-color:#1e0010">([</span>1,&#39;a&#39;]) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Array]&#34;
+Object.prototype.toString.call(<span style="color:#a6e22e">true</span>) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Boolean]&#34;
+Object.prototype.toString.call<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>}) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Function]&#34;
+Object.prototype.toString.call(<span style="color:#a6e22e">null</span>) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Null]&#34;
+Object.prototype.toString.call(<span style="color:#a6e22e">undefined</span>) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Undefined]&#34;
+Object.prototype.toString.call<span style="color:#960050;background-color:#1e0010">(</span>Symbol(<span style="color:#a6e22e">2</span>)) // &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Symbol]&#34;
+</code></pre></div><p><img src="/images/js/3.png" alt="图片来自 ConardLi">
+因此，实现一个函数来具体判断一个变量的类型：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const myTypeOf =<span style="color:#960050;background-color:#1e0010">(</span>target,type)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+	return Object.prototype.toString.call(<span style="color:#a6e22e">target</span>) <span style="color:#f92672">=</span><span style="color:#e6db74">==</span> `<span style="color:#960050;background-color:#1e0010">[</span>object $<span style="color:#960050;background-color:#1e0010">{</span>type}]`
+}
+myTypeOf<span style="color:#960050;background-color:#1e0010">([</span>],&#39;Array&#39;) // true
+myTypeOf<span style="color:#960050;background-color:#1e0010">(</span>1,&#39;Number&#39;) // true
+</code></pre></div><h3 id="4instanceof-操作及原理">4、instanceof 操作及原理</h3>
+<p>instanceof 主要的作用就是判断一个实例是否属于某种类型。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const animal = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+const dog = new animal<span style="color:#960050;background-color:#1e0010">(</span>)
+dog instanceof animal  // true
+</code></pre></div><p>instanceof 也可以判断一个实例是否是其父类型或者祖先类型的实例。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const animal = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+const person = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+person.prototype = new animal<span style="color:#960050;background-color:#1e0010">(</span>)
+const xiaoming = new person<span style="color:#960050;background-color:#1e0010">(</span>)
+
+xiaoming instanceof person // true
+xiaoming instanceof animal // true
+</code></pre></div><h3 id="5关于instanceof的一些思考">5、关于instanceof的一些思考</h3>
+<p>实现一个myInstanceof：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function myInstanceof<span style="color:#960050;background-color:#1e0010">(</span>leftVaule, rightVaule) <span style="color:#960050;background-color:#1e0010">{</span> 
+    let rightPrototype = rightVaule.prototype; // 构造函数的prototype
+    leftVaule = leftVaule.__proto__; // 取左表达式的__proto__值
+    while (<span style="color:#a6e22e">true</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    	if <span style="color:#960050;background-color:#1e0010">(</span>leftVaule === null) <span style="color:#960050;background-color:#1e0010">{</span>
+            return false;	
+        }
+        if <span style="color:#960050;background-color:#1e0010">(</span>leftVaule === rightPrototype) <span style="color:#960050;background-color:#1e0010">{</span>
+            return true;	
+        } 
+        leftVaule = leftVaule.__proto__ 
+    }
+}
+myInstanceof<span style="color:#960050;background-color:#1e0010">(</span>1,Number) // true
+myInstanceof<span style="color:#960050;background-color:#1e0010">([</span>],Array) // true
+</code></pre></div><p>知道原理后，思考以下代码为什么打出的是这样的结果？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Foo<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+
+Object instanceof Object // true
+Function instanceof Function // true
+Function instanceof Object // true
+Foo instanceof Foo // false
+Foo instanceof Object // true
+Foo instanceof Function // true
+</code></pre></div><p><strong>Object instanceof Object</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">leftValue = Object.__proto__
+rightValue = Object.prototype
+
+可知当 Object.__proto__.__proto__ === Object.prototype
+所以：Object instanceof Object 为true
+</code></pre></div><p><strong>Function instanceof Function</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">leftValue = Function.__proto__
+rightValue = Function.prototype
+
+可知 Fuction.__proto__ === Function.prototype
+所以：Function instanceof Function 为true
+</code></pre></div><p><strong>Function instanceof Object</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">leftValue = Function.__proto__
+rightValue = Object.prototype
+
+可知 Fuction.__proto__.__proto__ === Object.prototype
+所以：Function instanceof Object 为true
+</code></pre></div><p>**Foo instanceof Foo **:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">leftValue = Foo.__proto__  //  === Function.prototype
+rightValue = Foo.prototype
+
+可知 Fuction.__proto__.__proto__ === Object.prototype // 不等于Foo.prototype
+所以：Foo instanceof Foo  为false
+</code></pre></div><p>**Foo instanceof Function **:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">leftValue = Foo.__proto__  //  === Function.prototype
+rightValue = Function.prototype
+
+可知 Foo.__proto__ === Function.prototype // 不等于Foo.prototype
+所以：Foo instanceof Function  为true
+</code></pre></div><h1 id="二javascript-数组api实现原理">二、JavaScript 数组API实现原理</h1>
+<h3 id="1循环遍历实现map">1、循环遍历实现map</h3>
+<p>不改变原来数组，回调函数的参数及返回值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.myMap = function<span style="color:#960050;background-color:#1e0010">(</span>fn, context)<span style="color:#960050;background-color:#1e0010">{</span>
+  var arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  var mapArr = <span style="color:#960050;background-color:#1e0010">[</span>]
+  for <span style="color:#960050;background-color:#1e0010">(</span>var i = 0; i &lt; arr.length; i++ )<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>!arr.hasOwnProperty(<span style="color:#a6e22e">i</span>)) continue
+    mapArr.push<span style="color:#960050;background-color:#1e0010">(</span>fn.call<span style="color:#960050;background-color:#1e0010">(</span>context, arr[<span style="color:#a6e22e">i</span>], i, this))
+  }
+  return mapArr
+}
+
+let a = <span style="color:#960050;background-color:#1e0010">[</span>1,2,3]
+let b = a.myMap<span style="color:#960050;background-color:#1e0010">((</span>item,index)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>return item*<span style="color:#a6e22e">index</span>})  // b = <span style="color:#960050;background-color:#1e0010">[</span>0,2,6]
+</code></pre></div><p>hasOwnProperty 的作用是 表示是否有自己的属性。要注意function换成箭头函数，内部this指向就不准确了。
+使用push对fn返回的值进行添加到mapArr最后返回新的数组。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let obj = <span style="color:#960050;background-color:#1e0010">{</span>
+    a: 1,
+    fn: function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>},
+    c:<span style="color:#960050;background-color:#1e0010">{</span>d: 5}
+};
+console.log<span style="color:#960050;background-color:#1e0010">(</span>obj.hasOwnProperty<span style="color:#960050;background-color:#1e0010">(</span>&#39;a&#39;));  // true
+console.log<span style="color:#960050;background-color:#1e0010">(</span>obj.hasOwnProperty<span style="color:#960050;background-color:#1e0010">(</span>&#39;fn&#39;));  // true
+console.log<span style="color:#960050;background-color:#1e0010">(</span>obj.hasOwnProperty<span style="color:#960050;background-color:#1e0010">(</span>&#39;c&#39;));  // true
+console.log<span style="color:#960050;background-color:#1e0010">(</span>obj.c.hasOwnProperty<span style="color:#960050;background-color:#1e0010">(</span>&#39;d&#39;));  // true
+console.log<span style="color:#960050;background-color:#1e0010">(</span>obj.hasOwnProperty<span style="color:#960050;background-color:#1e0010">(</span>&#39;d&#39;));  // false, obj对象没有d属性
+</code></pre></div><h3 id="2reduce实现map">2、reduce实现map</h3>
+<p>reduce的使用：pre是上一个return的值，所以使用[&hellip;pre , fn.call(context,cur,index,this)]</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.myMap = function<span style="color:#960050;background-color:#1e0010">(</span>fn, context)<span style="color:#960050;background-color:#1e0010">{</span>
+  let arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  let newArr = arr.reduce<span style="color:#960050;background-color:#1e0010">((</span>pre,cur,index)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+      return <span style="color:#960050;background-color:#1e0010">[</span>...pre,fn.call<span style="color:#960050;background-color:#1e0010">(</span>context,cur,index,this)]
+  },<span style="color:#960050;background-color:#1e0010">[</span>])
+  return newArr
+}
+</code></pre></div><h3 id="3循环遍历实现filter">3、循环遍历实现filter</h3>
+<p>需要注意的是，filter的fn是返回一个boolean，当boolean为true的时候才push到数组里</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.myFilter = function<span style="color:#960050;background-color:#1e0010">(</span>fn, context)<span style="color:#960050;background-color:#1e0010">{</span>
+  let arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  let filterArr = <span style="color:#960050;background-color:#1e0010">[</span>]
+  for<span style="color:#960050;background-color:#1e0010">(</span>let i = 0; i&lt; arr.length; i++)<span style="color:#960050;background-color:#1e0010">{</span>
+      if<span style="color:#960050;background-color:#1e0010">(</span>!arr.hasOwnProperty(<span style="color:#a6e22e">i</span>)) continue
+      fn.call<span style="color:#960050;background-color:#1e0010">(</span>context,arr[<span style="color:#a6e22e">i</span>],i,this) &amp;&amp; filterArr.push<span style="color:#960050;background-color:#1e0010">(</span>arr[<span style="color:#a6e22e">i</span>])
+  }
+  return filterArr
+}
+</code></pre></div><h3 id="4reduce实现-filter">4、reduce实现 filter</h3>
+<p>这里的reduce是根据fn.call返回的是否是true来决定是否要添加当前的item</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.myFilter = function<span style="color:#960050;background-color:#1e0010">(</span>fn, context)<span style="color:#960050;background-color:#1e0010">{</span>
+  let arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  let newArr = arr.reduce<span style="color:#960050;background-color:#1e0010">((</span>pre,cur,index)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+      return fn.call<span style="color:#960050;background-color:#1e0010">(</span>context,cur,index,this) ? <span style="color:#960050;background-color:#1e0010">[</span>...pre,cur] : [<span style="color:#a6e22e">...pre</span>]
+  },<span style="color:#960050;background-color:#1e0010">[</span>])
+  return newArr
+}
+</code></pre></div><h3 id="5循环实现some">5、循环实现some</h3>
+<p>some的作用是遍历数组，判断是否满足某个条件返回boolean值</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> function isBigEnough<span style="color:#960050;background-color:#1e0010">(</span>element, index, array) <span style="color:#960050;background-color:#1e0010">{</span>
+   return <span style="color:#960050;background-color:#1e0010">(</span>element &gt;= 5); //数组中是否有一个元素大于 10
+ }
+ let result = <span style="color:#960050;background-color:#1e0010">[</span>2, 3, 0, 1, 4].some(<span style="color:#a6e22e">isBigEnough</span>); // false
+ let result = <span style="color:#960050;background-color:#1e0010">[</span>6, 5, 8, 2, 3].some(<span style="color:#a6e22e">isBigEnough</span>); // true
+</code></pre></div><p>mySome，如果是空数组则返回false，满足条件就退出循环返回true，没有一个满足条件则返回false</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.mySome = function<span style="color:#960050;background-color:#1e0010">(</span>fn,context)<span style="color:#960050;background-color:#1e0010">{</span>
+  let arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  if<span style="color:#960050;background-color:#1e0010">(</span>arr.length===0) return false
+  for<span style="color:#960050;background-color:#1e0010">(</span>let i = 0; i&lt;arr.length; i++)<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>!arr.hasOwnProperty(<span style="color:#a6e22e">i</span>)) continue
+    if<span style="color:#960050;background-color:#1e0010">(</span>fn.call<span style="color:#960050;background-color:#1e0010">(</span>context,arr[<span style="color:#a6e22e">i</span>],i,this))<span style="color:#960050;background-color:#1e0010">{</span>
+      return true
+    }
+  }
+  return false
+}
+</code></pre></div><h3 id="6循环实现reduce">6、循环实现reduce</h3>
+<p>reduce 第一个参数是函数，第二参数是初始值，可有可无，如果初始值没有的话直接取arr[0]，数组循环从第一个开始</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Array.prototype.myReduce = function<span style="color:#960050;background-color:#1e0010">(</span>fn,initData)<span style="color:#960050;background-color:#1e0010">{</span>
+  let arr = Array.prototype.slice.call(<span style="color:#a6e22e">this</span>)
+  let res = initData || arr[<span style="color:#a6e22e">0</span>]
+  let startIndex = initData ? 0 : 1;
+  for<span style="color:#960050;background-color:#1e0010">(</span>let i = startIndex;i&lt;arr.length; i++)<span style="color:#960050;background-color:#1e0010">{</span>
+    res = fn.call<span style="color:#960050;background-color:#1e0010">(</span>null,res,arr[<span style="color:#a6e22e">i</span>],i,this)
+  }
+  return res
+}
+</code></pre></div><h1 id="三发布订阅模式">三、发布订阅模式</h1>
+<p>挂在在window下的eventHub</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.eventHub = <span style="color:#960050;background-color:#1e0010">{</span>
+    events: <span style="color:#960050;background-color:#1e0010">{</span>},
+    //发布 到eventhub 使用方式 window.eventHub.emit<span style="color:#960050;background-color:#1e0010">(</span>&#39;xxx&#39;,data)
+    emit<span style="color:#960050;background-color:#1e0010">(</span>eventName, data)<span style="color:#960050;background-color:#1e0010">{</span>
+        for<span style="color:#960050;background-color:#1e0010">(</span>let key in this.events)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>key === eventName)<span style="color:#960050;background-color:#1e0010">{</span>
+                let functionList = this.events[<span style="color:#a6e22e">key</span>]
+                functionList.map((<span style="color:#a6e22e">fn</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+                    fn.call<span style="color:#960050;background-color:#1e0010">(</span>undefined, data)
+                })
+            }
+        }
+    },
+    // 从eventhub上订阅，使用方式 window.eventHub.on<span style="color:#960050;background-color:#1e0010">(</span>&#39;xxx&#39;,data=&gt;<span style="color:#960050;background-color:#1e0010">{</span>})
+    on<span style="color:#960050;background-color:#1e0010">(</span>eventName, fn)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>this.events[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">==</span> undefined)<span style="color:#960050;background-color:#1e0010">{</span>
+            this.events[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">[]</span>
+        }
+        this.events[<span style="color:#a6e22e">eventName</span>].push(<span style="color:#a6e22e">fn</span>)
+    },
+}
+
+// events 存放的key 是事件名，value 是数组，数组里面是不同的函数，
+// 意味着一个事件触发的时候会在不同的地方进行调用数组里对应的函数
+window.eventHub.emit<span style="color:#960050;background-color:#1e0010">(</span>&#39;xxx&#39;,123)
+window.eventHub.on<span style="color:#960050;background-color:#1e0010">(</span>&#39;xxx&#39;,data=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+    console.log(<span style="color:#a6e22e">data</span>); // 123
+})
+</code></pre></div><p>ES6写法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">class EventBus <span style="color:#960050;background-color:#1e0010">{</span>
+    constructor<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.events = <span style="color:#960050;background-color:#1e0010">{</span>
+            // eventName1:<span style="color:#960050;background-color:#1e0010">[</span>fn1,fn2,fn3 ……]
+            // eventName2:<span style="color:#960050;background-color:#1e0010">[</span>fn40,fn21,fn33 ……]
+        }
+    }
+    on<span style="color:#960050;background-color:#1e0010">(</span>eventName,cb)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>this.events[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">==</span> undefined)<span style="color:#960050;background-color:#1e0010">{</span>
+            this.events[<span style="color:#a6e22e">eventName</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">[]</span>
+        }
+        this.events[<span style="color:#a6e22e">eventName</span>].push(<span style="color:#a6e22e">fn</span>)
+    }
+    emit<span style="color:#960050;background-color:#1e0010">(</span>eventName,data)<span style="color:#960050;background-color:#1e0010">{</span>
+        for<span style="color:#960050;background-color:#1e0010">(</span>let key in this.events)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>key === eventName)<span style="color:#960050;background-color:#1e0010">{</span>
+                let functionList = this.events[<span style="color:#a6e22e">key</span>]
+                functionList.map((<span style="color:#a6e22e">fn</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+                    fn.call<span style="color:#960050;background-color:#1e0010">(</span>undefined, data)
+                })
+            }
+        }
+    }
+}
+export default new EventBus<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><h1 id="四手写一个ajax">四、手写一个AJAX</h1>
+<p>使用 XHR来发送请求</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let xhr = new XMLHttpRequest<span style="color:#960050;background-color:#1e0010">(</span>)
+xhr.open<span style="color:#960050;background-color:#1e0010">(</span>&#39;POST&#39;, &#39;/xxxx&#39;)
+xhr.onreadystatechange = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+     if<span style="color:#960050;background-color:#1e0010">(</span>xhr.readyState === 4 &amp;&amp; xhr.status === 200)<span style="color:#960050;background-color:#1e0010">{</span>
+         console.log(<span style="color:#a6e22e">xhr.responseText</span>)
+     }
+}
+xhr.send<span style="color:#960050;background-color:#1e0010">(</span>&#39;a=1&amp;b=2&#39;)
+</code></pre></div><h1 id="五继承的es5es6写法">五、继承的ES5、ES6写法</h1>
+<p>什么是继承，一个类继承另一个类的属性和方法，在JS中至少要完成2次原型链的搜索</p>
+<p><a href="https://www.yuyunzhi.com/js-inherit/">戳戳戳，5种继承方案</a></p>
+<p>ES6 写法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">class Human<span style="color:#960050;background-color:#1e0010">{</span>
+     constructor(<span style="color:#a6e22e">name</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+         this.name = name
+     }
+     run<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+         console.log<span style="color:#960050;background-color:#1e0010">(</span>&#34;我叫&#34;+this.name+&#34;，我在跑&#34;)
+     }
+}
+class Man extends Human<span style="color:#960050;background-color:#1e0010">{</span>
+     constructor(<span style="color:#a6e22e">name</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+         super(<span style="color:#a6e22e">name</span>)
+         this.gender = &#39;男&#39;
+     }
+     fight<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+         console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;糊你熊脸&#39;)
+     }
+}
+</code></pre></div><p>如果Man里也有run()方法，那么let man1 = new Man() 后，man1.run()执行的是子类的方法，而man1.<strong>proto</strong>.run()执行的事父类的方法。</p>
+<p>man1 instanceof Man // true
+man1 instanceof Human // true</p>
+<h1 id="六promise如何使用">六、Promise如何使用</h1>
+<p>then</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">$.ajax(<span style="color:#a6e22e">...</span>).then<span style="color:#960050;background-color:#1e0010">(</span>成功函数, 失败函数)
+</code></pre></div><p>链式 then</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">$.ajax(<span style="color:#a6e22e">...</span>).then<span style="color:#960050;background-color:#1e0010">(</span>成功函数, 失败函数).then<span style="color:#960050;background-color:#1e0010">(</span>成功函数2, 失败函数2)
+</code></pre></div><p>如何自己生成 Promise 对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function xxx<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+      return new Promise<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>resolve, reject)<span style="color:#960050;background-color:#1e0010">{</span>
+          setTimeout<span style="color:#960050;background-color:#1e0010">((</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+              resolve<span style="color:#960050;background-color:#1e0010">(</span>) 或者 reject<span style="color:#960050;background-color:#1e0010">(</span>)
+          },3000)
+      })
+}
+xxx<span style="color:#960050;background-color:#1e0010">(</span>).then(<span style="color:#a6e22e">...</span>)
+</code></pre></div><h1 id="七get和put请求与响应">七、get和put请求与响应</h1>
+<p>get和put请求</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">动词 / HTTP/1.1
+Host: www.baidu.com
+User-Agent: curl/7.54.0
+Accept: <span style="color:#960050;background-color:#1e0010">*</span>/<span style="color:#960050;background-color:#1e0010">*</span>
+Content-Length: 10
+Content-Type: application/x-www-form-urlencoded
+空
+1234567890
+</code></pre></div><p>get和put响应</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">HTTP/1.1 403 Forbidden
+Conetent-Type:application/json
+Conetent-Length:300
+空
+<span style="color:#960050;background-color:#1e0010">{</span>“error”:“密码错误”}
+</code></pre></div><h1 id="八实现一个事件委托">八、实现一个事件委托</h1>
+<p>假设父元素有4个儿子，我不监听4个儿子，而是监听父元素，看触发事件的元素是哪个儿子，这就是事件委托。可以监听还没有出生的儿子（动态生成的元素）。省监听器。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function listen<span style="color:#960050;background-color:#1e0010">(</span>element, eventType, selector, fn) <span style="color:#960050;background-color:#1e0010">{</span>
+element.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>eventType, e =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+   let el = e.target
+   while <span style="color:#960050;background-color:#1e0010">(</span>!el.matches(<span style="color:#a6e22e">selector</span>)) <span style="color:#960050;background-color:#1e0010">{</span>
+       if <span style="color:#960050;background-color:#1e0010">(</span>element === el) <span style="color:#960050;background-color:#1e0010">{</span>
+           el = null
+           break
+       }
+       el = el.parentNode
+   }
+   el &amp;&amp; fn.call<span style="color:#960050;background-color:#1e0010">(</span>el, e, el)
+})
+return element
+} 
+listen<span style="color:#960050;background-color:#1e0010">(</span>ul, &#39;click&#39;, &#39;li&#39;, <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>})
+</code></pre></div><h1 id="九如何实现深拷贝">九、如何实现深拷贝</h1>
+<ul>
+<li>基本类型的赋值是深拷贝：字符串、数字，布尔，undefined，null</li>
+<li>使用JSON来拷贝</li>
+</ul>
+<p>递归拷贝</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function clone(<span style="color:#a6e22e">object</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+   var object2
+   if<span style="color:#960050;background-color:#1e0010">(</span>! <span style="color:#960050;background-color:#1e0010">(</span>object instanceof Object) )<span style="color:#960050;background-color:#1e0010">{</span> // 基本类型深拷贝
+       return object
+   }else if<span style="color:#960050;background-color:#1e0010">(</span>object instanceof Array)<span style="color:#960050;background-color:#1e0010">{</span>
+       object2 = <span style="color:#960050;background-color:#1e0010">[</span>]
+   }else if<span style="color:#960050;background-color:#1e0010">(</span>object instanceof Function)<span style="color:#960050;background-color:#1e0010">{</span>
+       object2 = eval<span style="color:#960050;background-color:#1e0010">(</span>object.toString<span style="color:#960050;background-color:#1e0010">(</span>))
+   }else if<span style="color:#960050;background-color:#1e0010">(</span>object instanceof Object)<span style="color:#960050;background-color:#1e0010">{</span>
+       object2 = <span style="color:#960050;background-color:#1e0010">{</span>}
+   }
+   for<span style="color:#960050;background-color:#1e0010">(</span>let key in object)<span style="color:#960050;background-color:#1e0010">{</span>
+       object2[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">clone(object[key])</span>
+   }
+   return object2
+}
+</code></pre></div><h1 id="十去重">十、去重</h1>
+<p>ES6</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var arr = <span style="color:#960050;background-color:#1e0010">[</span>1,2,2,3,4] // 需要去重的数组
+var set = new Set(<span style="color:#a6e22e">arr</span>) // <span style="color:#960050;background-color:#1e0010">{</span>1,2,3,4}
+var newArr = Array.from(<span style="color:#a6e22e">set</span>) // 再把set转变成array
+console.log(<span style="color:#a6e22e">newArr</span>) // <span style="color:#960050;background-color:#1e0010">[</span>1,2,3,4]
+</code></pre></div><p>计数排序</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var a = <span style="color:#960050;background-color:#1e0010">[</span>4,2,5,6,3,4,5]
+var hashTab = <span style="color:#960050;background-color:#1e0010">{</span>}
+for<span style="color:#960050;background-color:#1e0010">(</span>let i=0; i&lt;a.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+     if<span style="color:#960050;background-color:#1e0010">(</span>a[<span style="color:#a6e22e">i</span>] in hashTab)<span style="color:#960050;background-color:#1e0010">{</span>
+         // 什么也不做
+     }else<span style="color:#960050;background-color:#1e0010">{</span>
+         hashTab<span style="color:#960050;background-color:#1e0010">[</span> a[<span style="color:#a6e22e">i</span>] ] = true
+     }
+}
+//hashTab: <span style="color:#960050;background-color:#1e0010">{</span>4: true, 2: true, 5: true, 6:true, 3: true}
+console.log<span style="color:#960050;background-color:#1e0010">(</span>Object.keys(<span style="color:#a6e22e">hashTab</span>)) // <span style="color:#960050;background-color:#1e0010">[</span>&#39;4&#39;,&#39;2&#39;,&#39;5&#39;,&#39;6&#39;,&#39;3&#39;]
+</code></pre></div><h1 id="十一斐波那契数列及优化">十一、斐波那契数列及优化</h1>
+<p>基础的递归版本，性能极差，fib(500)就爆栈了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function fib(<span style="color:#a6e22e">n</span>)<span style="color:#960050;background-color:#1e0010">{</span>   
+    if<span style="color:#960050;background-color:#1e0010">(</span>n &lt; 1) throw new Error<span style="color:#960050;background-color:#1e0010">(</span>&#34;参数有误&#34;)          
+    if<span style="color:#960050;background-color:#1e0010">(</span>n &lt;= 2)<span style="color:#960050;background-color:#1e0010">{</span> return 1}       
+    return fib<span style="color:#960050;background-color:#1e0010">(</span>n - 1) + fib<span style="color:#960050;background-color:#1e0010">(</span>n - 2)
+}
+</code></pre></div><p>缓存优化版本，性能略好，仍然可能</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let cache = <span style="color:#960050;background-color:#1e0010">[</span>];
+function fib(<span style="color:#a6e22e">n</span>)<span style="color:#960050;background-color:#1e0010">{</span>        
+    if<span style="color:#960050;background-color:#1e0010">(</span>cache[<span style="color:#a6e22e">n</span>] !== undefined)<span style="color:#960050;background-color:#1e0010">{</span>               
+           return cache[<span style="color:#a6e22e">n</span>]
+    }          
+    if<span style="color:#960050;background-color:#1e0010">(</span>n &lt;= 2)<span style="color:#960050;background-color:#1e0010">{</span>               
+          cache[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">1</span>
+          return 1
+    }    
+    cache[<span style="color:#a6e22e">n</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">fib(n</span> - 1) + fib<span style="color:#960050;background-color:#1e0010">(</span>n - 2)
+    return cache[<span style="color:#a6e22e">n</span>];
+}
+console.log<span style="color:#960050;background-color:#1e0010">(</span>fib(<span style="color:#a6e22e">5</span>)) // 5
+</code></pre></div><p>动态规划版本</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function fib (<span style="color:#a6e22e">n</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    let res = 1;
+    if<span style="color:#960050;background-color:#1e0010">(</span>n === 1 &amp;&amp; n ===2) return res
+    n = n-2
+    let cur = 1
+    let pre = 1
+    while (<span style="color:#a6e22e">n</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        res = cur + pre
+        pre = cur
+        cur = res
+        n--
+    }
+    return res
+}
+</code></pre></div><h1 id="十二函数防抖">十二、函数防抖</h1>
+<p>用在input中，一段时间内只触发一次，在一段时间内又触发那么时间就重新计算。函数防抖就是法师发技能的时候要读条，技能读条没完再按技能就会重新读条。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   debounce<span style="color:#960050;background-color:#1e0010">(</span>fn,time=300,options=<span style="color:#960050;background-color:#1e0010">{</span>
+      leading:true,
+      context:null,
+    })<span style="color:#960050;background-color:#1e0010">{</span>
+      let timer;
+      const _debounce = (<span style="color:#a6e22e">...args</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+          if(<span style="color:#a6e22e">timer</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+            clearTimeout(<span style="color:#a6e22e">timer</span>)
+          }
+
+          if<span style="color:#960050;background-color:#1e0010">(</span>options.leading &amp;&amp; !timer)<span style="color:#960050;background-color:#1e0010">{</span>
+            timer = setTimeout<span style="color:#960050;background-color:#1e0010">(</span>null,time)
+            fn.apply<span style="color:#960050;background-color:#1e0010">(</span>options.context,args)
+          }else<span style="color:#960050;background-color:#1e0010">{</span>
+            timer = setTimeout<span style="color:#960050;background-color:#1e0010">((</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+              fn.apply<span style="color:#960050;background-color:#1e0010">(</span>options.context,args)
+              timer = null
+            },time)
+
+          }
+      }
+
+      _debounce.cancel = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        clearTimeout(<span style="color:#a6e22e">timer</span>)
+        timer = null
+      }
+
+      return _debounce
+    }
+</code></pre></div><p>leading 为是否在进入时立即执行一次，同时通过闭包向外暴露了一个 cancel 函数，使得外部能直接清除内部的计数器</p>
+<p>应用场景：</p>
+<ul>
+<li>search搜索，用户在不断输入值时，用防抖来节约请求资源</li>
+<li>window触发resize的时候，不断的调整浏览器窗口大小会不断的触发这个事件，用防抖来让其只触发一次</li>
+</ul>
+<p>使用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function handler<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+     console.log(<span style="color:#a6e22e">1</span>)
+}
+let debouncedFn = debounce<span style="color:#960050;background-color:#1e0010">(</span>handler, 2000)
+let button = document.querySelector<span style="color:#960050;background-color:#1e0010">(</span>&#34;button&#34;)
+button.onclick =  debouncedFunc.cancel
+window.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;scroll&#39;, debouncedFn)
+</code></pre></div><h1 id="十四节流函数">十四、节流函数</h1>
+<p>可以用在click中，持续的点击，只根据设定的时间稳定的间隔触发事件。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   throttle<span style="color:#960050;background-color:#1e0010">(</span>fn,time=1000,options=<span style="color:#960050;background-color:#1e0010">{</span>
+      leading:true,
+      context:null
+    })<span style="color:#960050;background-color:#1e0010">{</span>
+      let time
+      let previous = new Date(<span style="color:#a6e22e">0</span>).getTime<span style="color:#960050;background-color:#1e0010">(</span>)
+      const _throttle = (<span style="color:#a6e22e">...args</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+        let now = new Date<span style="color:#960050;background-color:#1e0010">(</span>).getTime<span style="color:#960050;background-color:#1e0010">(</span>)
+        if<span style="color:#960050;background-color:#1e0010">(</span>!options.leading)<span style="color:#960050;background-color:#1e0010">{</span>
+          if(<span style="color:#a6e22e">timer</span>) return
+          timer = setTimeout<span style="color:#960050;background-color:#1e0010">((</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+              fn.apply<span style="color:#960050;background-color:#1e0010">(</span>options.context,args)
+              timer = null
+          },time)
+        }else if<span style="color:#960050;background-color:#1e0010">(</span>now - previous &gt; time)<span style="color:#960050;background-color:#1e0010">{</span>
+          fn.apply<span style="color:#960050;background-color:#1e0010">(</span>options.context,args)
+          previous = now
+        }
+      }
+      _throttle.cancel = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        previous = 0
+        clearTimeout(<span style="color:#a6e22e">timer</span>)
+        timer = null
+      }
+
+      return _throttle
+    },
+</code></pre></div><p>应用场景：</p>
+<ul>
+<li>鼠标不断点击触发，mousedown(单位时间内只触发一次)</li>
+<li>监听滚动事件，比如是否滑到底部自动加载更多，用throttle来判断</li>
+</ul>
+<p>使用方法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    let throttleAjax = throttle<span style="color:#960050;background-color:#1e0010">(</span>ajax, 1000)
+
+    let inputc = document.getElementById<span style="color:#960050;background-color:#1e0010">(</span>&#39;throttle&#39;)
+    inputc.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;keyup&#39;, function(<span style="color:#a6e22e">e</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        throttleAjax(<span style="color:#a6e22e">e.target.value</span>)
+    })
+</code></pre></div><h1 id="十五实现call">十五、实现call</h1>
+<p>原理实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function myCall<span style="color:#960050;background-color:#1e0010">(</span>context,...args) <span style="color:#960050;background-color:#1e0010">{</span>
+  // 1
+  if <span style="color:#960050;background-color:#1e0010">(</span>typeof this !== &#39;function&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    throw new TypeError<span style="color:#960050;background-color:#1e0010">(</span>&#39;error&#39;)
+  }
+  // 2
+  context = context || window
+  // 3
+  const fn = Symbol<span style="color:#960050;background-color:#1e0010">(</span>)
+  context.fn = this
+  // 4
+  const result = context.fn(<span style="color:#a6e22e">...args</span>)
+  // 5
+  delete context.fn
+
+  return result
+}
+
+Function.prototype.myCall = myCall
+
+getName.myCall<span style="color:#960050;background-color:#1e0010">(</span>obj， &#39;str1&#39;, &#39;str2&#39;)
+
+</code></pre></div><p>用法</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const obj=<span style="color:#960050;background-color:#1e0010">{</span>
+    a:1,
+    b:2
+}
+function getName<span style="color:#960050;background-color:#1e0010">(</span>a,b)<span style="color:#960050;background-color:#1e0010">{</span>
+ // console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;arguments&#39;,arguments)
+  console.log(<span style="color:#a6e22e">this</span>)
+}
+getName.myCall<span style="color:#960050;background-color:#1e0010">(</span>obj, &#39;str1&#39;, &#39;str2&#39;)
+</code></pre></div><h1 id="十六柯里化">十六、柯里化</h1>
+<p><strong>思路</strong>：1、使用闭包来储存上一次调用结果的变量，fn,args；2、对函数停止时做边界处理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function curry(<span style="color:#a6e22e">fn</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    if<span style="color:#960050;background-color:#1e0010">(</span>fn.length &lt;= 1) return fn
+    const generator = (<span style="color:#a6e22e">...args</span>) <span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>fn.length === args.length)<span style="color:#960050;background-color:#1e0010">{</span>
+            return fn(<span style="color:#a6e22e">...args</span>)
+        }else<span style="color:#960050;background-color:#1e0010">{</span>
+            return (<span style="color:#a6e22e">...args2</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+                return generator<span style="color:#960050;background-color:#1e0010">(</span>...args,...args2)
+            }
+        }
+    }
+    return generator
+}
+
+// 使用方式
+let add = <span style="color:#960050;background-color:#1e0010">(</span>a,b,c,d ) =&gt; a+b+c+d
+const curriedAdd = curry(<span style="color:#a6e22e">add</span>)
+curriedAdd(<span style="color:#a6e22e">5</span>)(<span style="color:#a6e22e">6</span>)(<span style="color:#a6e22e">7</span>)(<span style="color:#a6e22e">8</span>)
+curriedAdd<span style="color:#960050;background-color:#1e0010">(</span>5，6)(<span style="color:#a6e22e">7</span>)(<span style="color:#a6e22e">8</span>)
+curriedAdd<span style="color:#960050;background-color:#1e0010">(</span>5，6，7，8)
+</code></pre></div><h1 id="十七实现objectassign">十七、实现Object.assign</h1>
+<ul>
+<li>先判断是否是oject，不是的话就返回</li>
+<li>获取所有参数并且转化为数组</li>
+<li>遍历该数组[{},{}],再遍历每个对象的key，把key和value赋值给target</li>
+<li>最后返回target</li>
+</ul>
+<p>实现代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    // 函数版本
+    function assign (<span style="color:#a6e22e">target</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        // 验证第一个参数是否为object
+        if <span style="color:#960050;background-color:#1e0010">(</span>typeof target !== &#39;object&#39; || target == null) <span style="color:#960050;background-color:#1e0010">{</span>
+            return Object(<span style="color:#a6e22e">target</span>);
+        }
+        // arguments转为数组
+        let copyList = Array.prototype.slice.call<span style="color:#960050;background-color:#1e0010">(</span>arguments, 1);
+        let len = copyList.length;
+        // 循环复制多个对象的属性
+        for <span style="color:#960050;background-color:#1e0010">(</span>let i = 0; i &lt; len; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+            let item = copyList[<span style="color:#a6e22e">i</span>];
+            // 获取当前对象的属性
+            for <span style="color:#960050;background-color:#1e0010">(</span>let key in item) <span style="color:#960050;background-color:#1e0010">{</span>
+                // 判断属性是否在对象本身上
+                if <span style="color:#960050;background-color:#1e0010">(</span>item.hasOwnProperty(<span style="color:#a6e22e">key</span>)) <span style="color:#960050;background-color:#1e0010">{</span>
+                    // 复制给目标对象
+                    target[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">item[key]</span>
+                }
+            }
+        }
+        // 返回目标对象
+        return target;
+    }
+</code></pre></div><p>使用方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    // 验证assign代码
+    var target = <span style="color:#960050;background-color:#1e0010">{</span> firstname: &#39;target&#39;, age: 20 };
+    var source = <span style="color:#960050;background-color:#1e0010">{</span> lastname: &#39;source&#39;, age: 21 };
+    const newtarget = assign<span style="color:#960050;background-color:#1e0010">(</span>target, source);
+    // target与newtarget指向同一个内存地址
+    console.log(<span style="color:#a6e22e">target</span>); // <span style="color:#960050;background-color:#1e0010">{</span>firstname: &#34;target&#34;, age: 21, lastname: &#34;source&#34;}
+    console.log(<span style="color:#a6e22e">newtarget</span>); // <span style="color:#960050;background-color:#1e0010">{</span>firstname: &#34;target&#34;, age: 21, lastname: &#34;source&#34;}
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>newtarget === target); // true
+</code></pre></div><h1 id="十八实现rem">十八、实现REM</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// 原始配置
+function setRem <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  let doc = document.documentElement
+  let width = doc.getBoundingClientRect<span style="color:#960050;background-color:#1e0010">(</span>).width
+  let rem = width / 75
+  doc.style.fontSize = rem + &#39;px&#39;
+}
+// 监听窗口变化
+addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#34;resize&#34;, setRem)
+</code></pre></div><h1 id="十九实现一个数据双向绑定">十九、实现一个数据双向绑定</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let obj = <span style="color:#960050;background-color:#1e0010">{</span>}
+let input = document.getElementById<span style="color:#960050;background-color:#1e0010">(</span>&#39;input&#39;)
+let span = document.getElementById<span style="color:#960050;background-color:#1e0010">(</span>&#39;span&#39;)
+// 数据劫持
+Object.defineProperty<span style="color:#960050;background-color:#1e0010">(</span>obj, &#39;text&#39;, <span style="color:#960050;background-color:#1e0010">{</span>
+  configurable: true,
+  enumerable: true,
+  get<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;获取数据了&#39;)
+  },
+  set(<span style="color:#a6e22e">newVal</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;数据更新了&#39;)
+    input.value = newVal
+    span.innerHTML = newVal
+  }
+})
+// 输入监听
+input.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;input&#39;, function(<span style="color:#a6e22e">e</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  obj.text = e.target.value
+})
+
+</code></pre></div><h1 id="二十实现objectcreate">二十、实现Object.create()</h1>
+<p>new Object() 通过构造函数来创建对象, 添加的属性是在自身实例下。
+Object.create() es6创建对象的另一种方式，可以理解为继承一个对象, 添加的属性是在原型下。</p>
+<p>用法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// new Object<span style="color:#960050;background-color:#1e0010">(</span>) 方式创建
+var a = <span style="color:#960050;background-color:#1e0010">{</span>  rep : &#39;apple&#39; }
+var b = new Object(<span style="color:#a6e22e">a</span>)
+console.log(<span style="color:#a6e22e">b</span>) // <span style="color:#960050;background-color:#1e0010">{</span>rep: &#34;apple&#34;}
+console.log(<span style="color:#a6e22e">b.__proto__</span>) // <span style="color:#960050;background-color:#1e0010">{</span>}
+console.log(<span style="color:#a6e22e">b.rep</span>) // <span style="color:#960050;background-color:#1e0010">{</span>rep: &#34;apple&#34;}
+
+// Object.create<span style="color:#960050;background-color:#1e0010">(</span>) 方式创建
+var a = <span style="color:#960050;background-color:#1e0010">{</span> rep: &#39;apple&#39; }
+var b = Object.create(<span style="color:#a6e22e">a</span>)
+console.log(<span style="color:#a6e22e">b</span>)  // <span style="color:#960050;background-color:#1e0010">{</span>}
+console.log(<span style="color:#a6e22e">b.__proto__</span>) // <span style="color:#960050;background-color:#1e0010">{</span>rep: &#34;apple&#34;}
+console.log(<span style="color:#a6e22e">b.rep</span>) // <span style="color:#960050;background-color:#1e0010">{</span>rep: &#34;apple&#34;}
+</code></pre></div><p>实现原理：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function create(<span style="color:#a6e22e">obj</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  function F<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+  F.prototype = obj
+  return new F<span style="color:#960050;background-color:#1e0010">(</span>)
+}
+</code></pre></div><h1 id="二十一实现new操作符">二十一、实现New操作符</h1>
+<p>逻辑原理：</p>
+<ul>
+<li>创建一个空对象obj</li>
+<li>创建好的新对象obj原型指向构造函数的prototype</li>
+<li>执行构造函数，其中定义的属性和方法被绑定到this指向的对象中</li>
+<li>如果构造函数中没有返回其它对象，最终返回this，即当前对象，否则，返回构造函数中返回的对象。</li>
+</ul>
+<p><strong>方法一</strong></p>
+<p>使用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Person<span style="color:#960050;background-color:#1e0010">(</span>name, age, job) <span style="color:#960050;background-color:#1e0010">{</span>
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.sayName = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+            alert(<span style="color:#a6e22e">this.name</span>);
+        };
+}
+
+let p1 = New<span style="color:#960050;background-color:#1e0010">(</span>Person,&#34;Ysir&#34;,24,&#34;stu&#34;);
+
+</code></pre></div><p>实现原理：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const new = function<span style="color:#960050;background-color:#1e0010">(</span>fn, ...args)<span style="color:#960050;background-color:#1e0010">{</span>
+    let obj = <span style="color:#960050;background-color:#1e0010">{</span>}
+    obj.__proto__ = fn.prototype
+
+    let res = fn.apply<span style="color:#960050;background-color:#1e0010">(</span>obj, args)
+    
+    return res instanceof Object ? res : obj;
+}
+</code></pre></div><p><strong>方法二</strong></p>
+<p>实现原理：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const new = function<span style="color:#960050;background-color:#1e0010">(</span>fn, ...args)<span style="color:#960050;background-color:#1e0010">{</span>
+    let obj = Object.create(<span style="color:#a6e22e">fn.prototype</span>)
+    let res = fn.apply<span style="color:#960050;background-color:#1e0010">(</span>obj, args)
+    return res instanceof Object ? res : obj;
+}
+</code></pre></div><h1 id="二十二伪数组转化为真数组的5种方法">二十二、伪数组转化为真数组的5种方法</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const array = Array.prototype.slice.call(<span style="color:#a6e22e">arguments</span>)
+const array = <span style="color:#960050;background-color:#1e0010">[</span>].prototype.slice.call(<span style="color:#a6e22e">arguments</span>)
+const array = Array.from(<span style="color:#a6e22e">arguments</span>)
+const array = [<span style="color:#a6e22e">...arguments</span>];
+//第5种 for循环
+</code></pre></div><h1 id="二十三js中flat---数组扁平化">二十三、JS中flat&mdash;数组扁平化</h1>
+<p>我们需要将多层级数组转化为一级数组（即提取嵌套数组元素最终合并为一个数组），使其内容合并且展开。那么该如何去实现呢？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let ary = <span style="color:#960050;background-color:#1e0010">[</span>1, <span style="color:#960050;background-color:#1e0010">[</span>2, <span style="color:#960050;background-color:#1e0010">[</span>3, <span style="color:#960050;background-color:#1e0010">[</span>4, 5]]], 6];// -&gt; <span style="color:#960050;background-color:#1e0010">[</span>1, 2, 3, 4, 5, 6]
+let str = JSON.stringify(<span style="color:#a6e22e">ary</span>);
+</code></pre></div><p>1、ES6 flat</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">ary = ary.flat(<span style="color:#a6e22e">Infinity</span>);
+</code></pre></div><p>2、replace + split</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">ary = str.replace<span style="color:#960050;background-color:#1e0010">(</span>/<span style="color:#960050;background-color:#1e0010">(</span>\<span style="color:#960050;background-color:#1e0010">[</span>|\])/g, &#39;&#39;).split<span style="color:#960050;background-color:#1e0010">(</span>&#39;,&#39;)
+</code></pre></div><p>3、递归</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let result = <span style="color:#960050;background-color:#1e0010">[</span>];
+let fn = function(<span style="color:#a6e22e">ary</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  for<span style="color:#960050;background-color:#1e0010">(</span>let i = 0; i &lt; ary.length; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+    let item = ary[<span style="color:#a6e22e">i</span>];
+    if <span style="color:#960050;background-color:#1e0010">(</span>Array.isArray<span style="color:#960050;background-color:#1e0010">(</span>ary[<span style="color:#a6e22e">i</span>]))<span style="color:#960050;background-color:#1e0010">{</span>
+      fn(<span style="color:#a6e22e">item</span>);
+    } else <span style="color:#960050;background-color:#1e0010">{</span>
+      result.push(<span style="color:#a6e22e">item</span>);
+    }
+  }
+}
+</code></pre></div><h1 id="二十四jsonstringfiy">二十四、JSON.stringfiy()</h1>
+<p>JSON.parse/JSON.stringify还是有很多局限性，大致如下</p>
+<ul>
+<li>会忽略 undefined</li>
+<li>会忽略 Symbol</li>
+<li>无法序列化function，也会忽略</li>
+<li>无法解决循环引用，会报错</li>
+<li>深层对象转换爆栈</li>
+</ul>
+<p>直接上代码验证</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">// 声明一个包含undefined、null、symbol、function的对象
+var oldObj = <span style="color:#960050;background-color:#1e0010">{</span>
+  name: &#34;old&#34;,
+  age: undefined,
+  sex: Symbol<span style="color:#960050;background-color:#1e0010">(</span>&#34;setter&#34;),
+  title: function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>},
+  lastName: null
+};
+var newObj = JSON.parse<span style="color:#960050;background-color:#1e0010">(</span>JSON.stringify(<span style="color:#a6e22e">oldObj</span>));
+// 可以看到会忽略undefined、symbol、function的对象
+console.log(<span style="color:#a6e22e">newObj</span>); // <span style="color:#960050;background-color:#1e0010">{</span>name: &#34;old&#34;, lastName: null}
+
+var firstObj = <span style="color:#960050;background-color:#1e0010">{</span>
+  name: &#34;firstObj&#34;
+};
+firstObj.newKey = firstObj;
+// Converting circular structure to JSON
+var newFirstObj = JSON.parse<span style="color:#960050;background-color:#1e0010">(</span>JSON.stringify(<span style="color:#a6e22e">firstObj</span>));
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/interview-js-api/>http://www.yuyunzhi.com/interview-js-api/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/interview-js-console/" class="prev" rel="prev" title="JavaScript输出结果题"><i class="iconfont icon-left"></i>&nbsp;JavaScript输出结果题</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-asynchronous-order/" class="next" rel="next" title="js异步执行顺序及Event Loop">js异步执行顺序及Event Loop&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

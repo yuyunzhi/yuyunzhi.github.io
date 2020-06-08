@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/interview-js-api/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-inherit/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-asynchronous-order/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           js异步执行顺序及Event Loop | 余韵之
+       
+  </title>
+  <meta name="title" content="js异步执行顺序及Event Loop | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "js异步执行顺序及Event Loop",
+    "headline" : "js异步执行顺序及Event Loop",
+    "description" : "1、JS执行顺序 先看一段代码，得出执行顺序：1、9、5、0、6、2、7、4、8、3\n(function() { setTimeout(() =\u0026gt; { console.log(0); }); new Promise(resolve =\u0026gt; { console.log(1); setTimeout(() =\u0026gt; { resolve(); Promise.resolve().then(() =\u0026gt; { console.log(2); setTimeout(() =\u0026gt; console.log(3)); Promise.resolve().then(() =\u0026gt; console.log(4)); }); }); Promise.resolve().then(() =\u0026gt; console.log(5)); }).then(() =\u0026gt; { console.log(6); Promise.resolve().then(() =\u0026gt; console.log(7)); setTimeout(() =\u0026gt; console.log(8)); }); console.log(9); })(); 思路：主线程会先执行一遍，执行，异步（宏任务、微任务）压入栈。当主线程执行完毕后就会从队列里取出任务（微任务\u0026gt;宏任务）。每次执行微任务或宏任务都会把该任务分解同步、宏任务、微任务，重复上面的步骤。\n  所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）\n  主线程之外，还存在一个\u0026quot;任务队列\u0026rdquo;（task queue）。只要异步任务有了运行结果，就在\u0026quot;任务队列\u0026quot;之中放置一个事件。\n  一旦\u0026quot;执行栈\u0026quot;中的所有同步任务执行完毕，系统就会读取\u0026quot;任务队列\u0026rdquo;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。\n  主线程不断重复上面的第三步。\n  宏任务一般是：包括整体代码script，setTimeout，setInterval、I\/O、UI render\n微任务主要是：Promise、Object.observe、MutationObserver\n2、从一道题浅说 JavaScript 的事件循环 \/\/请写出输出内容 async function async1() { console.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-05 23:00:23 \u002b0800 CST",
+    "dateModified" : "2020-01-05 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-asynchronous-order\/",
+    "wordCount" : "219",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">js异步执行顺序及Event Loop</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-01-05 itemprop="datePublished">January 5, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="1js执行顺序">1、JS执行顺序</h2>
+<p>先看一段代码，得出执行顺序：1、9、5、0、6、2、7、4、8、3</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"><span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    setTimeout<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        console.log(<span style="color:#a6e22e">0</span>);
+    });
+
+    new Promise<span style="color:#960050;background-color:#1e0010">(</span>resolve =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+
+        console.log(<span style="color:#a6e22e">1</span>);
+        
+        setTimeout<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+            resolve<span style="color:#960050;background-color:#1e0010">(</span>);
+            Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+                console.log(<span style="color:#a6e22e">2</span>);
+                setTimeout<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; console.log(<span style="color:#a6e22e">3</span>));
+                Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; console.log(<span style="color:#a6e22e">4</span>));
+            });
+        });
+
+        Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; console.log(<span style="color:#a6e22e">5</span>));
+
+    }).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+
+        console.log(<span style="color:#a6e22e">6</span>);
+        Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; console.log(<span style="color:#a6e22e">7</span>));
+        setTimeout<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; console.log(<span style="color:#a6e22e">8</span>));
+
+    });
+
+    console.log(<span style="color:#a6e22e">9</span>);
+})<span style="color:#960050;background-color:#1e0010">(</span>);
+</code></pre></div><p><strong>思路</strong>：主线程会先执行一遍，执行，异步（宏任务、微任务）压入栈。当主线程执行完毕后就会从队列里取出任务（微任务&gt;宏任务）。每次执行微任务或宏任务都会把该任务分解同步、宏任务、微任务，重复上面的步骤。</p>
+<ul>
+<li>
+<p>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）</p>
+</li>
+<li>
+<p>主线程之外，还存在一个&quot;任务队列&rdquo;（task queue）。只要异步任务有了运行结果，就在&quot;任务队列&quot;之中放置一个事件。</p>
+</li>
+<li>
+<p>一旦&quot;执行栈&quot;中的所有同步任务执行完毕，系统就会读取&quot;任务队列&rdquo;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。</p>
+</li>
+<li>
+<p>主线程不断重复上面的第三步。</p>
+</li>
+</ul>
+<p>宏任务一般是：包括整体代码script，setTimeout，setInterval、I/O、UI render</p>
+<p>微任务主要是：Promise、Object.observe、MutationObserver</p>
+<h2 id="2从一道题浅说-javascript-的事件循环">2、从一道题浅说 JavaScript 的事件循环</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">//请写出输出内容
+async function async1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 start&#39;);
+    await async2<span style="color:#960050;background-color:#1e0010">(</span>);
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 end&#39;);
+}
+async function async2<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+	console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async2&#39;);
+}
+
+console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;script start&#39;);
+
+setTimeout<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;setTimeout&#39;);
+}, 0)
+
+async1<span style="color:#960050;background-color:#1e0010">(</span>);
+
+new Promise<span style="color:#960050;background-color:#1e0010">(</span>function(<span style="color:#a6e22e">resolve</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise1&#39;);
+    resolve<span style="color:#960050;background-color:#1e0010">(</span>);
+}).then<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise2&#39;);
+});
+console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;script end&#39;);
+
+
+/<span style="color:#960050;background-color:#1e0010">*</span>
+script start
+async1 start
+async2
+promise1
+script end
+async1 end
+promise2
+setTimeout
+<span style="color:#960050;background-color:#1e0010">*</span>/
+</code></pre></div><ul>
+<li>队列：先进先出</li>
+<li>先执行完微任务，再执行宏任务</li>
+<li>await async2() ,async2 里面的console是同步，但是async2函数后面的就是微任务了</li>
+</ul>
+<p>因此</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">async function async1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+	console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 start&#39;);
+	await async2<span style="color:#960050;background-color:#1e0010">(</span>);
+	console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 end&#39;);
+}
+</code></pre></div><p>等价于</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">async function async1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+	console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 start&#39;);
+	Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>async2<span style="color:#960050;background-color:#1e0010">(</span>)).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+                console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;async1 end&#39;);
+        })
+}
+</code></pre></div><p>很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上await是一个让出线程的标志。await后面的表达式会先执行一遍，将await后面的代码加入到microtask中，然后就会跳出整个async函数来执行后面的代码。</p>
+<h2 id="3变式">3、变式</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">async function a1 <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;a1 start&#39;)
+    await a2<span style="color:#960050;background-color:#1e0010">(</span>)
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;a1 end&#39;)
+}
+async function a2 <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;a2&#39;)
+}
+
+console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;script start&#39;)
+
+setTimeout<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;setTimeout&#39;)
+}, 0)
+
+Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise1&#39;)
+})
+
+a1<span style="color:#960050;background-color:#1e0010">(</span>)
+
+let promise2 = new Promise((<span style="color:#a6e22e">resolve</span>) <span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt; </span><span style="color:#e6db74">{</span>
+    resolve<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise2.then&#39;)
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise2&#39;)
+})
+
+promise2.then((<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt; </span><span style="color:#e6db74">{</span>
+    console.log(<span style="color:#a6e22e">res</span>)
+    Promise.resolve<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">((</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;promise3&#39;)
+    })
+})
+console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;script end&#39;)
+</code></pre></div><p>结果</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">script start
+a1 start
+a2
+promise2
+script end
+promise1
+a1 end
+promise2.then
+promise3
+setTimeout
+</code></pre></div><h2 id="3event-loop">3、Event Loop</h2>
+<p>主线程从&quot;任务队列&quot;中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）</p>
+<p><img src="/images/js/1.png" alt="宏任务和微任务之间的关系"></p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-asynchronous-order/>http://www.yuyunzhi.com/js-asynchronous-order/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/interview-js-api/" class="prev" rel="prev" title="JavaScript一些常用方法"><i class="iconfont icon-left"></i>&nbsp;JavaScript一些常用方法</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-inherit/" class="next" rel="next" title="JavaScript 5种继承方式">JavaScript 5种继承方式&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

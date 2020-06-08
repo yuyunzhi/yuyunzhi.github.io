@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-asynchronous-order/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-cross-domain/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-inherit/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           JavaScript 5种继承方式 | 余韵之
+       
+  </title>
+  <meta name="title" content="JavaScript 5种继承方式 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "JavaScript 5种继承方式",
+    "headline" : "JavaScript 5种继承方式",
+    "description" : "1、原型链继承 \/\/父类型 function Person(name, age) { this.name = name, this.age = age, this.play = [1, 2, 3] this.setName = function () { } } Person.prototype.setAge = function () { } \/\/子类型 function Student(price) { this.price = price this.setScore = function () { } } Student.prototype = new Person() \/\/ 子类型的原型为父类型的一个实例对象 var s1 = new Student(15000) var s2 = new Student(14000) console.log(s1,s2) 特点：\n 父类新增原型方法\/原型属性，子类都能访问到 简单，易于实现  缺点：\n 子类继承的时候会作为公有属性，这样子类1操作这个属性的时候，就会影响到子类2 创建子类实例时，无法向父类构造函数传参 要想为子类新增属性和方法，必须要在Student.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-06 13:00:23 \u002b0800 CST",
+    "dateModified" : "2020-01-06 13:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-inherit\/",
+    "wordCount" : "321",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JavaScript 5种继承方式</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-01-06 itemprop="datePublished">January 6, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="1原型链继承">1、原型链继承</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">//父类型
+function Person<span style="color:#960050;background-color:#1e0010">(</span>name, age) <span style="color:#960050;background-color:#1e0010">{</span>
+   this.name = name,
+   this.age = age,
+   this.play = <span style="color:#960050;background-color:#1e0010">[</span>1, 2, 3]
+   this.setName = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+}
+Person.prototype.setAge = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+//子类型
+function Student(<span style="color:#a6e22e">price</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+   this.price = price
+   this.setScore = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+}
+Student.prototype = new Person<span style="color:#960050;background-color:#1e0010">(</span>) // 子类型的原型为父类型的一个实例对象
+var s1 = new Student(<span style="color:#a6e22e">15000</span>)
+var s2 = new Student(<span style="color:#a6e22e">14000</span>)
+console.log<span style="color:#960050;background-color:#1e0010">(</span>s1,s2)
+</code></pre></div><p>特点：</p>
+<ul>
+<li>父类新增原型方法/原型属性，子类都能访问到</li>
+<li>简单，易于实现</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>子类继承的时候会作为公有属性，这样子类1操作这个属性的时候，就会影响到子类2</li>
+<li>创建子类实例时，无法向父类构造函数传参</li>
+<li>要想为子类新增属性和方法，必须要在Student.prototype = new Person() 之后执行，不能放到构造器中</li>
+<li>无法实现多继承</li>
+</ul>
+<h2 id="2借用构造函数继承">2、借用构造函数继承</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Person<span style="color:#960050;background-color:#1e0010">(</span>name,age)<span style="color:#960050;background-color:#1e0010">{</span>
+  this.name = name
+  this.age = age
+}
+
+Person.prototype.setAge = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;设置AGE&#39;)
+}
+
+function Student<span style="color:#960050;background-color:#1e0010">(</span>price,name,age)<span style="color:#960050;background-color:#1e0010">{</span>
+  Person.call<span style="color:#960050;background-color:#1e0010">(</span>this,name,age)
+  this.price = price
+  this.setScore = function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>}
+}
+
+let s1 = new Student(<span style="color:#a6e22e">15000</span>)
+console.log(<span style="color:#a6e22e">s1</span>)
+</code></pre></div><p>特点：</p>
+<ul>
+<li>解决了原型链继承中子类实例共享父类引用属性的问题</li>
+<li>创建子类实例时，可以向父类传递参数</li>
+<li>可以实现多继承(call多个父类对象)</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>实例并不是父类的实例，只是子类的实例</li>
+<li>只能继承父类的实例属性和方法，不能继承原型属性和方法</li>
+<li>无法实现函数复用，每个子类都有父类实例函数的副本，影响性能</li>
+</ul>
+<h2 id="3原型链借用构造函数的组合继承">3、原型链+借用构造函数的组合继承</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Person<span style="color:#960050;background-color:#1e0010">(</span>name, age) <span style="color:#960050;background-color:#1e0010">{</span>
+            this.name = name,
+            this.age = age,
+            this.setAge = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+        }
+        Person.prototype.setAge = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+            console.log<span style="color:#960050;background-color:#1e0010">(</span>&#34;111&#34;)
+        }
+        function Student<span style="color:#960050;background-color:#1e0010">(</span>name, age, price) <span style="color:#960050;background-color:#1e0010">{</span>
+            Person.call<span style="color:#960050;background-color:#1e0010">(</span>this,name,age)
+            this.price = price
+            this.setScore = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+        }
+        Student.prototype = new Person<span style="color:#960050;background-color:#1e0010">(</span>)
+        Student.prototype.constructor = Student//组合继承也是需要修复构造函数指向的
+        Student.prototype.sayHello = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span> }
+        var s1 = new Student<span style="color:#960050;background-color:#1e0010">(</span>&#39;Tom&#39;, 20, 15000)
+        var s2 = new Student<span style="color:#960050;background-color:#1e0010">(</span>&#39;Jack&#39;, 22, 14000)
+        console.log(<span style="color:#a6e22e">s1</span>)
+        console.log(<span style="color:#a6e22e">s1.constructor</span>) //Student
+</code></pre></div><p>优点：</p>
+<ul>
+<li>可以继承实例属性/方法，也可以继承原型属性/方法</li>
+<li>不存在引用属性共享问题</li>
+<li>可传参</li>
+<li>函数可复用</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>调用了两次父类构造函数，生成了两份实例</li>
+</ul>
+<h2 id="4组合继承优化">4、组合继承优化</h2>
+<p>借助原型可以基于已有的对象来创建对象，var B = Object.create(A)以A对象为原型，生成了B对象。B继承了A的所有属性和方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Person<span style="color:#960050;background-color:#1e0010">(</span>name, age) <span style="color:#960050;background-color:#1e0010">{</span>
+        this.name = name,
+        this.age = age
+}
+
+Person.prototype.setAge = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log<span style="color:#960050;background-color:#1e0010">(</span>&#34;111&#34;)
+}
+
+function Student<span style="color:#960050;background-color:#1e0010">(</span>name, age, price) <span style="color:#960050;background-color:#1e0010">{</span>
+    Person.call<span style="color:#960050;background-color:#1e0010">(</span>this, name, age)
+    this.price = price
+    this.setScore = function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+}
+
+Student.prototype = Object.create(<span style="color:#a6e22e">Person.prototype</span>)//核心代码
+Student.prototype.constructor = Student//核心代码
+var s1 = new Student<span style="color:#960050;background-color:#1e0010">(</span>&#39;Tom&#39;, 20, 15000)
+console.log<span style="color:#960050;background-color:#1e0010">(</span>s1 instanceof Student, s1 instanceof Person) // true true
+console.log(<span style="color:#a6e22e">s1.constructor</span>) //Student
+console.log(<span style="color:#a6e22e">s1</span>)
+
+</code></pre></div><p>同样的，Student继承了所有的Person原型对象的属性和方法。目前来说，最完美的继承方法</p>
+<h2 id="5es6中class-的继承">5、ES6中class 的继承</h2>
+<p>需要注意的是，class关键字只是原型的语法糖，JavaScript继承仍然是基于原型实现的</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">class Person <span style="color:#960050;background-color:#1e0010">{</span>
+    //调用类的构造方法
+    constructor<span style="color:#960050;background-color:#1e0010">(</span>name, age) <span style="color:#960050;background-color:#1e0010">{</span>
+        this.name = name
+        this.age = age
+    }
+    //定义一般的方法
+    showName<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>&#34;调用父类的方法&#34;)
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>this.name, this.age);
+    }
+}
+
+let p1 = new  Person<span style="color:#960050;background-color:#1e0010">(</span>&#39;kobe&#39;, 39)
+console.log(<span style="color:#a6e22e">p1</span>)
+
+//定义一个子类
+class Student extends Person <span style="color:#960050;background-color:#1e0010">{</span>
+    constructor<span style="color:#960050;background-color:#1e0010">(</span>name, age, salary) <span style="color:#960050;background-color:#1e0010">{</span>
+        super<span style="color:#960050;background-color:#1e0010">(</span>name, age)//通过super调用父类的构造方法
+        this.salary = salary
+    }
+    showName<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>//在子类自身定义方法
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>&#34;调用子类的方法&#34;)
+        console.log<span style="color:#960050;background-color:#1e0010">(</span>this.name, this.age, this.salary);
+    }
+}
+
+let s1 = new Student<span style="color:#960050;background-color:#1e0010">(</span>&#39;wade&#39;, 38, 1000000000)
+console.log(<span style="color:#a6e22e">s1</span>)
+s1.showName<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-inherit/>http://www.yuyunzhi.com/js-inherit/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-asynchronous-order/" class="prev" rel="prev" title="js异步执行顺序及Event Loop"><i class="iconfont icon-left"></i>&nbsp;js异步执行顺序及Event Loop</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-cross-domain/" class="next" rel="next" title="常用的跨域方案">常用的跨域方案&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

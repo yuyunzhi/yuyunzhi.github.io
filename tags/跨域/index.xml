@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>跨域 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E8%B7%A8%E5%9F%9F/</link>
+    <description>Recent content in 跨域 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 06 Jan 2020 15:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E8%B7%A8%E5%9F%9F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>常用的跨域方案</title>
+      <link>http://www.yuyunzhi.com/js-cross-domain/</link>
+      <pubDate>Mon, 06 Jan 2020 15:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-cross-domain/</guid>
+      <description>一、什么是跨域？ 1.什么是同源策略及其限制内容？
+同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击。所谓同源是指&amp;quot;协议+域名+端口&amp;quot;三者相同，即便两个不同的域名指向同一个ip地址，也非同源。
+同源策略限制内容有：
+ Cookie、LocalStorage、IndexedDB 等存储性内容 DOM 节点 AJAX 请求发送后，结果被浏览器拦截了  但是有三个标签是允许跨域加载资源：、、2.常见跨域场景
+当协议、子域名、主域名、端口号中任意一个不相同时，都算作不同域。不同域之间相互请求资源，就算作“跨域”。
+跨域并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果被浏览器拦截了。
+二、跨域解决方案 1.jsonp
+利用 标签没有跨域限制的漏洞，网页可以得到从其他来源动态产生的 JSON 数据。JSONP请求一定需要对方的服务器做支持才可以。
+JSONP优点是简单兼容性好，可用于解决主流浏览器的跨域数据访问的问题。缺点是仅支持get方法具有局限性,不安全可能会遭受XSS攻击。
+2.cors
+服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。 该属性表示哪些域名可以访问资源，如果设置通配符则表示所有网站都可以访问资源。
+3.nginx反向代理
+4.Node中间件代理(两次跨域)
+实现原理：同源策略是浏览器需要遵循的标准，而如果是服务器向服务器请求就无需遵循同源策略。 代理服务器，需要做以下几个步骤：
+ 接受客户端请求 。 将请求 转发给服务器。 拿到服务器 响应 数据。 将 响应 转发给客户端。  </description>
+    </item>
+    
+    <item>
+      <title>JSONP是个什么鬼？</title>
+      <link>http://www.yuyunzhi.com/js-jsonp/</link>
+      <pubDate>Thu, 02 Aug 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-jsonp/</guid>
+      <description>花了一天的时间学习JSONP，总结一下以后方便回顾。在了解什么是JSONP前，需要先了解什么是数据库，如何向服务器进行请求得到响应，可以用那些方式发送请求？如何向不同的服务器发送请求并获得响应？然后推出啥是JSOPN？内容有些长~~
+ 一、数据库是什么？   文件系统就是一种数据库：能长久存数据，能够对内容进行增、删、改、储存
+  MySQL是一种数据库
+  二、向数据库做加法  要做的流程如下： 点击“提交1元钱”发送请求给服务器，服务器修改数据库内容，响应返回所需数据。 用两种方式来做：图片请求；script请求；
+ 方案一：用图片的src向服务器发送get请求
+html代码如下：
+&amp;lt;body&amp;gt; &amp;lt;p&amp;gt;账户金额：&amp;lt;span id=&amp;#34;amount&amp;#34;&amp;gt;!!!amount!!!&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;button id=&amp;#34;button&amp;#34;&amp;gt;付款1元钱&amp;lt;/button&amp;gt; &amp;lt;script&amp;gt; button.addEventListener(&amp;#39;click&amp;#39;, (e)=&amp;gt;{ let image = document.createElement(&amp;#39;img&amp;#39;) image.src = &amp;#39;/pay&amp;#39; image.onload = function(){ // 状态码是 200~299 则表示图片请求成功 alert(&amp;#39;成功&amp;#39;) } amount.innerText = amount.innerText -1 image.onerror = function(){ // 状态码大于等于 400 则表示图片请求失败 alert(&amp;#39;失败&amp;#39;) } }) &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; 其中!!!amount!!!表示一个占位符，后端通过获取这个占位符把数据库里的内容赋值给它。
+**解释：**当用户点击button按钮的时候，用图片发送了路径为/pay的GET请求给服务器。服务器收到后执行下面的代码，依次是： 1、判断路径 2、读取数据库的内容，假如是9966。原始数据设置的是10000 3、在最新的内容减1，并保存给变量newAmount 4、把newAmount保存到数据库，那么这个时候的值应该为9965 5、确定返回给浏览器的内容类型为 image/jpg 6、返回一张图片 7、结束</description>
+    </item>
+    
+  </channel>
+</rss>

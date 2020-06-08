@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-git-master/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-function-excute/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/common-http-curl/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           http请求响应,curl命令用法 | 余韵之
+       
+  </title>
+  <meta name="title" content="http请求响应,curl命令用法 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "http请求响应,curl命令用法",
+    "headline" : "http请求响应,curl命令用法",
+    "description" : "HTTP 请求包括哪些部分，如何用Chrome开发者工具查看 HTTP 请求内容? HTTP 响应包括哪些部分，如何用Chrome开发者工具查看 HTTP 响应内容? 如何使用 curl 命令?\n 一、笔记 1、李爵士发明了URI（统一资源标识符）、HTTP（超文本传输协议）、HTML（超文本标记语言）； 2、URL（统一资源定位符）、URN（统一资源名称）； 3、URL组成：协议\u002b域名\u002b路径\u002b查询参数\u002b锚点\u002b端口，http:\/\/baidu.com是二级域名，http:\/\/www.baidu.com是三级域名； 4、DNS（域名解析系统）：输入域名，输出IP； 5、server服务器、client客户端、http协议，一个端口只做1件事，80端口用来服务http； 6、浏览器负责发起请求，服务器在 80 端口接收请求，服务器负责返回内容（响应），浏览器负责下载响应内容，HTTP 的作用就是指导浏览器和服务器如何进行沟通； 7、状态码解释：点这里\n二、http请求包含部分 1、格式 1动词 路径 协议\/版本 2 Key1: value1 2 Key2: value2 2 Key3: value3 2 Content-Type: application\/x-www-form-urlencoded 2 Host: www.baidu.com 2 User-Agent: curl\/7.54.0 3 4 要上传的数据 **解释：**请求最多包含4部分，最少包含3部分；第3部分永远是一个回车；动词可以是GET（获取） POST（上传）PUT（整体更新）PATCH（局部更新）DELETE（删除）HEAD OPTIONS等；路径包含查询参数但不包括锚点；如果没有写路径，默认为\/；Content-Type标注了第四部分的格式；\n2、GET请求例子 1 GET \/ HTTP\/1.1 2 Host: www.baidu.com 2 User-Agent: curl\/7.54.0 2 Accept: *\/* 2 Frank: xxx 3 3、POST请求例子 1 POST \/path HTTP\/1.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-04-11 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-04-11 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/common-http-curl\/",
+    "wordCount" : "204",
+    "keywords" : [ "HTTP","命令行", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">http请求响应,curl命令用法</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-04-11 itemprop="datePublished">April 11, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/code%E9%80%9A%E7%94%A8/"> Code通用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>HTTP 请求包括哪些部分，如何用Chrome开发者工具查看 HTTP 请求内容?
+HTTP 响应包括哪些部分，如何用Chrome开发者工具查看 HTTP 响应内容?
+如何使用 curl 命令?</p>
+</blockquote>
+<h2 id="一笔记">一、笔记</h2>
+<p>1、李爵士发明了URI（统一资源标识符）、HTTP（超文本传输协议）、HTML（超文本标记语言）；
+2、URL（统一资源定位符）、URN（统一资源名称）；
+3、URL组成：协议+域名+路径+查询参数+锚点+端口，http://baidu.com是二级域名，http://www.baidu.com是三级域名；
+4、DNS（域名解析系统）：输入域名，输出IP；
+5、server服务器、client客户端、http协议，一个端口只做1件事，80端口用来服务http；
+6、浏览器负责发起请求，服务器在 80 端口接收请求，服务器负责返回内容（响应），浏览器负责下载响应内容，HTTP 的作用就是指导浏览器和服务器如何进行沟通；
+7、状态码解释：<a href="https://zh.wikipedia.org/wiki/HTTP%E7%8A%B6%E6%80%81%E7%A0%81">点这里</a></p>
+<h2 id="二http请求包含部分">二、http请求包含部分</h2>
+<h3 id="1格式">1、格式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">1动词 路径 协议/版本
+2 Key1: value1
+2 Key2: value2
+2 Key3: value3
+2 Content-Type: application/x-www-form-urlencoded
+2 Host: www.baidu.com
+2 User-Agent: curl/7.54.0
+3
+4 要上传的数据
+</code></pre></div><p>**解释：**请求最多包含4部分，最少包含3部分；第3部分永远是一个回车；动词可以是GET（获取） POST（上传）PUT（整体更新）PATCH（局部更新）DELETE（删除）HEAD OPTIONS等；路径包含查询参数但不包括锚点；如果没有写路径，默认为/；Content-Type标注了第四部分的格式；</p>
+<h3 id="2get请求例子">2、GET请求例子</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">1 GET / HTTP/1.1
+2 Host: www.baidu.com
+2 User-Agent: curl/7.54.0
+2 Accept: <span style="color:#960050;background-color:#1e0010">*</span>/<span style="color:#960050;background-color:#1e0010">*</span>
+2 Frank: xxx
+3
+</code></pre></div><h3 id="3post请求例子">3、POST请求例子</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">1 POST /path HTTP/1.1
+2 Host: baidu.com
+2 Accept:application/json
+2 Conetent-Type:application/x-www-form-urlencoded
+2 Conetent-Length:1000
+3
+4 username=ff&amp;password=123
+</code></pre></div><h2 id="三用chrome查看请求">三、用Chrome查看请求</h2>
+<p>1、打开 Network
+2、地址栏输入网址
+3、在 Network 点击查看 request，点击「view source」点击「view source」点击「view source」
+4、可以看到请求的前三部分了
+5、如果有请求的第四部分，那么在 FormData 或 Payload 里面可以看到</p>
+<h2 id="四http响应包含部分">四、http响应包含部分</h2>
+<h3 id="1格式-1">1、格式</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">1 协议/版本号 状态码 状态解释
+2 Key1: value1
+2 Key2: value2
+2 Content-Length: 17931
+2 Content-Type: text/html
+3
+4 要下载的内容
+</code></pre></div><h3 id="2例子">2、例子</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">HTTP/1.1 302 Found
+Connection: Keep-Alive
+Content-Length: 17931
+Content-Type: text/html
+Date: Tue, 10 Oct 2017 09:19:47 GMT
+Etag: &#34;54d9749e-460b&#34;
+Server: bfe/1.0.8.18
+</code></pre></div><h2 id="五用chrome查看响应">五、用Chrome查看响应</h2>
+<p>1、打开 Network
+2、输入网址
+3、选中第一个响应
+4、查看 Response Headers，点击「view source」
+5、你会看到响应的前两部分
+6、查看 Response 或者 Preview，你会看到响应的第 4 部分</p>
+<h2 id="六如何使用curl命令">六、如何使用curl命令</h2>
+<h3 id="1get请求访问百度的命令">1、GET请求访问百度的命令：</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">curl -s -v -- &#34;https://www.baidu.com&#34;
+</code></pre></div><h3 id="2如果要获取网页时使用额外的标题可以输入命令">2、如果要获取网页时使用额外的标题，可以输入命令：</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">url -s -v -H &#34;Lambert: xxx&#34; -- &#34;https://www.baidu.com&#34;
+</code></pre></div><h3 id="3post请求使用额外标题访问qq的命令">3、POST请求使用额外标题访问QQ的命令：</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">curl -X POST -s -v -H &#34;Lambert: xxx&#34; -- &#34;https://www.qq.com&#34;
+</code></pre></div><h3 id="4post请求访问并指定数据发送http服务器命令">4、POST请求访问并指定数据发送HTTP服务器命令：</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">curl -X POST -d &#34;111111111&#34; -s -v -H &#34;Lambert: xxx&#34; -- &#34;https://www.qq.com&#34;
+</code></pre></div><h3 id="5下载一个页面的内容">5、下载一个页面的内容</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">curl 网址&gt;本地文件夹路径
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/common-http-curl/>http://www.yuyunzhi.com/common-http-curl/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/http/">
+                    #HTTP</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+                    #命令行</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-git-master/" class="prev" rel="prev" title="git分支合并master"><i class="iconfont icon-left"></i>&nbsp;git分支合并master</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-function-excute/" class="next" rel="next" title="声明一个函数立即执行">声明一个函数立即执行&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

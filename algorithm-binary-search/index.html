@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-recursion/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-linked-list/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-binary-search/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           二分搜索 Binary Search | 余韵之
+       
+  </title>
+  <meta name="title" content="二分搜索 Binary Search | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "二分搜索 Binary Search",
+    "headline" : "二分搜索 Binary Search",
+    "description" : "一、一个简单的问题  问题：给定一个排序并不存在重复元素的数组: [1, 2, 5, 7, 8, 9, 13], 查找8的位置 直观想法：遍历整个数组，找到与给定值相同的元素，返回下标 时间复杂度为O(n)  二、使用二分搜索  二分搜索将目标值与数组的中间元素进行比较 如果某一特定元素大于或者小于中间元素，则在数组大于或小于 中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。 如果在某一步骤数组为空，则代表找不到。 这种搜索算法每一次比较都使搜索范围缩小一半。 在排序数组中搜索的最快方法  二分搜索模板：\npublic int binarySearch(int[] nums,int target){ if(nums.length == 0){ return -1; } int start = 0; int end = nums.length-1; while(start\u002b1 \u0026lt; end ){ int mid = start \u002b(end - start)\/2; if(nums[mid] \u0026gt; target){ end = mid; }else if(nums[mid] \u0026lt; target){ start = mid; }else{ end = mid; } } if(nums[start] == target){ return start; } if(nums[end] == target){ return end; } return -1; } 关于上述代码的要点：",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-09 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-09 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-binary-search\/",
+    "wordCount" : "765",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">二分搜索 Binary Search</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-09 itemprop="datePublished">November 9, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一一个简单的问题">一、一个简单的问题</h1>
+<ul>
+<li>问题：给定一个排序并不存在重复元素的数组: [1, 2, 5, 7, 8, 9, 13], 查找8的位置</li>
+<li>直观想法：遍历整个数组，找到与给定值相同的元素，返回下标</li>
+<li>时间复杂度为O(n)</li>
+</ul>
+<h1 id="二使用二分搜索">二、使用二分搜索</h1>
+<ul>
+<li>二分搜索将目标值与数组的中间元素进行比较</li>
+<li>如果某一特定元素大于或者小于中间元素，则在数组大于或小于</li>
+<li>中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。</li>
+<li>如果在某一步骤数组为空，则代表找不到。</li>
+<li>这种搜索算法每一次比较都使搜索范围缩小一半。</li>
+<li>在排序数组中搜索的最快方法</li>
+</ul>
+<p><strong>二分搜索模板</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int binarySearch<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums.length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return -1;
+        }
+        int start = 0;
+        int end = nums.length-1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            int mid = start +<span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+
+            if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &gt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }else if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &lt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+                start = mid;
+            }else<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return start;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return end;
+        }
+        return -1;
+    }
+</code></pre></div><p><strong>关于上述代码的要点</strong>：</p>
+<ul>
+<li>对输入做异常处理：数组为空或者数组长度为0</li>
+<li>int mid = start + (end - start) / 2 这种表示方法可以防止两个整型值相加时溢出</li>
+<li>使用迭代而不是递归进行二分查找，因为工程中递归写法存在潜在溢出的可能</li>
+<li>while循环终止条件：while终止条件应为start + 1 &lt; end而不是start &lt;= end，start == end时可能出现死循环，即循环终止条件是相邻或相交元素时退出。配合while终止条件start + 1 &lt; end（相邻即退出）的赋值语句mid永远没有+1或者-1，这样不会死循环。</li>
+<li>迭代终止时target应为start或者end中的一个。循环终止条件有两个，具体应看是找第一个还是最后一个而定。</li>
+</ul>
+<p><strong>二分搜索时间复杂度计算</strong>：</p>
+<p>T(n) = O(logn)</p>
+<h1 id="三举例">三、举例</h1>
+<h3 id="1第一个错误版本">1、第一个错误版本</h3>
+<p><strong>题目</strong>： 你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。假设你有 n 个版本 [1, 2, &hellip;, n]，你想找出导致之后所有版本出错的第一个错误的版本。你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。</p>
+<ul>
+<li>链接：https://leetcode-cn.com/problems/first-bad-version</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public int firstBadVersion<span style="color:#960050;background-color:#1e0010">(</span>int n)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>n == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return -1;
+        }
+        int start = 0;
+        int end = n;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            int mid = start +<span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+            if<span style="color:#960050;background-color:#1e0010">(</span>isBadVersion(<span style="color:#a6e22e">mid</span>) <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> false)<span style="color:#960050;background-color:#1e0010">{</span>
+                start = mid;
+            } else<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>isBadVersion(<span style="color:#a6e22e">start</span>) <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> true)<span style="color:#960050;background-color:#1e0010">{</span>
+            return start;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>isBadVersion(<span style="color:#a6e22e">end</span>) <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> true)<span style="color:#960050;background-color:#1e0010">{</span>
+            return end;
+        }
+        return -1;
+    }
+</code></pre></div><h3 id="2搜索插入位置">2、搜索插入位置</h3>
+<p><strong>题目</strong>：给定排序数组和目标值，如果找到目标，则返回索引。如果不是，则返回按顺序插入索引的位置的索引。可以假设阵列中没有重复项。</p>
+<ul>
+<li>case 1:输入: [1,3,5,6], 5 输出: 2</li>
+<li>case 2:输入: [1,3,5,6], 2 输出: 1</li>
+<li>case 3:输入: [1,3,5,6], 7 输出: 4</li>
+<li>链接：https://leetcode.com/problems/search-insert-position/description/</li>
+</ul>
+<p><strong>分析</strong>：</p>
+<ul>
+<li>可能的结果，存在,不存在（插入中间，插入开头，插入末尾）</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int searchInsert<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums.length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return -1;
+        }
+        int start = 0;
+        int end = nums.length-1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            int mid = start +<span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+            if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &lt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+                start = mid;
+            } else<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }
+        }
+        // 以下对结果分析：可能存在，可能不存在
+     
+        // 存在 于中间
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return start;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return end;
+        }
+
+        // 不存在，插入值应该在两端头部
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>]&gt;target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return 0;
+        }
+
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">nums.length-1</span>]&lt;target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return nums.length;
+        }
+
+        // 不存在，返回值在数组中间
+        return start + 1;
+    }
+</code></pre></div><h3 id="3矩阵搜索">3、矩阵搜索</h3>
+<p><strong>题目</strong>:编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性：每行中的整数从左到右按升序排列。每行的第一个整数大于前一行的最后一个整数。</p>
+<ul>
+<li>输入:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">matrix = <span style="color:#960050;background-color:#1e0010">[</span>
+  <span style="color:#960050;background-color:#1e0010">[</span>2,  4,  8,  9],
+  <span style="color:#960050;background-color:#1e0010">[</span>10, 11, 18, 21],
+  <span style="color:#960050;background-color:#1e0010">[</span>23, 32, 44, 66]
+]
+target = 4
+</code></pre></div><ul>
+<li>
+<p>输出：true</p>
+</li>
+<li>
+<p>链接：https://leetcode-cn.com/problems/search-a-2d-matrix</p>
+</li>
+</ul>
+<p><strong>分析</strong>：</p>
+<ul>
+<li>二分法时间复杂度 O(logn)</li>
+</ul>
+<p><img src="/algorithm/4.png" alt="图解"></p>
+<p><strong>代码</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public boolean searchMatrix<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>]<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums.length == 0 || nums[<span style="color:#a6e22e">0</span>].length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return false;
+        }
+        int start = 0;
+        int row = nums[<span style="color:#a6e22e">0</span>].length;
+        int col = nums.length;
+        int end = row*<span style="color:#a6e22e">col-1</span>;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            int mid = start +<span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+            int x = mid / row;
+            int y = mid % row;
+            if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>] &lt;= target)<span style="color:#960050;background-color:#1e0010">{</span>
+                start = mid;
+            } else<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums<span style="color:#960050;background-color:#1e0010">[</span>start/row]<span style="color:#960050;background-color:#1e0010">[</span>start%row]== target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return true;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums<span style="color:#960050;background-color:#1e0010">[</span>end/row]<span style="color:#960050;background-color:#1e0010">[</span>end%row] == target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return true;
+        }
+        return false;
+    }
+</code></pre></div><h3 id="4矩阵搜索ii">4、矩阵搜索II</h3>
+<p><strong>题目</strong>：编写一个高效的算法来搜索 m x n 矩阵 matrix 中的一个目标值 target。该矩阵具有以下性：每行的元素从左到右升序排列。每列的元素从上到下升序排列。</p>
+<ul>
+<li>输入：</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">matrix = <span style="color:#960050;background-color:#1e0010">[</span>
+  <span style="color:#960050;background-color:#1e0010">[</span>1,   4,  7, 11, 15],
+  <span style="color:#960050;background-color:#1e0010">[</span>2,   5,  8, 12, 19],
+  <span style="color:#960050;background-color:#1e0010">[</span>3,   6,  9, 16, 22],
+  <span style="color:#960050;background-color:#1e0010">[</span>10, 13, 14, 17, 24],
+  <span style="color:#960050;background-color:#1e0010">[</span>18, 21, 23, 26, 30]
+]
+target = 5
+</code></pre></div><ul>
+<li>输出：true</li>
+<li>链接：https://leetcode-cn.com/problems/search-a-2d-matrix-ii</li>
+</ul>
+<p><strong>分析</strong>：</p>
+<ul>
+<li>从右上到左下判断</li>
+<li>当target 大于当前位置，向下+1</li>
+<li>当target 小于当前位置，向左-1</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   public boolean searchMatrix<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>]<span style="color:#960050;background-color:#1e0010">[</span>] matrix,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>matrix.length == 0 || matrix[<span style="color:#a6e22e">0</span>].length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return false;
+        }
+        int rowBegin = 0;
+        int rowEnd = matrix.length-1;
+        int colBegin = 0;
+        int colEnd = matrix[<span style="color:#a6e22e">0</span>].length -1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>colBegin &lt;= colEnd &amp;&amp; rowBegin &lt;= rowEnd )<span style="color:#960050;background-color:#1e0010">{</span>
+            int temp = matrix[<span style="color:#a6e22e">rowBegin</span>][<span style="color:#a6e22e">colEnd</span>];
+            if<span style="color:#960050;background-color:#1e0010">(</span>target == temp)<span style="color:#960050;background-color:#1e0010">{</span>
+                return true;
+            } else if<span style="color:#960050;background-color:#1e0010">(</span>temp &gt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+                colEnd--;
+            } else if<span style="color:#960050;background-color:#1e0010">(</span>temp &lt; target)<span style="color:#960050;background-color:#1e0010">{</span>
+                rowBegin++;
+            }
+        }
+        return false;
+    }
+</code></pre></div><h3 id="5n-的平方根">5、n 的平方根</h3>
+<p><strong>题目</strong>：实现 int sqrt(int n) 函数。计算并返回 n 的平方根。n 保证是一个非负整数。</p>
+<ul>
+<li>输入：8</li>
+<li>输出：2  说明，8 的平方根是 2.82842&hellip;,由于返回类型是整数，小数部分将被舍去。</li>
+<li>链接：https://leetcode-cn.com/problems/sqrtx/description/</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public int mySqrt<span style="color:#960050;background-color:#1e0010">(</span>int n)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>n &lt; 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return -1;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>n == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return 0;
+        }
+        long start = 0;
+        long end = n;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            long mid = start + <span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+            long result = mid <span style="color:#960050;background-color:#1e0010">*</span> mid;
+            if<span style="color:#960050;background-color:#1e0010">(</span>result == n)<span style="color:#960050;background-color:#1e0010">{</span>
+                return (<span style="color:#a6e22e">int</span>)mid;
+            }else if<span style="color:#960050;background-color:#1e0010">(</span>result &gt; n)<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }else<span style="color:#960050;background-color:#1e0010">{</span>
+                start = mid;
+            }
+        }
+        // 循环里没有找到，判断end*<span style="color:#a6e22e">end</span> start*<span style="color:#a6e22e">start</span> 这里的start 和 end都是整数
+        if<span style="color:#960050;background-color:#1e0010">(</span>end*<span style="color:#a6e22e">end</span> &lt;= n )<span style="color:#960050;background-color:#1e0010">{</span>
+            return (<span style="color:#a6e22e">int</span>)end;
+        }
+        return (<span style="color:#a6e22e">int</span>)start;
+    }
+</code></pre></div><h3 id="6搜索旋转排序数组">6、搜索旋转排序数组</h3>
+<p><strong>题目</strong>：假设按照升序排序的数组在预先未知的某个关键点上旋转。（即 0 1 2 4 5 6 7 将变成 4 5 6 7 0 1 2）。给你一个目标值来搜索，如果数组中存在这个数则返回它的索引，否则返回 -1。你可以假设数组中不存在重复。</p>
+<ul>
+<li>
+<p>输入: nums = [4,5,6,7,0,1,2], target = 0</p>
+</li>
+<li>
+<p>输出: 4</p>
+</li>
+<li>
+<p>链接：https://leetcode-cn.com/problems/search-in-rotated-sortedarray/description/</p>
+</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public int search<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums,int target)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums.length == 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            return -1;
+        }
+
+        int start = 0;
+        int end = nums.length - 1;
+        while<span style="color:#960050;background-color:#1e0010">(</span>start+1 &lt; end )<span style="color:#960050;background-color:#1e0010">{</span>
+            int mid = start + <span style="color:#960050;background-color:#1e0010">(</span>end - start)/2;
+
+            if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+                end = mid;
+            }else if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &lt; nums[<span style="color:#a6e22e">end</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+                if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &lt;= target &amp;&amp; target &lt;= nums[<span style="color:#a6e22e">end</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+                    start = mid;
+                }else<span style="color:#960050;background-color:#1e0010">{</span>
+                    end = mid;
+                }
+            }else if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &gt;= nums[<span style="color:#a6e22e">end</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+                if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">mid</span>] &gt;= target &amp;&amp; target &gt;= nums[<span style="color:#a6e22e">start</span>])<span style="color:#960050;background-color:#1e0010">{</span>
+                    end = mid;
+                }else<span style="color:#960050;background-color:#1e0010">{</span>
+                    start = mid;
+                }
+            }
+        }     
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">start</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return start;
+        }
+        if<span style="color:#960050;background-color:#1e0010">(</span>nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=</span> target)<span style="color:#960050;background-color:#1e0010">{</span>
+            return end;
+        }       
+        return -1;      
+}
+</code></pre></div><h1 id="四二分搜索总结">四、二分搜索总结</h1>
+<p><strong>注意</strong>：一定要提前思考，满足结果有哪些情况</p>
+<ul>
+<li>
+<p>空数组、不存在的情况异常</p>
+</li>
+<li>
+<p>start起始值，0 还是1，还是其他值</p>
+</li>
+<li>
+<p>确定判断是否是目标值的表达式,</p>
+</li>
+<li>
+<p>两端的终止条件，返回结果类型及值</p>
+</li>
+<li>
+<p>二分法模板的四点要素</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">start + 1 &lt; end
+start + <span style="color:#960050;background-color:#1e0010">(</span>end - start) / 2
+nums[<span style="color:#a6e22e">mid</span>] <span style="color:#f92672">=</span><span style="color:#e6db74">=,</span> &lt;, &gt;
+nums[<span style="color:#a6e22e">start</span>] nums[<span style="color:#a6e22e">end</span>] 与target关系
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-binary-search/>http://www.yuyunzhi.com/algorithm-binary-search/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-recursion/" class="prev" rel="prev" title="递归 Recursion、回溯法 Backtracking"><i class="iconfont icon-left"></i>&nbsp;递归 Recursion、回溯法 Backtracking</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-linked-list/" class="next" rel="next" title="链表 Linked List">链表 Linked List&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

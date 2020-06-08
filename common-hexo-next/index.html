@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-generate-ajax/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-sass/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/common-hexo-next/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           部署hexo及配置next主题 | 余韵之
+       
+  </title>
+  <meta name="title" content="部署hexo及配置next主题 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "部署hexo及配置next主题",
+    "headline" : "部署hexo及配置next主题",
+    "description" : "这个部署分为三个部分： 1、配置本地电脑与github的SSH(这里就不说了) 2、安装hexo，安装next主题 3、替换部分配置文件\n 一、安装 1、安装hexo   进入一个安全的目录，比如 cd ~\/Desktop 或者 cd ~\/Documents，别在根目录 \/ 瞎搞。以后所有的教程第一步都是「进入一个安全的目录，别在根目录瞎搞」，只有 ~ 里面的目录是你能碰的！ 重新部署可省略该步骤\n  在 GitHub 上新建一个空 repo，repo 名称是「你的用户名.github.io」（注意个用户名是你的GitHub用户名，不是你的电脑用户名）\n  npm install -g hexo-cli，安装 Hexo\n  hexo init myBlog\n  cd myBlog\n  npm i\n  hexo new 开博大吉，你会看到一个 md 文件的路径 重新部署可省略该步骤\n  start xxxxx.md,编辑这个 md 文件，内容自己想（Ubuntu 系统用 xdg-open xxxxx.md 命令） 重新部署可省略该步骤\n  start _config.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-09-28 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-09-28 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/common-hexo-next\/",
+    "wordCount" : "141",
+    "keywords" : [ "Hexo", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">部署hexo及配置next主题</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-09-28 itemprop="datePublished">September 28, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/code%E9%80%9A%E7%94%A8/"> Code通用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>这个部署分为三个部分：
+1、配置本地电脑与github的SSH(这里就不说了)
+2、安装hexo，安装next主题
+3、替换部分配置文件</p>
+</blockquote>
+<h2 id="一安装">一、安装</h2>
+<h3 id="1安装hexo">1、安装hexo</h3>
+<ul>
+<li>
+<p>进入一个安全的目录，比如 cd ~/Desktop 或者 cd ~/Documents，别在根目录 / 瞎搞。以后所有的教程第一步都是「进入一个安全的目录，别在根目录瞎搞」，只有 ~ 里面的目录是你能碰的！ <strong>重新部署可省略该步骤</strong></p>
+</li>
+<li>
+<p>在 GitHub 上新建一个空 repo，repo 名称是「你的用户名.github.io」（注意个用户名是你的GitHub用户名，不是你的电脑用户名）</p>
+</li>
+<li>
+<p><code>npm install -g hexo-cli</code>，安装 Hexo</p>
+</li>
+<li>
+<p><code>hexo init myBlog</code></p>
+</li>
+<li>
+<p><code>cd myBlog</code></p>
+</li>
+<li>
+<p><code>npm i</code></p>
+</li>
+<li>
+<p><code>hexo new 开博大吉</code>，你会看到一个 md 文件的路径 <strong>重新部署可省略该步骤</strong></p>
+</li>
+<li>
+<p><code>start xxxxx.md</code>,编辑这个 md 文件，内容自己想（Ubuntu 系统用 xdg-open xxxxx.md 命令） <strong>重新部署可省略该步骤</strong></p>
+</li>
+<li>
+<p><code>start _config.yml</code>,编辑网站配置:  <strong>重新部署可省略该步骤</strong></p>
+<ul>
+<li>把第 6 行的 title 改成你想要的名字;</li>
+<li>把第 9 行的 author 改成你的大名;</li>
+<li>把最后一行的 type 改成 type: git</li>
+<li>在最后一行后面新增一行，左边与 type 平齐，加上一行 repo: 仓库地址 （请将仓库地址改为「你的用户名.github.io」对应的仓库地址，仓库地址以 <a href="mailto:git@github.com">git@github.com</a>: 开头你知道吧？不知道？不知道的话现在你知道了）</li>
+<li>第 4 步的 repo: 后面有个空格，不要眼瞎。</li>
+</ul>
+</li>
+<li>
+<p><code>npm install hexo-deployer-git --save</code>,安装 git 部署插件</p>
+</li>
+<li>
+<p><code>hexo deploy</code> <strong>重新部署可省略该步骤</strong></p>
+</li>
+<li>
+<p>进入「你的用户名.github.io」对应的 repo，打开 GitHub Pages 功能，如果已经打开了，就直接点击预览链接</p>
+</li>
+<li>
+<p>你现在应该看到了你的博客！</p>
+</li>
+</ul>
+<h3 id="2安装next主题">2、安装next主题</h3>
+<ul>
+<li>
+<p><code>https://github.com/hexojs/hexo/wiki/Themes</code> 上面有主题合集</p>
+</li>
+<li>
+<p>随便找一个主题，进入主题的 GitHub 首页，比如我找的是 <code>https://github.com/iissnan/hexo-theme-next</code></p>
+</li>
+<li>
+<p>复制它的 SSH 地址或 HTTPS 地址，假设地址为 <code>git@github.com:iissnan/hexo-theme-next.git</code></p>
+</li>
+<li>
+<p><code>cd themes</code></p>
+</li>
+<li>
+<p><code>git clone git@github.com:iissnan/hexo-theme-next.git</code></p>
+</li>
+<li>
+<p><code>cd ..</code></p>
+</li>
+<li>
+<p><code>将 _config.yml 的第 75 行改为 theme: hexo-theme-next，保存</code></p>
+</li>
+<li>
+<p><code>hexo generate</code></p>
+</li>
+<li>
+<p><code>hexo deploy</code></p>
+</li>
+<li>
+<p><code>等一分钟，然后刷新你的博客页面，你会看到一个新的外观。如果不喜欢这个主题，就回到第 1 步，重选一个主题。</code></p>
+</li>
+</ul>
+<h2 id="二替换文件">二、替换文件</h2>
+<ul>
+<li>
+<p><code>git clone 本仓库代码</code> <a href="https://github.com/yuyunzhi/Blog-Program">github地址点这里</a></p>
+</li>
+<li>
+<p><code>进入myBlog目录准备替换文件</code></p>
+</li>
+<li>
+<p><code>node_modules</code>这个文件夹，直接替换，注意：是文件夹直接替换！！！</p>
+</li>
+<li>
+<p>进入<code>source</code>文件夹，把里面的内容全部替换，注意：是进入source后然后替换所有的文件及文件夹！！！</p>
+</li>
+<li>
+<p>进入<code>themes/hexo-theme-next</code>文件夹，把里面的内容全部替换，注意：是进入hexo-theme-next后然后替换所有的文件及文件夹！！！</p>
+</li>
+<li>
+<p>在<code>myBlog</code>目录下，把剩余的文件都替换就行了.</p>
+</li>
+<li>
+<p>完成上述内容，就可以直接在新的电脑部署hexo网站。</p>
+</li>
+<li>
+<p>注意，如果配置少了功能，可以参考该篇文章<a href="https://zhuanlan.zhihu.com/p/30836436">Hexo+Next主题优化</a></p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/common-hexo-next/>http://www.yuyunzhi.com/common-hexo-next/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/hexo/">
+                    #Hexo</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-generate-ajax/" class="prev" rel="prev" title="自己动手封装一个AJAX函数"><i class="iconfont icon-left"></i>&nbsp;自己动手封装一个AJAX函数</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-sass/" class="next" rel="next" title="SASS常用方法">SASS常用方法&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

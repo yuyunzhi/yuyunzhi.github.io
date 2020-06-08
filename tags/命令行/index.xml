@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>命令行 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/</link>
+    <description>Recent content in 命令行 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 23 Aug 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>命令行</title>
+      <link>http://www.yuyunzhi.com/common-command-line/</link>
+      <pubDate>Fri, 23 Aug 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-command-line/</guid>
+      <description>一、什么是命令行  内核：负责操作系统最底层操作的东西 shell:通过命令行负责与内核交互 命令行：cmd、power shell、git bash、zsh  你不能直接操作内核，你需要通过命令行来操作
+二、我们为什么需要命令行  因为所有公司的服务器都运行在linux 将工作自动化、自动化是一切生产力的根源 相比GUI，命令行更容易开发维护 远程连接时，命令行占用的资源远低于GUI 命令行上的开发者工具更丰富  三、命令行的历史与流派  UNIX家族 奇葩 windows  四、命令的全部要素  四个要素：可执行程序（Executable）、参数、环境变量（Environment variable）、工作目录（Working directory）。以上四个要素就可以重现一个命令 可执行程序：ls -a ls 是可执行程序  去哪里找程序？Windows：Path环境变量 + 当前⽬录，UNIX/Linux：PATH环境变量 脚本语言解释器：在脚本的第⼀⾏指定解释器（shebang）   参数：java -version java 后面的都是参数 环境变量：  进程：进程是计算机程序运⾏的最⼩单位，独占⾃⼰的内存空间和⽂件资源 每个进程都和⼀组变量相绑定，传递不同的环境变量可以让程序表现出不同的⾏为 在进程的fork过程中，环境变量可以被完全继承 所有的操作系统/编程语⾔都⽀持环境变量 有局部和全局的环境变量区分   工作目录：命令所在的目录是工作目录pwd。绝对路径，是从根目录开始的路径。相对路径，相对于当前工作目录的路径  </description>
+    </item>
+    
+    <item>
+      <title>http请求响应,curl命令用法</title>
+      <link>http://www.yuyunzhi.com/common-http-curl/</link>
+      <pubDate>Wed, 11 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-http-curl/</guid>
+      <description>HTTP 请求包括哪些部分，如何用Chrome开发者工具查看 HTTP 请求内容? HTTP 响应包括哪些部分，如何用Chrome开发者工具查看 HTTP 响应内容? 如何使用 curl 命令?
+ 一、笔记 1、李爵士发明了URI（统一资源标识符）、HTTP（超文本传输协议）、HTML（超文本标记语言）； 2、URL（统一资源定位符）、URN（统一资源名称）； 3、URL组成：协议+域名+路径+查询参数+锚点+端口，http://baidu.com是二级域名，http://www.baidu.com是三级域名； 4、DNS（域名解析系统）：输入域名，输出IP； 5、server服务器、client客户端、http协议，一个端口只做1件事，80端口用来服务http； 6、浏览器负责发起请求，服务器在 80 端口接收请求，服务器负责返回内容（响应），浏览器负责下载响应内容，HTTP 的作用就是指导浏览器和服务器如何进行沟通； 7、状态码解释：点这里
+二、http请求包含部分 1、格式 1动词 路径 协议/版本 2 Key1: value1 2 Key2: value2 2 Key3: value3 2 Content-Type: application/x-www-form-urlencoded 2 Host: www.baidu.com 2 User-Agent: curl/7.54.0 3 4 要上传的数据 **解释：**请求最多包含4部分，最少包含3部分；第3部分永远是一个回车；动词可以是GET（获取） POST（上传）PUT（整体更新）PATCH（局部更新）DELETE（删除）HEAD OPTIONS等；路径包含查询参数但不包括锚点；如果没有写路径，默认为/；Content-Type标注了第四部分的格式；
+2、GET请求例子 1 GET / HTTP/1.1 2 Host: www.baidu.com 2 User-Agent: curl/7.54.0 2 Accept: */* 2 Frank: xxx 3 3、POST请求例子 1 POST /path HTTP/1.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-tree/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-hash/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-sort/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           排序算法 Sort 冒泡、归并、快速、插入 | 余韵之
+       
+  </title>
+  <meta name="title" content="排序算法 Sort 冒泡、归并、快速、插入 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "排序算法 Sort 冒泡、归并、快速、插入",
+    "headline" : "排序算法 Sort 冒泡、归并、快速、插入",
+    "description" : "一、插入排序 核心想法：像排序一手扑克牌，把一张牌开始时，我们的左手为空并且桌子上的牌面向下。然后我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它已在手中的每张牌进行比较。\n 最坏情况 ：O(n2) 数组反向排序 最好情况 ：O(n) 数组已经排好序 平均情况 ：O(n2) 确定在什么位置插入元素num，平均地数组中有一半元素大于num，一半小于num  代码：\npublic void insertionSort(int[] nums) { for (int j = 1; j \u0026lt; length; j\u002b\u002b) { int key = nums[j]; int i = j - 1; while (i \u0026gt;= 0 \u0026amp;\u0026amp; nums[i] \u0026gt; key) { nums[i \u002b 1] = nums[i]; i--; } nums[i \u002b 1] = key; } } 二、冒泡排序 核心想法：反复交换相邻的未按次序排列的元素。每一次选出该次最大的数字往后冒泡\n 最坏情况 ：O(n2) 最好情况 ：O(n) 平均情况 ：O(n2)  代码：",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-17 10:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-17 10:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-sort\/",
+    "wordCount" : "405",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">排序算法 Sort 冒泡、归并、快速、插入</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-17 itemprop="datePublished">November 17, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一插入排序">一、插入排序</h1>
+<p><strong>核心想法</strong>：像排序一手扑克牌，把一张牌开始时，我们的左手为空并且桌子上的牌面向下。然后我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它已在手中的每张牌进行比较。</p>
+<ul>
+<li>最坏情况 ：<strong>O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</strong> 数组反向排序</li>
+<li>最好情况 ：<strong>O(n)</strong> 数组已经排好序</li>
+<li>平均情况 ：<strong>O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</strong> 确定在什么位置插入元素num，平均地数组中有一半元素大于num，一半小于num</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void insertionSort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums) <span style="color:#960050;background-color:#1e0010">{</span>
+	for <span style="color:#960050;background-color:#1e0010">(</span>int j = 1; j &lt; length; j++) <span style="color:#960050;background-color:#1e0010">{</span>
+		int key = nums[<span style="color:#a6e22e">j</span>];
+		int i = j - 1;
+		while <span style="color:#960050;background-color:#1e0010">(</span>i &gt;= 0 &amp;&amp; nums[<span style="color:#a6e22e">i</span>] &gt; key) <span style="color:#960050;background-color:#1e0010">{</span>
+			nums<span style="color:#960050;background-color:#1e0010">[</span>i + 1] = nums[<span style="color:#a6e22e">i</span>];
+			i--;
+		}
+        nums<span style="color:#960050;background-color:#1e0010">[</span>i + 1] = key;
+	}
+}
+</code></pre></div><h1 id="二冒泡排序">二、冒泡排序</h1>
+<p><strong>核心想法</strong>：反复交换相邻的未按次序排列的元素。每一次选出该次最大的数字往后冒泡</p>
+<ul>
+<li>最坏情况 ：<strong>O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</strong></li>
+<li>最好情况 ：<strong>O(n)</strong></li>
+<li>平均情况 ：<strong>O(n<!-- raw HTML omitted -->2<!-- raw HTML omitted -->)</strong></li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void bubbleSort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums) <span style="color:#960050;background-color:#1e0010">{</span>
+    int len = nums.length;
+    for <span style="color:#960050;background-color:#1e0010">(</span>int i = 0; i &lt; len; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+        for <span style="color:#960050;background-color:#1e0010">(</span>int j = 1; j &lt; <span style="color:#960050;background-color:#1e0010">(</span>len - i); j++) <span style="color:#960050;background-color:#1e0010">{</span>
+            if <span style="color:#960050;background-color:#1e0010">(</span>nums<span style="color:#960050;background-color:#1e0010">[</span>j - 1] &gt; nums[<span style="color:#a6e22e">j</span>]) <span style="color:#960050;background-color:#1e0010">{</span>
+                int temp = nums<span style="color:#960050;background-color:#1e0010">[</span>j - 1];
+                nums<span style="color:#960050;background-color:#1e0010">[</span>j - 1] = nums[<span style="color:#a6e22e">j</span>];
+                nums[<span style="color:#a6e22e">j</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">temp;</span>
+            }
+        }
+    }
+}
+</code></pre></div><h1 id="三归并排序">三、归并排序</h1>
+<p><strong>核心想法</strong>：递归， 分治法（Divide and Conquer)</p>
+<p><strong>分治法</strong>：分解：将数组划分为两个规模为n/2的子数组；解决：递归地对两个子数组分别排序；合并：递归地合并两个子数组。</p>
+<p><strong>时间复杂度分析</strong>：T(n)=2T(n/2)+O(n)-&gt;O(nlogn)</p>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void mergeSort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums)<span style="color:#960050;background-color:#1e0010">{</span>
+    mergeSort<span style="color:#960050;background-color:#1e0010">(</span>nums, 0, nums.length-1);
+}
+
+private void mergeSort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int begin, int end) <span style="color:#960050;background-color:#1e0010">{</span>
+    if <span style="color:#960050;background-color:#1e0010">(</span>begin &lt; end) <span style="color:#960050;background-color:#1e0010">{</span>
+        int mid = begin + <span style="color:#960050;background-color:#1e0010">(</span>end - begin) / 2;
+        mergeSort<span style="color:#960050;background-color:#1e0010">(</span>nums, begin, mid);
+        mergeSort<span style="color:#960050;background-color:#1e0010">(</span>nums, mid + 1, end);
+        merge<span style="color:#960050;background-color:#1e0010">(</span>nums, begin, mid, end);
+    }
+}
+
+private void merge<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int start, int mid, int end) <span style="color:#960050;background-color:#1e0010">{</span>
+    int leftLen = mid - start + 1;
+    int rightLen = end - mid;
+
+    int<span style="color:#960050;background-color:#1e0010">[</span>] left = new int[<span style="color:#a6e22e">leftLen</span>];
+    int<span style="color:#960050;background-color:#1e0010">[</span>] right = new int[<span style="color:#a6e22e">rightLen</span>];
+
+    for <span style="color:#960050;background-color:#1e0010">(</span>int i = 0; i &lt; leftLen; i++) <span style="color:#960050;background-color:#1e0010">{</span>
+        left[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[start</span> + i];
+    }
+
+    for <span style="color:#960050;background-color:#1e0010">(</span>int j = 0; j &lt; rightLen; j++) <span style="color:#960050;background-color:#1e0010">{</span>
+        right[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[mid</span> + 1 + j];
+    }
+
+    int index = start;
+    int i, j = 0;
+    while <span style="color:#960050;background-color:#1e0010">(</span>i &lt; leftLen &amp;&amp; j &lt; rightLen) <span style="color:#960050;background-color:#1e0010">{</span>
+        if <span style="color:#960050;background-color:#1e0010">(</span>left[<span style="color:#a6e22e">i</span>] &lt;= right[<span style="color:#a6e22e">j</span>]) <span style="color:#960050;background-color:#1e0010">{</span>
+            nums<span style="color:#960050;background-color:#1e0010">[</span>index++] = left<span style="color:#960050;background-color:#1e0010">[</span>i++];
+        } else <span style="color:#960050;background-color:#1e0010">{</span>
+            nums<span style="color:#960050;background-color:#1e0010">[</span>index++] = rightLen<span style="color:#960050;background-color:#1e0010">[</span>j++];
+        }
+    }
+
+    while <span style="color:#960050;background-color:#1e0010">(</span>i &lt; leftLen) <span style="color:#960050;background-color:#1e0010">{</span>
+        nums<span style="color:#960050;background-color:#1e0010">[</span>index++] = left<span style="color:#960050;background-color:#1e0010">[</span>i++];
+    }
+
+    while <span style="color:#960050;background-color:#1e0010">(</span>j &lt; rightLen) <span style="color:#960050;background-color:#1e0010">{</span>
+        nums<span style="color:#960050;background-color:#1e0010">[</span>index++] = right<span style="color:#960050;background-color:#1e0010">[</span>j++];
+    }
+}
+</code></pre></div><h1 id="四快速排序">四、快速排序</h1>
+<p><strong>核心想法</strong>：递归， 分治法（Divide and Conquer)</p>
+<p><strong>分治法</strong>：分解：将数组划分为两个（可能为空）子数组，使得前一个子数组中的每个元素都小于或等于nums[pivot]，后一个都大于nums[pivot];解决：递归地对两个子数组分别排序;合并：由于子数组都是原地排序不需要合并</p>
+<p><strong>时间复杂度分析</strong>:O(nlogn)</p>
+<ul>
+<li>例如：[6,2,8,7,4,5,1]</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public void quicksort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] num) <span style="color:#960050;background-color:#1e0010">{</span>
+    quicksort<span style="color:#960050;background-color:#1e0010">(</span>nums, 0, num.length-1);
+}
+
+public void quicksort<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int begin, int end) <span style="color:#960050;background-color:#1e0010">{</span>
+    if <span style="color:#960050;background-color:#1e0010">(</span>begin &gt;= end) <span style="color:#960050;background-color:#1e0010">{</span>
+        return;
+    }
+    int pivotPostion = partition<span style="color:#960050;background-color:#1e0010">(</span>nums, begin, end);
+    quicksort<span style="color:#960050;background-color:#1e0010">(</span>nums, begin, pivotPostion - 1);
+    quicksort<span style="color:#960050;background-color:#1e0010">(</span>nums, pivotPostion + 1, end);
+}
+
+public int partition<span style="color:#960050;background-color:#1e0010">(</span>int<span style="color:#960050;background-color:#1e0010">[</span>] nums, int begin, int end) <span style="color:#960050;background-color:#1e0010">{</span>
+    int pivot = nums[<span style="color:#a6e22e">begin</span>];
+    while <span style="color:#960050;background-color:#1e0010">(</span>begin &lt; end) <span style="color:#960050;background-color:#1e0010">{</span>
+        while <span style="color:#960050;background-color:#1e0010">(</span>begin &lt; end &amp;&amp; nums[<span style="color:#a6e22e">end</span>] &gt;= pivot) <span style="color:#960050;background-color:#1e0010">{</span>
+            end--;
+        }
+        nums[<span style="color:#a6e22e">begin</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[end];</span>
+        while <span style="color:#960050;background-color:#1e0010">(</span>begin &lt; end &amp;&amp; nums[<span style="color:#a6e22e">begin</span>] &lt;= pivot) <span style="color:#960050;background-color:#1e0010">{</span>
+            begin++;
+        }
+        nums[<span style="color:#a6e22e">end</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">nums[begin];</span>
+    }
+    nums[<span style="color:#a6e22e">begin</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">pivot;</span>
+    return begin;
+}
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-sort/>http://www.yuyunzhi.com/algorithm-sort/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-tree/" class="prev" rel="prev" title="二叉树及二叉搜索树 Tree"><i class="iconfont icon-left"></i>&nbsp;二叉树及二叉搜索树 Tree</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-hash/" class="next" rel="next" title="哈希表 Hash 开散列 VS 闭散列">哈希表 Hash 开散列 VS 闭散列&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

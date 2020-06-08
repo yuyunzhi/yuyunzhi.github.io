@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-linked-list/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-sort/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-tree/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           二叉树及二叉搜索树 Tree | 余韵之
+       
+  </title>
+  <meta name="title" content="二叉树及二叉搜索树 Tree | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "二叉树及二叉搜索树 Tree",
+    "headline" : "二叉树及二叉搜索树 Tree",
+    "description" : "一、什么是树？  树 （英语：Tree）是⼀种⽆向图（undirected graph), 其中任意两个顶点间存在唯⼀⼀条路径。或者说，只要没有回路的连通图就是树 ⼀个（可能是⾮线性的）数据结构，由节点，顶点和边组成，美有任何环  二、二叉树   二叉树的遍历是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：前序遍历、中序遍历、后序遍历、层序遍历\n  满二叉树：在一棵二叉树中。如果所有分支节点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为满二叉树。\n   完全二叉树：对一颗具有n个节点的二叉树按层编号，如果编号为i(1\u0026lt;=i\u0026lt;=n)的节点与同样深度的满二叉树中编号为i的节点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。  二叉树的属性：\n三、二叉树代码表示 public class BinaryTree\u0026lt;T\u0026gt; { private TreeNode\u0026lt;T\u0026gt; root; public Tree (T rootData){ root = new TreeNode\u0026lt;T\u0026gt;(); root.data = rootData; } public static class TreeNode\u0026lt;T\u0026gt;{ private T data; private TreeNode\u0026lt;T\u0026gt; leftNode; private TreeNode\u0026lt;T\u0026gt; rightNode; } } 四、二叉树遍历  前序遍历：父节点、左孩子、右孩子 中序遍历：左孩子、父节点、右孩子 后序遍历：左孩子、右孩子、父节点  递归实现遍历：\npublic void preOrderTraversalWithRecursion(TreeNode root) { if(root != null){ System.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-16 19:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-16 19:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-tree\/",
+    "wordCount" : "336",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">二叉树及二叉搜索树 Tree</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-16 itemprop="datePublished">November 16, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一什么是树">一、什么是树？</h1>
+<ul>
+<li>树 （英语：Tree）是⼀种⽆向图（undirected graph), 其中任意两个顶点间存在唯⼀⼀条路径。或者说，只要没有回路的连通图就是树</li>
+<li>⼀个（可能是⾮线性的）数据结构，由节点，顶点和边组成，美有任何环</li>
+</ul>
+<p><img src="/algorithm/tree.jpeg" alt="树分类"></p>
+<h1 id="二二叉树">二、二叉树</h1>
+<ul>
+<li>
+<p>二叉树的遍历是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：前序遍历、中序遍历、后序遍历、层序遍历</p>
+</li>
+<li>
+<p>满二叉树：在一棵二叉树中。如果所有分支节点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为满二叉树。</p>
+</li>
+</ul>
+<p><img src="/algorithm/8.png" alt="满二叉树"></p>
+<ul>
+<li>完全二叉树：对一颗具有n个节点的二叉树按层编号，如果编号为i(1&lt;=i&lt;=n)的节点与同样深度的满二叉树中编号为i的节点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。</li>
+</ul>
+<p><img src="/algorithm/7.png" alt="完全二叉树"></p>
+<p><strong>二叉树的属性：</strong></p>
+<p><img src="/algorithm/9.jpeg" alt="属性"></p>
+<h1 id="三二叉树代码表示">三、二叉树代码表示</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public class BinaryTree&lt;T&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+    private TreeNode&lt;T&gt; root;
+
+    public Tree <span style="color:#960050;background-color:#1e0010">(</span>T rootData)<span style="color:#960050;background-color:#1e0010">{</span>
+        root = new TreeNode&lt;T&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+        root.data = rootData;
+    }
+
+    public static class TreeNode&lt;T&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        private T data;
+        private TreeNode&lt;T&gt; leftNode;
+        private TreeNode&lt;T&gt; rightNode;
+    }
+}
+</code></pre></div><h1 id="四二叉树遍历">四、二叉树遍历</h1>
+<ul>
+<li>前序遍历：父节点、左孩子、右孩子</li>
+<li>中序遍历：左孩子、父节点、右孩子</li>
+<li>后序遍历：左孩子、右孩子、父节点</li>
+</ul>
+<p><strong>递归实现遍历</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public void preOrderTraversalWithRecursion<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root) <span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>root != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            System.out.println(<span style="color:#a6e22e">root.data</span>);
+            preOrderTraversalWithRecursion(<span style="color:#a6e22e">root.left</span>);
+            preOrderTraversalWithRecursion(<span style="color:#a6e22e">root.right</span>);
+        }
+    }
+
+    public void inOrderTraversalWithRecursion<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root) <span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>root != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            inOrderTraversalWithRecursion(<span style="color:#a6e22e">root.left</span>);
+            System.out.println(<span style="color:#a6e22e">root.data</span>);
+            inOrderTraversalWithRecursion(<span style="color:#a6e22e">root.right</span>);
+        }
+    }
+
+    public void postOrderTraversalWithRecursion<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root) <span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>root != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            postOrderTraversalWithRecursion(<span style="color:#a6e22e">root.left</span>);
+            postOrderTraversalWithRecursion(<span style="color:#a6e22e">root.right</span>);
+            System.out.println(<span style="color:#a6e22e">root.data</span>);
+        }
+    }
+</code></pre></div><p><strong>非递归实现前序遍历</strong>：访问当前节点，右节点入栈，左节点入栈。pop左孩子（先遍历左孩子），然后对右孩子依次判断</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public void preOrderTraversal<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root)<span style="color:#960050;background-color:#1e0010">{</span>
+        Stack&lt;TreeNode&gt; nodeStack = new Stack&lt;TreeNode&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+        nodeStack.push(<span style="color:#a6e22e">root</span>);
+        while<span style="color:#960050;background-color:#1e0010">(</span>!nodeStack.empty<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+            TreeNode node = nodeStack.pop<span style="color:#960050;background-color:#1e0010">(</span>);
+            System.out.println(<span style="color:#a6e22e">node.data</span>);
+            if<span style="color:#960050;background-color:#1e0010">(</span>node.rightNode != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                nodeStack.push(<span style="color:#a6e22e">node.rightNode</span>);
+            }
+            
+            if<span style="color:#960050;background-color:#1e0010">(</span>node.leftNode != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                nodeStack.push(<span style="color:#a6e22e">node.leftNode</span>);
+            }
+        }
+    }
+</code></pre></div><p><strong>非递归实现中序遍历</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public void inOrderTraversal<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root)<span style="color:#960050;background-color:#1e0010">{</span>
+        Stack&lt;TreeNode&gt; nodeStack = new Stack&lt;TreeNode&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+        TreeNode node = root;
+        while<span style="color:#960050;background-color:#1e0010">(</span>!nodeStack.empty<span style="color:#960050;background-color:#1e0010">(</span>) || node != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>node != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                nodeStack.push(<span style="color:#a6e22e">node</span>);
+                node = node.leftNode;
+            }
+            else<span style="color:#960050;background-color:#1e0010">{</span>
+                node = nodeStack.pop<span style="color:#960050;background-color:#1e0010">(</span>);
+                System.out.println(<span style="color:#a6e22e">node.data</span>);
+                node = node.rightNode;
+            }
+        }
+    }
+</code></pre></div><p><strong>非递归实现后序遍历</strong>: 思路是 逆后序遍历=前序遍历的左右子树入栈顺序交换</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public void postOrderTraversalWithTwoStack<span style="color:#960050;background-color:#1e0010">(</span>TreeNode root)<span style="color:#960050;background-color:#1e0010">{</span>
+        Stack&lt;TreeNode&gt; s1 = new Stack&lt;TreeNode&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+        Stack&lt;TreeNode&gt; s2 = new Stack&lt;TreeNode&gt;<span style="color:#960050;background-color:#1e0010">(</span>);
+        if<span style="color:#960050;background-color:#1e0010">(</span>root == null)<span style="color:#960050;background-color:#1e0010">{</span>
+            return result;
+        }
+        s1.push(<span style="color:#a6e22e">root</span>);
+        while<span style="color:#960050;background-color:#1e0010">(</span>!s1.isEmpty<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+            TreeNode node = s1.pop<span style="color:#960050;background-color:#1e0010">(</span>);
+            if<span style="color:#960050;background-color:#1e0010">(</span>node.leftNode != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                s1.push(<span style="color:#a6e22e">node.leftNode</span>);
+            }
+
+            if<span style="color:#960050;background-color:#1e0010">(</span>node.rightNode != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                s1.push(<span style="color:#a6e22e">node.rightNode</span>);
+            }
+        }
+        while<span style="color:#960050;background-color:#1e0010">(</span>!s2.isEmpty<span style="color:#960050;background-color:#1e0010">(</span>))<span style="color:#960050;background-color:#1e0010">{</span>
+            TreeNode cur = s2.pop<span style="color:#960050;background-color:#1e0010">(</span>);
+            System.out.println(<span style="color:#a6e22e">cur.data</span>);
+        }
+        return result;
+    }
+</code></pre></div><h1 id="五构建二叉树">五、构建二叉树</h1>
+<ul>
+<li>
+<p>结论：需要两种不同的遍历来构造一棵树，并且其中一个必须是中序遍历。</p>
+</li>
+<li>
+<p>代码实现，，，待定</p>
+</li>
+</ul>
+<h1 id="六二叉搜索树-bst">六、二叉搜索树 BST</h1>
+<p><strong>二叉搜索树特性</strong>：</p>
+<ul>
+<li>所有的子树均为二叉搜索树</li>
+<li>任一左子树的全部节点的值均小于其根节点</li>
+<li>任一右子树的全部节点的值均小于其根节点的值</li>
+<li>二叉搜索树的中序遍历为一个排序数组</li>
+</ul>
+<p><img src="/algorithm/10.jpeg" alt="二叉搜索树"></p>
+<p><strong>二叉搜索树API实现方法</strong>：</p>
+<ul>
+<li>查找节点：find</li>
+<li>添加节点：add</li>
+<li>删除节点：remove</li>
+</ul>
+<p><strong>find</strong>: 时间复杂度为O(h)，h为该棵树的高度，一层一层往下遍历</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   public boolean find<span style="color:#960050;background-color:#1e0010">(</span>int value,TreeNode root)<span style="color:#960050;background-color:#1e0010">{</span>
+       TreeNode node = root;
+       while<span style="color:#960050;background-color:#1e0010">(</span> node != null)<span style="color:#960050;background-color:#1e0010">{</span>
+           if<span style="color:#960050;background-color:#1e0010">(</span>node.data == value)<span style="color:#960050;background-color:#1e0010">{</span>
+               return true;
+           }
+           else if<span style="color:#960050;background-color:#1e0010">(</span>node.data &gt; value)<span style="color:#960050;background-color:#1e0010">{</span>
+               node = node.leftNode;
+           }
+           else <span style="color:#960050;background-color:#1e0010">{</span>
+               node = node.rightNode;
+           }
+       }
+       
+       return false;
+   }
+</code></pre></div><p><strong>add</strong>: 时间复杂度为O(h)，h为该棵树的高度，一层一层往下遍历。注意：校验root为null的情况，直接添加。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   public boolean find<span style="color:#960050;background-color:#1e0010">(</span>int value,TreeNode root)<span style="color:#960050;background-color:#1e0010">{</span>
+       if<span style="color:#960050;background-color:#1e0010">(</span>root == null)<span style="color:#960050;background-color:#1e0010">{</span>
+           root = new TreeNode(<span style="color:#a6e22e">value</span>);
+           return true;
+       }
+       TreeNode node = root;
+       while<span style="color:#960050;background-color:#1e0010">(</span> node != null)<span style="color:#960050;background-color:#1e0010">{</span>
+           if<span style="color:#960050;background-color:#1e0010">(</span>node.data == value)<span style="color:#960050;background-color:#1e0010">{</span>
+               return false;
+           }
+           else if<span style="color:#960050;background-color:#1e0010">(</span>node.data &gt; value)<span style="color:#960050;background-color:#1e0010">{</span>
+               if<span style="color:#960050;background-color:#1e0010">(</span>node.leftNode == null)<span style="color:#960050;background-color:#1e0010">{</span>
+                   node.leftNode = new TreeNode(<span style="color:#a6e22e">value</span>);
+                   return true;
+               }else<span style="color:#960050;background-color:#1e0010">{</span>
+                   node = node.leftNode;
+               }
+           }
+           else <span style="color:#960050;background-color:#1e0010">{</span>
+               if<span style="color:#960050;background-color:#1e0010">(</span>node.rightNode == null)<span style="color:#960050;background-color:#1e0010">{</span>
+                   node.rightNode = new TreeNode(<span style="color:#a6e22e">value</span>);
+                   return true;
+               }else<span style="color:#960050;background-color:#1e0010">{</span>
+                   node = node.rightNode;
+               }
+           }
+       }
+       return false;
+   }
+</code></pre></div><p><strong>remove</strong>:主要是两个步骤：1、查找要删除的节点；2、若查找到要删除的节点n，删除它</p>
+<p>从一颗二叉搜索树删除一个节点分为三种情况：</p>
+<ul>
+<li>
+<p>节点n没有任何子树</p>
+</li>
+<li>
+<p>节点n只有一个子树</p>
+</li>
+<li>
+<p>节点n有两个子树</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-tree/>http://www.yuyunzhi.com/algorithm-tree/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-linked-list/" class="prev" rel="prev" title="链表 Linked List"><i class="iconfont icon-left"></i>&nbsp;链表 Linked List</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-sort/" class="next" rel="next" title="排序算法 Sort 冒泡、归并、快速、插入">排序算法 Sort 冒泡、归并、快速、插入&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

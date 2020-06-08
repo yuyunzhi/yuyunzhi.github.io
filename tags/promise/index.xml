@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Promise on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/promise/</link>
+    <description>Recent content in Promise on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 11 Jan 2020 13:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/promise/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Promise</title>
+      <link>http://www.yuyunzhi.com/js-promise/</link>
+      <pubDate>Sat, 11 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-promise/</guid>
+      <description>一、Promise使用注意点 1、Promise 构造函数是同步执行的，promise.then 中的函数是异步执行的。
+const promise = new Promise((resolve, reject) =&amp;gt; { console.log(1) resolve() console.log(2) }) promise.then(() =&amp;gt; { console.log(3) }) console.log(4) 运行结果：
+1 2 3 4 2、promise 有 3 种状态：pending、fulfilled 或 rejected。状态改变只能是 pending-&amp;gt;fulfilled 或者 pending-&amp;gt;rejected，状态一旦改变则不能再变。
+const promise1 = new Promise((resolve, reject) =&amp;gt; { setTimeout(() =&amp;gt; { resolve(&amp;#39;success&amp;#39;) }, 1000) }) const promise2 = promise1.then(() =&amp;gt; { throw new Error(&amp;#39;error!!!&amp;#39;) }) console.log(&amp;#39;promise1&amp;#39;, promise1) console.log(&amp;#39;promise2&amp;#39;, promise2) setTimeout(() =&amp;gt; { console.log(&amp;#39;promise1&amp;#39;, promise1) console.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/java-maven/" />
+  <link rel="next" href="http://www.yuyunzhi.com/common-code-optimization/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/common-dashboard/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           Dashboard一般设计思路 | 余韵之
+       
+  </title>
+  <meta name="title" content="Dashboard一般设计思路 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "Dashboard一般设计思路",
+    "headline" : "Dashboard一般设计思路",
+    "description" : "一、RESTful API 是什么？  用自己的话来表达就是，遵守一定的规则来给接口url取名字的方法论 所有的东西都是资源，用户是资源、支付是资源、课程是资源…… 每个资源有4种不同的动作：增、删、改、查 以一个课程来举例  增 post 增加一个： \/courses 创建的内容JSON 删 delete 删除一个：\/courses\/:id 改 patch 修改一个：\/courses\/:id 改的内容JSON 查 get 查所有：\/courses 查一个：\/courses\/:id 注意查又分两种情况返回：html，json,由前端发的请求Accept来确定具体返回哪种类型 直接从浏览器输入url,会自动以text\/html的类型返回 从请求中获取，需要设置请求头accept类型 二、前后端JSON如何设计？  前端给后端传上面？后端给前端传上面？ 举例登录功能  前端给后端传： { 手机号, 密码 } 后端成功，返回前端： { 状态码200, data：{用户的信息数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] }  举例展示多个资源  前端根据接口查询 后端成功，返回前端： { 状态码200, data:[{渲染的数据}、{渲染的数据}……], pager：{每页几个、当前页、总共多少页、总共多少个数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] } 三、前端权限如何设计？  什么是权限？你能做什么？你不能做什么？ 角色和权限需要区分开，权限用二进制数组来对应，然后一一映射 前端界面的权限思路:  显示不同的菜单(前端可以直接固定写不同角色能看什么菜单) 分div，封装全局API 后端返回权限状态码    注意：写一个全局的can（userRole,basic）返回一个Boolean。所有的复杂的判断在can里面实现，那么html的展示逻辑就很简单了。",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-02-08 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-02-08 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/common-dashboard\/",
+    "wordCount" : "65",
+    "keywords" : [ "RESTful","前端权限设计", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Dashboard一般设计思路</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-02-08 itemprop="datePublished">February 8, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/code%E9%80%9A%E7%94%A8/"> Code通用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一restful-api-是什么">一、RESTful API 是什么？</h2>
+<ul>
+<li>用自己的话来表达就是，遵守一定的规则来给接口url取名字的方法论</li>
+<li>所有的东西都是资源，用户是资源、支付是资源、课程是资源……</li>
+<li>每个资源有4种不同的动作：增、删、改、查</li>
+<li>以一个课程来举例</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">增 post 
+增加一个： /courses  创建的内容JSON
+
+删 delete
+删除一个：/courses/:id
+
+改 patch
+修改一个：/courses/:id  改的内容JSON
+
+查 get 
+查所有：/courses
+查一个：/courses/:id
+注意查又分两种情况返回：html，json,由前端发的请求Accept来确定具体返回哪种类型
+直接从浏览器输入url,会自动以text/html的类型返回
+从请求中获取，需要设置请求头accept类型
+</code></pre></div><h2 id="二前后端json如何设计">二、前后端JSON如何设计？</h2>
+<ul>
+<li>前端给后端传上面？后端给前端传上面？</li>
+<li>举例登录功能</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">前端给后端传：
+<span style="color:#960050;background-color:#1e0010">{</span>
+    手机号,
+    密码
+}
+
+后端成功，返回前端：
+<span style="color:#960050;background-color:#1e0010">{</span>
+    状态码200,
+    data：<span style="color:#960050;background-color:#1e0010">{</span>用户的信息数据}
+}
+
+后端失败、返回前端：
+<span style="color:#960050;background-color:#1e0010">{</span>
+    状态码4XX,
+    errors:<span style="color:#960050;background-color:#1e0010">[</span>中文原因1、中文原因2……]
+}
+</code></pre></div><ul>
+<li>举例展示多个资源</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">前端根据接口查询
+
+
+后端成功，返回前端：
+<span style="color:#960050;background-color:#1e0010">{</span>
+    状态码200,
+    data:<span style="color:#960050;background-color:#1e0010">[{</span>渲染的数据}、<span style="color:#960050;background-color:#1e0010">{</span>渲染的数据}……],
+    pager：<span style="color:#960050;background-color:#1e0010">{</span>每页几个、当前页、总共多少页、总共多少个数据}
+}
+
+后端失败、返回前端：
+<span style="color:#960050;background-color:#1e0010">{</span>
+    状态码4XX,
+    errors:<span style="color:#960050;background-color:#1e0010">[</span>中文原因1、中文原因2……]
+}
+</code></pre></div><h2 id="三前端权限如何设计">三、前端权限如何设计？</h2>
+<ul>
+<li>什么是权限？你能做什么？你不能做什么？</li>
+<li>角色和权限需要区分开，权限用二进制数组来对应，然后一一映射</li>
+<li>前端界面的权限思路:
+<ul>
+<li>显示不同的菜单(前端可以直接固定写不同角色能看什么菜单)</li>
+<li>分div，封装全局API</li>
+<li>后端返回权限状态码</li>
+</ul>
+</li>
+</ul>
+<p>注意：写一个全局的can（userRole,basic）返回一个Boolean。所有的复杂的判断在can里面实现，那么html的展示逻辑就很简单了。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/common-dashboard/>http://www.yuyunzhi.com/common-dashboard/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/restful/">
+                    #RESTful</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E5%89%8D%E7%AB%AF%E6%9D%83%E9%99%90%E8%AE%BE%E8%AE%A1/">
+                    #前端权限设计</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/java-maven/" class="prev" rel="prev" title="设置Maven环境变量"><i class="iconfont icon-left"></i>&nbsp;设置Maven环境变量</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/common-code-optimization/" class="next" rel="next" title="代码优化思路">代码优化思路&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

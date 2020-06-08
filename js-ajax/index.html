@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-jquery/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-generate-ajax/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-ajax/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           什么是Ajax？ | 余韵之
+       
+  </title>
+  <meta name="title" content="什么是Ajax？ | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "什么是Ajax？",
+    "headline" : "什么是Ajax？",
+    "description" : "一、我们如何向服务器发送请求？  用 form 可以发请求，但是会刷新页面或新开页面 用 a 可以发 get 请求，但是也会刷新页面或新开页面 用 img 可以发 get 请求，但是只能以图片的形式展示 用 link 可以发 get 请求，但是只能以 CSS、favicon 的形式展示 用 script 可以发 get 请求，但是只能以脚本的形式运行  那么有没有什么方式，可以使用get、post、put、delete 请求都行，并且用任意的方式返回给浏览器展示？\n当然有，这个就是AJAX。\n二、什么是AJAX？ Jesse James Garrett 讲同时满足以下技术取名叫做AJAX:异步的 JavaScript 和 XML。\n 使用 XMLHttpRequest 发请求 服务器返回 XML 格式的字符串 JS 解析 XML，并更新局部页面  如何使用XMLHttpRequest？\nJS文件代码如下：\nmyButton.addEventListener(\u0026#39;click\u0026#39;, (e)=\u0026gt;{ let request = new XMLHttpRequest() request.open(\u0026#39;get\u0026#39;, \u0026#39;\/xxx\u0026#39;) \/\/ 配置request，请求方式和路径 request.onreadystatechange = ()=\u0026gt;{ if(request.readyState===4){ \/\/当请求相应完毕，执行以下代码 if(request.status \u0026gt;= 200 \u0026amp;\u0026amp; request.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-09-04 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-09-04 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-ajax\/",
+    "wordCount" : "224",
+    "keywords" : [ "JavaScript","Ajax", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">什么是Ajax？</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-09-04 itemprop="datePublished">September 4, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一我们如何向服务器发送请求">一、我们如何向服务器发送请求？</h2>
+<ul>
+<li>用 form 可以发请求，但是会刷新页面或新开页面</li>
+<li>用 a 可以发 get 请求，但是也会刷新页面或新开页面</li>
+<li>用 img 可以发 get 请求，但是只能以图片的形式展示</li>
+<li>用 link 可以发 get 请求，但是只能以 CSS、favicon 的形式展示</li>
+<li>用 script 可以发 get 请求，但是只能以脚本的形式运行</li>
+</ul>
+<p>那么有没有什么方式，可以使用get、post、put、delete 请求都行，并且用任意的方式返回给浏览器展示？</p>
+<p>当然有，<strong>这个就是AJAX。</strong></p>
+<h2 id="二什么是ajax">二、什么是AJAX？</h2>
+<p>Jesse James Garrett 讲同时满足以下技术取名叫做AJAX:异步的 <strong>JavaScript 和 XML</strong>。</p>
+<ul>
+<li>使用 XMLHttpRequest 发请求</li>
+<li>服务器返回 XML 格式的字符串</li>
+<li>JS 解析 XML，并更新局部页面</li>
+</ul>
+<p><strong>如何使用XMLHttpRequest？</strong></p>
+<p>JS文件代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">myButton.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+    let request = new XMLHttpRequest<span style="color:#960050;background-color:#1e0010">(</span>)
+    request.open<span style="color:#960050;background-color:#1e0010">(</span>&#39;get&#39;, &#39;/xxx&#39;) // 配置request，请求方式和路径
+    request.onreadystatechange = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>request.readyState===4)<span style="color:#960050;background-color:#1e0010">{</span>  //当请求相应完毕，执行以下代码
+            if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 200 &amp;&amp; request.status &lt; 300)<span style="color:#960050;background-color:#1e0010">{</span>  //判断状态码
+                let string = request.responseText    
+                // 把符合 JSON 语法的字符串,转换成 JS 对应的值
+                let object = window.JSON.parse(<span style="color:#a6e22e">string</span>)  
+                // JSON.parse 是浏览器提供的
+                console.log<span style="color:#960050;background-color:#1e0010">(</span>typeof object)//得到的值为object类型
+                console.log(<span style="color:#a6e22e">object</span>)   // 得到后端返回字符串转成符合JSON语法的对象
+                console.log(<span style="color:#a6e22e">object.note.from</span>) //得到余咖咖
+             }else if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 400)<span style="color:#960050;background-color:#1e0010">{</span>
+                console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;说明请求失败&#39;) 
+            }
+        }
+    }
+    request.send<span style="color:#960050;background-color:#1e0010">(</span>)
+})
+</code></pre></div><p><strong>解释：</strong></p>
+<ul>
+<li>当点击按钮的时候发送请求，请求过程从2开始</li>
+<li>初始化new XMLHttpRequest()</li>
+<li>配置request的请求方式和路径</li>
+<li>获取readyState的值，并判断是否完成</li>
+<li>判断状态码是否是请求成功</li>
+<li>把返回的JSON语法的字符串转化成JS对应的值</li>
+</ul>
+<p>JSON是一门语言，可在该网站学习：<a href="http://json.org/">JSON官网</a></p>
+<p>后端代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">else if<span style="color:#960050;background-color:#1e0010">(</span>path === &#39;/xxx&#39;)<span style="color:#960050;background-color:#1e0010">{</span>
+    response.statusCode = 200
+    response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Content-Type&#39;, &#39;text/xml;charset=utf-8&#39;)
+ //response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Access-Control-Allow-Origin&#39;, &#39;请求方地址&#39;)
+    response.write<span style="color:#960050;background-color:#1e0010">(</span>`
+    <span style="color:#960050;background-color:#1e0010">{</span>
+      &#34;note&#34;:<span style="color:#960050;background-color:#1e0010">{</span>
+        &#34;to&#34;: &#34;xxx&#34;,
+        &#34;from&#34;: &#34;余咖咖&#34;,
+        &#34;heading&#34;: &#34;很高兴认识你&#34;,
+        &#34;content&#34;: &#34;hi&#34;
+      }
+    }
+    `)
+    response.end<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><h2 id="三什么是同源策略">三、什么是同源策略？</h2>
+<p>同源策略要求 <strong>协议+端口+域名</strong> 一模一样才允许发 AJAX 请求。
+举例：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">http://xxx.com 可以向 http://www.xxx.com 发 AJAX 请求吗 no
+http://xxx.com:80 可以向 http://xxx.com:81 发 AJAX 请求吗 no
+</code></pre></div><p><strong>为什么要有同源策略？</strong></p>
+<p>如果没有同源策略，就可以直接用POST、GET等向其他网站发送请求得到响应。任何一个网站都可以读取你的余额，直接进行支付转账，获取你写的私密信息，那么在互联网上就没有隐私安全了。</p>
+<p>所以对浏览器要保证：</p>
+<p>只有 <strong>协议+端口+域名</strong> 一模一样才允许发 AJAX 请求。</p>
+<h2 id="四突破同源策略跨域">四、突破同源策略===跨域</h2>
+<p>假如A网站用ajax想给B网站发送请求并得到响应，那怎么办？即不同的域名要互相访问（请求方frank，访问响应方jack）。</p>
+<p>用 <strong>CORS，全称是&quot;跨域资源共享&rdquo;</strong>（Cross-origin resource sharing）。它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+<p>Jack在服务器加上这一段话：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">response.setHeader<span style="color:#960050;background-color:#1e0010">(</span>&#39;Access-Control-Allow-Origin&#39;, &#39;frank的地址&#39;)  
+</code></pre></div><p>告诉服务器，frank是我朋友，不用阻止了。</p>
+<p><strong>那CORS与JSONP的区别在哪？</strong></p>
+<p>CORS与JSONP的使用目的相同，但是比JSONP更强大。</p>
+<p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
+<h2 id="五一个问题">五、一个问题</h2>
+<ul>
+<li>请用原生JS手写一个AJAX</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let request = new XMLHttpRequest<span style="color:#960050;background-color:#1e0010">(</span>)
+    request.open<span style="color:#960050;background-color:#1e0010">(</span>&#39;get&#39;, &#39;/xxx&#39;) 
+    request.onreadystatechange = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>request.readyState===4)<span style="color:#960050;background-color:#1e0010">{</span> 
+            if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 200 &amp;&amp; request.status &lt; 300)<span style="color:#960050;background-color:#1e0010">{</span> 
+                console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;说明请求成功了&#39;) 
+                let string = request.responseText    
+                let object = window.JSON.parse(<span style="color:#a6e22e">string</span>)  
+             }  }else if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 400)<span style="color:#960050;background-color:#1e0010">{</span>
+                console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;说明请求失败&#39;) 
+            }
+        }
+    }
+    request.send<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><p>over~</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-ajax/>http://www.yuyunzhi.com/js-ajax/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/ajax/">
+                    #Ajax</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-jquery/" class="prev" rel="prev" title="初学jQuery,从封装函数开始"><i class="iconfont icon-left"></i>&nbsp;初学jQuery,从封装函数开始</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-generate-ajax/" class="next" rel="next" title="自己动手封装一个AJAX函数">自己动手封装一个AJAX函数&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

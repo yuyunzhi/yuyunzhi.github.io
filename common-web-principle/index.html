@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-command-line/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-complexity/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/common-web-principle/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           web前后端的基础知识 | 余韵之
+       
+  </title>
+  <meta name="title" content="web前后端的基础知识 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "web前后端的基础知识",
+    "headline" : "web前后端的基础知识",
+    "description" : "一、在打开网页的时候发生了什么？ 比如说 taobao.com 按回车一瞬间后到页面全部完成发生了什么?\n不同的计算机组成的网络是可以互相通信和连接的，我们每一台主机都对应了自己的一个32位地址(4个字节)，如:115.118.112.3,这种方式的网络协议版本为IPV4。\n从这个地址我们可以看出一些比较有趣的事，一个byte最大可以存255,4个字节最多能存约42亿个数字，大约到了90年代发现42亿也不够用了，于是升级到了128位的网络协议版本IPV6，可以理解为地球上每一粒沙子分配一个地址，来避免IPV4地址不足。\n1、DNS域名解析-缓存 如果要一个人要和别的主机通信，就需要知道别的主机IP地址，由于IP地址对人来说不好记忆，所以就需要另外一个服务，DNS （Domain Name Service）域名服务，那么当用户输入域名的时候，就会通过域名服务器解析域名得到IP地址返回。\n当然中间还有跳了一步，比如说本地已经保存了 taobao.com 及对应的IP地址，那么就不需要进行DNS解析了来节约”翻译”域名的时间。无论是windows还是Mac,都可以通过本地的文件host文件来覆盖掉,Mac 路径：sudo \/etc\/hosts\n2、端口 如果你的电脑开了很多程序，但网线只有一根，从网线传输的数据怎么知道是哪个程序呢？ 比如你开了QQ、浏览器、微信，数据传递如何对应？这时候就用到了端口(port)，\n端口可以理解为自己的电脑有很多的\u0026quot;港口\u0026rdquo;，编号为，1，2，3，4，5……65536个港口，那么每个数据包就会分配到自己对应的端口上。端口指定了你请求网站的归属地\n注意：\n  HTTPS协议默认端口是443,当你请求https:\/\/taobao.com的时候，完全等价于请求https:\/\/taobao.com:443\n  HTTP协议默认端口是80,当你请求http:\/\/taobao.com的时候，完全等价于请求http:\/\/taobao.com:80\n  3、数据流 在计算机协议中常用的通信协议有TCP、UDP协议 TCP基于流的协议、也是全双工协议。可以理解为一个双向的高速公路，当你向远端服务器发送请求的时候就在本地的端口和远端的端口开辟了一个双向的高速公路，而中间跑的不是车而是数据，并且是可以同时发送数据。\n数据流是一个个字节组成的，又称作为字节流。TCP协议规定了字节流在网络上发送和接收的方式。\nTCP协议之上是HTTP协议 超文本传输协议，超文本的意思是如果遵循了HTTP协议不仅仅可以在双向数据流上跑字节流还可以跑文件、跑图片等等。\n那每一个数据流长什么样子？\n Request请求   Response响应  4、数据是如何被浏览器处理的？ 在网络上传的只是字节流\n比如当你发送请求给淘宝后，会获得 HTTP Response 的响应头和响应体，响应体 不仅仅可以是文本，还可以是二进制数据（图片、音频、下载的文件……）\n输入url后的响应体以标签开头\n这就是，HTML 超文本标记语言。当浏览器看到标签的时候就知道这是一个html，并且一行一行进行相应的文本、样式的解析和下载。",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-09-16 16:52:16 \u002b0800 CST",
+    "dateModified" : "2019-09-16 16:52:16 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/common-web-principle\/",
+    "wordCount" : "42",
+    "keywords" : [ "web", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">web前后端的基础知识</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-09-16 itemprop="datePublished">September 16, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/code%E9%80%9A%E7%94%A8/"> Code通用 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一在打开网页的时候发生了什么">一、在打开网页的时候发生了什么？</h2>
+<p>比如说 <strong>taobao.com</strong> 按回车一瞬间后到页面全部完成发生了什么?</p>
+<p><img src="/article/1.jpg" alt="网络-主机-域名与DNS"></p>
+<p>不同的计算机组成的网络是可以互相通信和连接的，我们每一台主机都对应了自己的一个32位地址(4个字节)，如:115.118.112.3,这种方式的网络协议版本为<strong>IPV4</strong>。</p>
+<p>从这个地址我们可以看出一些比较有趣的事，一个byte最大可以存255,4个字节最多能存约42亿个数字，大约到了90年代发现42亿也不够用了，于是升级到了128位的网络协议版本<strong>IPV6</strong>，可以理解为地球上每一粒沙子分配一个地址，来避免IPV4地址不足。</p>
+<h3 id="1dns域名解析-缓存">1、DNS域名解析-缓存</h3>
+<p>如果要一个人要和别的主机通信，就需要知道别的主机IP地址，由于IP地址对人来说不好记忆，所以就需要另外一个服务，DNS （Domain Name Service）域名服务，那么当用户输入域名的时候，就会通过域名服务器解析域名得到IP地址返回。</p>
+<p>当然中间还有跳了一步，比如说本地已经保存了 <strong>taobao.com</strong> 及对应的IP地址，那么就不需要进行DNS解析了来节约”翻译”域名的时间。无论是windows还是Mac,都可以通过本地的文件host文件来覆盖掉,Mac 路径：sudo /etc/hosts</p>
+<h3 id="2端口">2、端口</h3>
+<p>如果你的电脑开了很多程序，但网线只有一根，从网线传输的数据怎么知道是哪个程序呢？
+比如你开了QQ、浏览器、微信，数据传递如何对应？这时候就用到了端口(port)，</p>
+<p><img src="/article/2.jpg" alt="端口示意图"></p>
+<p>端口可以理解为自己的电脑有很多的&quot;港口&rdquo;，编号为，1，2，3，4，5……65536个港口，那么每个数据包就会分配到自己对应的端口上。<strong>端口指定了你请求网站的归属地</strong></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>
+<p>HTTPS协议默认端口是443,当你请求https://taobao.com的时候，完全等价于请求https://taobao.com:443</p>
+</li>
+<li>
+<p>HTTP协议默认端口是80,当你请求http://taobao.com的时候，完全等价于请求http://taobao.com:80</p>
+</li>
+</ul>
+<h3 id="3数据流">3、数据流</h3>
+<p><img src="/article/3.jpg" alt="请求与响应的数据流"></p>
+<p>在计算机协议中常用的通信协议有<strong>TCP、UDP</strong>协议
+TCP基于流的协议、也是全双工协议。可以理解为一个双向的高速公路，当你向远端服务器发送请求的时候就在本地的端口和远端的端口开辟了一个双向的高速公路，而中间跑的不是车而是数据，并且是可以同时发送数据。</p>
+<p>数据流是一个个字节组成的，又称作为字节流。TCP协议规定了字节流在网络上发送和接收的方式。</p>
+<p>TCP协议之上是HTTP协议 超文本传输协议，超文本的意思是如果遵循了HTTP协议不仅仅可以在双向数据流上跑字节流还可以跑文件、跑图片等等。</p>
+<p><strong>那每一个数据流长什么样子？</strong></p>
+<ul>
+<li>Request请求</li>
+</ul>
+<p><img src="/article/5.jpg" alt="请求"></p>
+<ul>
+<li>Response响应</li>
+</ul>
+<p><img src="/article/4.jpg" alt="响应"></p>
+<h3 id="4数据是如何被浏览器处理的">4、数据是如何被浏览器处理的？</h3>
+<p><strong>在网络上传的只是字节流</strong></p>
+<p><img src="/article/6.jpg" alt="响应"></p>
+<p>比如当你发送请求给淘宝后，会获得 HTTP Response 的响应头和响应体，响应体 不仅仅可以是文本，还可以是二进制数据（图片、音频、下载的文件……）</p>
+<p>输入url后的响应体以<!-- raw HTML omitted --> 标签开头</p>
+<p><img src="/article/7.jpg" alt="html"></p>
+<p>这就是，HTML 超文本标记语言。当浏览器看到标签的时候就知道这是一个html，并且一行一行进行相应的文本、样式的解析和下载。</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/common-web-principle/>http://www.yuyunzhi.com/common-web-principle/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/web/">
+                    #web</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-command-line/" class="prev" rel="prev" title="命令行"><i class="iconfont icon-left"></i>&nbsp;命令行</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-complexity/" class="next" rel="next" title="算法复杂度">算法复杂度&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/interview-html/" />
+  <link rel="next" href="http://www.yuyunzhi.com/interview-js-console/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/interview-js/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           JavaScript知识 | 余韵之
+       
+  </title>
+  <meta name="title" content="JavaScript知识 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "JavaScript知识",
+    "headline" : "JavaScript知识",
+    "description" : "1、常见的浏览器内核有哪些 ？介绍一下你对浏览器内核的理解 ?  Trident 内核：IE, 360，搜狗浏览器 MaxThon、TT、The World,等 Gecko 内核：火狐，FF，MozillaSuite \/ SeaMonkey 等 Presto 内核：Opera7 及以上 Webkit 内核：Safari，Chrome 等  内核主要分成两部分：渲染引擎(layout engineer 或 Rendering Engine) 和 JS 引擎。\n渲染引擎：\n负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。 浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。 所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。\nJS 引擎：\n解析和执行 javascript 来实现网页的动态效果。 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。\n2、call、apply、bind  call 跟 apply 的用法几乎一样，唯一的不同就是传递的参数不同，call 只能一个参数一个参数的传入。 apply 则只支持传入一个数组，哪怕是一个参数也要是数组形式。最终调用函数时候这个数组会拆成一个个参数分别传入。 至于 bind 方法，他是直接改变这个函数的 this 指向并且返回一个新的函数，之后再次调用这个函数的时候 this 都是指向 bind 绑定的第一个参数。 bind 传参方式跟 call 方法一致。  简易版本bind实现\nFunction.prototype.bind = function(context) { var self = this; return function() { return self.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2020",
+    "datePublished": "2020-01-02 17:00:23 \u002b0800 CST",
+    "dateModified" : "2020-01-02 17:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/interview-js\/",
+    "wordCount" : "980",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">JavaScript知识</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2020-01-02 itemprop="datePublished">January 2, 2020</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E9%9D%A2%E8%AF%95/"> 面试 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="1常见的浏览器内核有哪些-介绍一下你对浏览器内核的理解-">1、常见的浏览器内核有哪些 ？介绍一下你对浏览器内核的理解 ?</h2>
+<ul>
+<li>Trident 内核：IE, 360，搜狗浏览器 MaxThon、TT、The World,等</li>
+<li>Gecko 内核：火狐，FF，MozillaSuite / SeaMonkey 等</li>
+<li>Presto 内核：Opera7 及以上</li>
+<li>Webkit 内核：Safari，Chrome 等</li>
+</ul>
+<p>内核主要分成两部分：渲染引擎(layout engineer 或 Rendering Engine) 和 JS 引擎。</p>
+<p><strong>渲染引擎</strong>：</p>
+<p>负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。 浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。 所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。</p>
+<p><strong>JS 引擎</strong>：</p>
+<p>解析和执行 javascript 来实现网页的动态效果。
+最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。</p>
+<h2 id="2callapplybind">2、call、apply、bind</h2>
+<ul>
+<li>call 跟 apply 的用法几乎一样，唯一的不同就是传递的参数不同，call 只能一个参数一个参数的传入。</li>
+<li>apply 则只支持传入一个数组，哪怕是一个参数也要是数组形式。最终调用函数时候这个数组会拆成一个个参数分别传入。</li>
+<li>至于 bind 方法，他是直接改变这个函数的 this 指向并且返回一个新的函数，之后再次调用这个函数的时候 this 都是指向 bind 绑定的第一个参数。</li>
+<li>bind 传参方式跟 call 方法一致。</li>
+</ul>
+<p>简易版本bind实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Function.prototype.bind = function(<span style="color:#a6e22e">context</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  var self = this;
+  return function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    return self.apply<span style="color:#960050;background-color:#1e0010">(</span>context, arguments);
+  };
+};
+
+var obj = <span style="color:#960050;background-color:#1e0010">{</span>
+  name: &#34;前端工程师&#34;
+};
+var func = function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  console.log(<span style="color:#a6e22e">this.name</span>);
+}.bind(<span style="color:#a6e22e">obj</span>);
+func<span style="color:#960050;background-color:#1e0010">(</span>);
+</code></pre></div><p><strong>求一个数组中最大或者最小值</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const arr = <span style="color:#960050;background-color:#1e0010">[</span>1, 2, 3, 4, 5, 6];
+const max = Math.max.apply<span style="color:#960050;background-color:#1e0010">(</span>null, arr);
+console.log(<span style="color:#a6e22e">max</span>); // 6
+</code></pre></div><p><strong>利用 call 和 apply 做继承</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Animal(<span style="color:#a6e22e">name</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  this.name = name;
+  this.showName = function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    console.log(<span style="color:#a6e22e">this.name</span>); // this 为undefined
+  };
+}
+
+function Cat(<span style="color:#a6e22e">name</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  Animal.call<span style="color:#960050;background-color:#1e0010">(</span>this, name);  //这里的this是Cat
+}
+
+var cat = new Cat<span style="color:#960050;background-color:#1e0010">(</span>&#34;TONY&#34;);
+cat.showName<span style="color:#960050;background-color:#1e0010">(</span>); //TONY
+</code></pre></div><p><strong>判断变量类型</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let arr1 = <span style="color:#960050;background-color:#1e0010">[</span>1, 2, 3];
+let str1 = &#34;string&#34;;
+let obj1 = <span style="color:#960050;background-color:#1e0010">{</span> name: &#34;thomas&#34; };
+
+function isArray(<span style="color:#a6e22e">obj</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  return Object.prototype.toString.call(<span style="color:#a6e22e">obj</span>) <span style="color:#f92672">=</span><span style="color:#e6db74">==</span> &#34;<span style="color:#960050;background-color:#1e0010">[</span>object Array]&#34;;
+}
+
+console.log<span style="color:#960050;background-color:#1e0010">(</span>Object.prototype.toString.call(<span style="color:#a6e22e">arr1</span>)); // <span style="color:#960050;background-color:#1e0010">[</span>object Array]
+console.log<span style="color:#960050;background-color:#1e0010">(</span>Object.prototype.toString.call(<span style="color:#a6e22e">str1</span>)); // <span style="color:#960050;background-color:#1e0010">[</span>object String]
+console.log<span style="color:#960050;background-color:#1e0010">(</span>Object.prototype.toString.call(<span style="color:#a6e22e">obj1</span>)); // <span style="color:#960050;background-color:#1e0010">[</span>object Object]
+console.log<span style="color:#960050;background-color:#1e0010">(</span>Object.prototype.toString.call(<span style="color:#a6e22e">null</span>)); // <span style="color:#960050;background-color:#1e0010">[</span>object Null]
+</code></pre></div><p><strong>总结</strong>：</p>
+<ul>
+<li>当我们使用一个函数需要改变 this 指向的时候才会用到 call apply bind</li>
+<li>如果你要传递的参数不多，则可以使用 fn.call(thisObj, arg1, arg2 &hellip;)</li>
+<li>如果你要传递的参数很多，则可以用数组将参数整理好调用 fn.apply(thisObj, [arg1, arg2 &hellip;])</li>
+<li>如果你想生成一个新的函数长期绑定某个函数给某个对象使用，则可以使用 const newFn = fn.bind(thisObj); newFn(arg1, arg2&hellip;)</li>
+</ul>
+<h2 id="3什么是伪数组如何将伪数组转化为标准数组">3、什么是伪数组？如何将伪数组转化为标准数组？</h2>
+<p><strong>同时符合以下条件为伪数组</strong>：</p>
+<ul>
+<li>具有length属性</li>
+<li>按索引方式存储数据 {}</li>
+<li>不具有数组的push,pop等方法</li>
+</ul>
+<p>典型的是函数的argument参数，还有像调用getElementsByTagName,document.childNodes之类的,它们都返回NodeList对象都属于伪数组。</p>
+<p><strong>伪数组转化真数组</strong>：</p>
+<p>伪数组</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const fakeArray = <span style="color:#960050;background-color:#1e0010">{</span>
+    0: &#34;a&#34;,
+    1: &#34;b&#34;,
+    2: &#34;c&#34;,
+    3: &#34;d&#34;,
+    length:4
+};
+</code></pre></div><p>方法一：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let arr2 = Array.prototype.slice.call(<span style="color:#a6e22e">fakeArray</span>)
+</code></pre></div><p>方法二：相比第一种效率高</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let arr2 = <span style="color:#960050;background-color:#1e0010">[</span>].slice.call(<span style="color:#a6e22e">fakeArray</span>);
+</code></pre></div><p>方法三：ES6</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let arr2 = Array.from(<span style="color:#a6e22e">fakeArray</span>);
+</code></pre></div><p>方法四：初始化空数组，遍历伪数组并push到真数组里</p>
+<h2 id="4mouseenter-和-mouseover-的区别">4、mouseenter 和 mouseover 的区别</h2>
+<ul>
+<li>不论鼠标指针穿过被选元素或其子元素，都会触发 mouseover 事件，对应 mouseout。</li>
+<li>只有在鼠标指针穿过被选元素时，才会触发 mouseenter 事件，对应 mouseleave。</li>
+</ul>
+<h2 id="5哪些常见操作会造成内存泄漏-">5、哪些常见操作会造成内存泄漏 ？</h2>
+<p>内存泄漏指任何对象在您不再拥有或需要它之后仍然存在。如果一个对象的引用数量为 0（没有其他对象引用过该对象），或对该对象的惟一引用是循环的，那么该对象的内存即可回收。</p>
+<p><strong>1、创建了全局变量</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function foo<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  window.name = &#39;前端曰&#39;；
+}
+
+// 又或者
+function foo<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  this.name = &#39;前端曰&#39;；
+}
+foo<span style="color:#960050;background-color:#1e0010">(</span>) // 其实这里的this就是指向的window对象
+</code></pre></div><p>解决方案：在你的Javascript文件最前面添加 &lsquo;use strict;&rsquo;</p>
+<p><strong>2、循环引用</strong>：引用计数的策略是将“对象是否不再需要”简化成“对象有没有其他对象引用到它”，如果没有对象引用这个对象，那么这个对象将会被回收 。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function func<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>  
+    let obj1 = <span style="color:#960050;background-color:#1e0010">{</span>};  
+    let obj2 = <span style="color:#960050;background-color:#1e0010">{</span>};  
+  
+    obj1.a = obj2; // obj1 引用 obj2  
+    obj2.a = obj1; // obj2 引用 obj1  
+}
+</code></pre></div><p>当函数 func 执行结束后，返回值为 undefined，所以整个函数以及内部的变量都应该被回收，但根据引用计数方法，obj1 和 obj2 的引用次数都不为 0，所以他们不会被回收。要解决循环引用的问题，最好是在不使用它们的时候手工将它们设为空。</p>
+<p>解决方案：obj1 和 obj2 都设为 null</p>
+<p><strong>3、老生常谈的闭包</strong>:匿名函数可以访问父级作用域的变量。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var names = <span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>  
+    var name = &#39;js-say&#39;;
+    return function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+        console.log(<span style="color:#a6e22e">name</span>);
+    }
+})<span style="color:#960050;background-color:#1e0010">(</span>)
+</code></pre></div><p><strong>4、被遗忘的定时器</strong>：日常需求中，可能会经常试用到 setInterval/setTimeout ，但是使用完之后通常忘记清理</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> mounted<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    this.refreshInterval = setInterval<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+      // 轮询获取数据
+      this.refresh<span style="color:#960050;background-color:#1e0010">(</span>)
+    }, 2000)
+  }
+</code></pre></div><p>组件销毁的时候，setInterval 还是在运行的，里面涉及到的内存都是没法回收的（浏览器会认为这是必须的内存，不是垃圾内存），需要在组件销毁的时候清除计时器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">  beforeDestroy<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    clearInterval(<span style="color:#a6e22e">this.refreshInterval</span>)
+  }
+</code></pre></div><p><strong>5、被遗忘的事件监听器</strong>：无用的事件监听器需要清理掉</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> mounted<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    window.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;resize&#39;, <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+      // 这里做一些操作
+    })
+  },
+</code></pre></div><p>上面的组件销毁的时候，resize 事件还是在监听中，里面涉及到的内存都是没法回收的（浏览器会认为这是必须的内存，不是垃圾内存），需要在组件销毁的时候移除相关的事件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> mounted<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    this.resizeEventCallback = <span style="color:#960050;background-color:#1e0010">(</span>) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+      // 这里做一些操作
+    }
+    window.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;resize&#39;, this.resizeEventCallback)
+  },
+  beforeDestroy<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    window.removeEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;resize&#39;, this.resizeEventCallback)
+  },
+</code></pre></div><h2 id="6异步过程的构成要素有哪些和异步过程是怎样的-">6、异步过程的构成要素有哪些？和异步过程是怎样的 ？</h2>
+<p>总结一下，一个异步过程通常是这样的：</p>
+<ul>
+<li>主线程发起一个异步请求，相应的工作线程接收请求并告知主线程已收到(异步函数返回)；</li>
+<li>主线程可以继续执行后面的代码，同时工作线程执行异步任务；</li>
+<li>工作线程完成工作后，通知主线程；</li>
+<li>主线程收到通知后，执行一定的动作(调用回调函数)。</li>
+</ul>
+<p>异步函数通常具有以下的形式：A(args&hellip;, callbackFn)。</p>
+<ul>
+<li>它可以叫做异步过程的发起函数，或者叫做异步任务注册函数。</li>
+<li>args 和 callbackFn 是这个函数的参数。</li>
+</ul>
+<p>所以，从主线程的角度看，一个异步过程包括下面两个要素：</p>
+<ul>
+<li>发起函数(或叫注册函数) A。</li>
+<li>回调函数 callbackFn。</li>
+</ul>
+<p>它们都是在主线程上调用的，其中注册函数用来发起异步过程，回调函数用来处理结果。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">setTimeout<span style="color:#960050;background-color:#1e0010">(</span>fn, 1000);
+</code></pre></div><p>其中的 setTimeout 就是异步过程的发起函数，fn 是回调函数。</p>
+<h2 id="7请描述一下-cookiessessionstorage-和-localstorage-的区别">7、请描述一下 cookies，sessionStorage 和 localStorage 的区别</h2>
+<ul>
+<li>cookie 数据始终在同源的 http 请求中携带（即使不需要），即 cookie 在浏览器和服务器间来回传递。而 sessionStorage 和 localStorage 不会自动把数据发给服务器，仅在本地保存。</li>
+<li>存储大小限制也不同，cookie 数据不能超过 4k，同时因为每次 http 请求都会携带 cookie，所以 cookie 只适合保存很小的数据，如会话标识。</li>
+<li>sessionStorage 和 localStorage 虽然也有存储大小的限制，但比 cookie 大得多，可以达到 5M 或更大。</li>
+<li>数据有效期不同，sessionStorage：仅在当前浏览器窗口关闭前有效，自然也就不可能持久保持；localStorage：始终有效，窗口或浏览器关闭也一直保存，因此用作持久数据；cookie 只在设置的 cookie 过期时间之前一直有效，即使窗口或浏览器关闭。</li>
+<li>作用域不同，sessionStorage 在不同的浏览器窗口中不共享，即使是同一个页面；cookie 和 localStorage 在所有同源窗口中都是共享的。</li>
+</ul>
+<h2 id="8从敲入-url-到渲染完成的整个过程包括-dom-构建的过程说的约详细越好">8、从敲入 URL 到渲染完成的整个过程，包括 DOM 构建的过程，说的约详细越好？</h2>
+<p><a href="https://juejin.im/post/5b9ba9c15188255c8320fe27">戳戳戳，看这里</a></p>
+<h2 id="9js-的两种回收机制">9、js 的两种回收机制</h2>
+<p>标记清除（mark and sweep）</p>
+<p>从语义上理解就比较好理解了，大概就是当变量进入到某个环境中的时候就把这个变量标记一下，比如标记为“进入环境”，当离开的时候就把这个变量的标记给清除掉，比如是“离开环境”。而在这后面还有标记的变量将被视为准备删除的变量。</p>
+<ul>
+<li>垃圾收集器在运行的时候会给存储在内存中的所有变量都加上标记（可以使用任何标记方式）。</li>
+<li>然后，它会去掉环境中的变量以及被环境中的变量引用的变量的标记。</li>
+<li>而在此之后再被加上的标记的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。</li>
+<li>最后，垃圾收集器完成内存清除工作。销毁那些带标记的值并回收它们所占用的内存空间。</li>
+</ul>
+<p>这是 javascript 最常见的垃圾回收方式。至于上面有说道的标记，到底该如何标记 ？ 好像是有很多方法，比如特殊位翻转，维护一个列表什么的。</p>
+<p>引用计数（reference counting）</p>
+<ul>
+<li>引用计数的含义是跟踪记录每个值被引用的次数，当声明一个变量并将一个引用类型的值赋给该变量时，这个时候的引用类型的值就会是引用次数 +1 了。如果同一个值又被赋给另外一个变量，则该值的引用次数又 +1。</li>
+<li>相反如果包含这个值的引用的变量又取得另外一个值，即被重新赋了值，那么这个值的引用就 -1 。当这个值的引用次数编程 0 时，表示没有用到这个值，这个值也无法访问，因此环境就会收回这个值所占用的内存空间回收。</li>
+<li>这样，当垃圾收集器下次再运行时，它就会释放引用次数为 0 的值所占用的内存。</li>
+</ul>
+<h2 id="10闭包的理解-">10、闭包的理解 ？</h2>
+<p>首先必须理解 Javascript 特殊的变量作用域。 变量的作用域无非就是两种：全局变量和局部变量。</p>
+<p>于函数内部可以直接读取全局变量。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var n = 999;
+function f1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  alert(<span style="color:#a6e22e">n</span>);
+}
+f1<span style="color:#960050;background-color:#1e0010">(</span>); // 999
+</code></pre></div><p>另一方面，在函数外部自然无法读取函数内的局部变量。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function f1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  var n = 999;
+}
+alert(<span style="color:#a6e22e">n</span>); // error
+</code></pre></div><p>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用 var 命令。 如果不用的话，你实际上声明了一个全局变量！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function f1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  n = 999;
+}
+f1<span style="color:#960050;background-color:#1e0010">(</span>);
+alert(<span style="color:#a6e22e">n</span>); // 999
+</code></pre></div><p>如何从外部读取局部变量 ？</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function f1<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  var n = 999;
+  function f2<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+    alert(<span style="color:#a6e22e">n</span>);
+  }
+  return f2;
+}
+var result = f1<span style="color:#960050;background-color:#1e0010">(</span>);
+result<span style="color:#960050;background-color:#1e0010">(</span>); // 999
+</code></pre></div><h2 id="11javascript-判断一个变量是对象还是数组-">11、JavaScript 判断一个变量是对象还是数组 ？</h2>
+<p>第一，使用 typeof 加 length 属性</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var getDataType = function(<span style="color:#a6e22e">o</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  if <span style="color:#960050;background-color:#1e0010">(</span>typeof o == &#34;object&#34;) <span style="color:#960050;background-color:#1e0010">{</span>
+    if <span style="color:#960050;background-color:#1e0010">(</span>typeof o.length == &#34;number&#34;) <span style="color:#960050;background-color:#1e0010">{</span>
+      return &#34;Array&#34;;
+    } else <span style="color:#960050;background-color:#1e0010">{</span>
+      return &#34;Object&#34;;
+    }
+  } else <span style="color:#960050;background-color:#1e0010">{</span>
+    return &#34;param is no object type&#34;;
+  }
+};
+</code></pre></div><p>第二，使用 instanceof</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var getDataType = function(<span style="color:#a6e22e">o</span>) <span style="color:#960050;background-color:#1e0010">{</span>
+  if <span style="color:#960050;background-color:#1e0010">(</span>o instanceof Array) <span style="color:#960050;background-color:#1e0010">{</span>
+    return &#34;Array&#34;;
+  } else if <span style="color:#960050;background-color:#1e0010">(</span>o instanceof Object) <span style="color:#960050;background-color:#1e0010">{</span>
+    return &#34;Object&#34;;
+  } else <span style="color:#960050;background-color:#1e0010">{</span>
+    return &#34;param is no object type&#34;;
+  }
+};
+</code></pre></div><h2 id="12es5-的继承和-es6-的继承有什么区别-">12、ES5 的继承和 ES6 的继承有什么区别 ？</h2>
+<p>ES5 的继承时通过 prototype 或构造函数机制来实现。</p>
+<ul>
+<li>ES5 的继承实质上是先创建子类的实例对象，然后再将父类的方法添加到 this 上（Parent.apply(this)）。</li>
+<li>ES6 的继承机制完全不同，实质上是先创建父类的实例对象 this（所以必须先调用父类的 super()方法），然后再用子类的构造函数修改 this</li>
+</ul>
+<p>具体的：ES6 通过 class 关键字定义类，里面有构造方法，类之间通过 extends 关键字实现继承。子类必须在 constructor 方法中调用 super 方法，否则新建实例报错。因为子类没有自己的 this 对象，而是继承了父类的 this 对象，然后对其进行加工。如果不调用 super 方法，子类得不到 this 对象。</p>
+<p>ps：super 关键字指代父类的实例，即父类的 this 对象。在子类构造函数中，调用 super 后，才可使用 this 关键字，否则报错。</p>
+<h2 id="13js类型判断---typeof-constructor-instanceof-tostring">13、JS类型判断&mdash;typeof, constructor, instanceof, toString</h2>
+<p><a href="https://juejin.im/post/5d99b56f518825222b5b6737">戳戳戳</a></p>
+<h2 id="14翻转一个字符串">14、翻转一个字符串</h2>
+<p>先将字符串转成一个数组，然后用数组的 reverse() + join() 方法。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let a = &#34;hello word&#34;;
+let b = [<span style="color:#a6e22e">...str</span>].reverse<span style="color:#960050;background-color:#1e0010">(</span>).join<span style="color:#960050;background-color:#1e0010">(</span>&#34;&#34;); // drow olleh
+</code></pre></div><h2 id="15null-和-undefined-的区别">15、null 和 undefined 的区别</h2>
+<p>在原始类型中，有两个类型Null和Undefined，他们都有且仅有一个值，null和undefined，并且他们都代表无和空，我一般这样区分它们：</p>
+<p><strong>null</strong></p>
+<p>表示被赋值过的对象，刻意把一个对象赋值为null，故意表示其为空，不应有值。所以对象的某个属性值为null是正常的，null转换为数值时值为0。</p>
+<p><strong>undefined</strong></p>
+<p>表示“缺少值”，即此处应有一个值，但还没有定义，</p>
+<p>如果一个对象的某个属性值为undefined，这是不正常的，如obj.name=undefined，我们不应该这样写，应该直接delete obj.name。</p>
+<p>undefined转为数值时为NaN(非数字值的特殊值)</p>
+<h2 id="16值传递和引用传递">16、值传递和引用传递</h2>
+<p>值传递</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let name = &#39;xxxx&#39;;
+function changeValue(<span style="color:#a6e22e">name</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  name = &#39;code秘密花园&#39;;
+}
+changeValue(<span style="color:#a6e22e">name</span>);
+console.log(<span style="color:#a6e22e">name</span>); // xxxx
+</code></pre></div><p>引用传递</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let obj = <span style="color:#960050;background-color:#1e0010">{</span>name:&#39;xxx&#39;};
+function changeValue(<span style="color:#a6e22e">obj</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  obj.name = &#39;code秘密花园&#39;;
+}
+changeValue(<span style="color:#a6e22e">obj</span>);
+console.log(<span style="color:#a6e22e">obj.name</span>); // code秘密花园
+</code></pre></div><p>当函数参数是引用类型时，我们同样将参数复制了一个副本到局部变量，只不过复制的这个副本是指向堆内存中的地址而已，我们在函数内部对对象的属性进行操作，实际上和外部变量指向堆内存中的值相同，但是这并不代表着引用传递。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">let obj = <span style="color:#960050;background-color:#1e0010">{</span>};
+function changeValue(<span style="color:#a6e22e">obj</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+  obj.name = &#39;ConardLi&#39;;
+  obj = <span style="color:#960050;background-color:#1e0010">{</span>name:&#39;code秘密花园&#39;};
+}
+changeValue(<span style="color:#a6e22e">obj</span>);
+console.log(<span style="color:#a6e22e">obj.name</span>); // ConardLi
+</code></pre></div><h2 id="17symbol特性">17、Symbol特性</h2>
+<p><strong>独一无二</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var sym1 = Symbol<span style="color:#960050;background-color:#1e0010">(</span>);  // Symbol<span style="color:#960050;background-color:#1e0010">(</span>) 
+var sym2 = Symbol<span style="color:#960050;background-color:#1e0010">(</span>&#39;ConardLi&#39;);  // Symbol(<span style="color:#a6e22e">ConardLi</span>)
+var sym3 = Symbol<span style="color:#960050;background-color:#1e0010">(</span>&#39;ConardLi&#39;);  // Symbol(<span style="color:#a6e22e">ConardLi</span>)
+var sym4 = Symbol<span style="color:#960050;background-color:#1e0010">({</span>name:&#39;ConardLi&#39;}); // Symbol<span style="color:#960050;background-color:#1e0010">([</span>object Object])
+console.log<span style="color:#960050;background-color:#1e0010">(</span>sym2 === sym3);  // false
+</code></pre></div><p>如果我们想创造两个相等的Symbol变量，可以使用Symbol.for(key)。使用给定的key搜索现有的symbol，如果找到则返回该symbol。否则将使用给定的key在全局symbol注册表中创建一个新的symbol。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var sym1 = Symbol.for<span style="color:#960050;background-color:#1e0010">(</span>&#39;ConardLi&#39;);
+var sym2 = Symbol.for<span style="color:#960050;background-color:#1e0010">(</span>&#39;ConardLi&#39;);
+console.log<span style="color:#960050;background-color:#1e0010">(</span>sym1 === sym2); // true
+</code></pre></div><p><strong>原始类型</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">typeof Symbol<span style="color:#960050;background-color:#1e0010">(</span>) === &#39;symbol&#39;
+typeof Symbol<span style="color:#960050;background-color:#1e0010">(</span>&#39;ConardLi&#39;) === &#39;symbol&#39;
+</code></pre></div><h2 id="180102-为什么-不等于03">18、0.1+0.2 为什么 不等于0.3</h2>
+<p>因为0.1和0.2会先转化成二进制无限小数，而JS存储无限小数使用64位固定长度来表示导致精度丢失。</p>
+<h2 id="19隐式转换">19、隐式转换</h2>
+<p><img src="/images/js/2.jpeg" alt="隐式转换规则(图片来自ConardLi)"></p>
+<p><strong>各种运数学算符</strong>：我们在对各种非Number类型运用数学运算符(- * /)时，会先将非Number类型转换为Number类型;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">1 - true // 0
+1 - null //  1
+1 <span style="color:#960050;background-color:#1e0010">*</span> undefined //  NaN
+2 <span style="color:#960050;background-color:#1e0010">*</span> <span style="color:#960050;background-color:#1e0010">[</span>&#39;5&#39;] //  10
+</code></pre></div><p>注意+是个例外，执行+操作符时：</p>
+<p>1.当一侧为String类型，被识别为字符串拼接，并会优先将另一侧转换为字符串类型</p>
+<p>2.当一侧为Number类型，另一侧为原始类型，则将原始类型转换为Number类型</p>
+<p>3.当一侧为Number类型，另一侧为引用类型，将引用类型和Number类型转换成字符串后拼接</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">123 + &#39;123&#39; // 123123   （规则1）
+123 + null  // 123    （规则2）
+123 + true // 124    （规则2）
+123 + <span style="color:#960050;background-color:#1e0010">{</span>}  // 123<span style="color:#960050;background-color:#1e0010">[</span>object Object]    （规则3）
+</code></pre></div><p><strong>一道有意思的题</strong></p>
+<p>如何让：a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3。</p>
+<p>根据上面的拆箱转换，以及==的隐式转换，会先调用valueOf或者toString,我们可以轻松写出答案：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const a = <span style="color:#960050;background-color:#1e0010">{</span>
+   value:<span style="color:#960050;background-color:#1e0010">[</span>3,2,1],
+   valueOf: function <span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>return this.value.pop<span style="color:#960050;background-color:#1e0010">(</span>); },
+}
+</code></pre></div><h2 id="20settimeoutpromiseasyncawait-的区别">20、setTimeout、Promise、Async/Await 的区别</h2>
+<ul>
+<li>setTimeout宏任务，会在微任务执行完根据队列先进先出的方式依次执行</li>
+<li>Promise本身是同步的立即执行函数，到执行了reslove或者 reject才是异步属于微任务。</li>
+<li>async 函数返回一个promise，当执行到await就会返回跳出async函数体。await 后面的代码属于微任务。</li>
+</ul>
+<h2 id="21es5es6-的继承除了写法以外还有什么区别">21、ES5/ES6 的继承除了写法以外还有什么区别？</h2>
+<p>问题是继承的差异。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">class Super <span style="color:#960050;background-color:#1e0010">{</span>}
+class Sub extends Super <span style="color:#960050;background-color:#1e0010">{</span>}
+
+const sub = new Sub<span style="color:#960050;background-color:#1e0010">(</span>);
+
+Sub.__proto__ === Super;
+</code></pre></div><p>子类可以直接通过 <strong>proto</strong> 寻址到父类。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function Super<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+function Sub<span style="color:#960050;background-color:#1e0010">(</span>) <span style="color:#960050;background-color:#1e0010">{</span>}
+
+Sub.prototype = new Super<span style="color:#960050;background-color:#1e0010">(</span>);
+Sub.prototype.constructor = Sub;
+
+var sub = new Sub<span style="color:#960050;background-color:#1e0010">(</span>);
+
+Sub.__proto__ === Function.prototype;
+</code></pre></div><p>而通过 ES5 的方式，Sub.<strong>proto</strong> === Function.prototype</p>
+<h2 id="22说一下xsrf">22、说一下XSRF？</h2>
+<p>XSRF 又名 CSRF，跨站请求伪造，它是前端常见的一种攻击方式。</p>
+<p><img src="/images/js/xsrf.png" alt="XSRF">
+原理：A登录了信任的网站B，B给A返回了cookie。在A没有退出B网站时去访问了C网站(攻击者网站)，C带着A的cookie去访问了B网站的服务器。</p>
+<p>解决方案：</p>
+<ul>
+<li>referer:验证请求的 referer，但是 referer 也是可以伪造的</li>
+<li>使用token，前后端协调好cookieName和tokenName。从返回的cookie中拿到token，再在header上加token，服务端根据token来验证token</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/interview-js/>http://www.yuyunzhi.com/interview-js/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/interview-html/" class="prev" rel="prev" title="HTML、CSS"><i class="iconfont icon-left"></i>&nbsp;HTML、CSS</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/interview-js-console/" class="next" rel="next" title="JavaScript输出结果题">JavaScript输出结果题&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

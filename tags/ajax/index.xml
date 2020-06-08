@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ajax on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/ajax/</link>
+    <description>Recent content in Ajax on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 05 Sep 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/ajax/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>自己动手封装一个AJAX函数</title>
+      <link>http://www.yuyunzhi.com/js-generate-ajax/</link>
+      <pubDate>Wed, 05 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-generate-ajax/</guid>
+      <description>这是一件很有意思的事，封装一个抽象性函数，就相当于可以把这个函数用在类似相同的环境中。 1、知道AJAX的功能 2、把AJAX的功能封装成函数 3、用Promise优化封装的函数
+ 一、AJAX有哪些功能？  客户端的JS发起请求（浏览器上的） 服务端的JS发送响应（Node.js上的）  1、JS 可以设置任意请求 header 吗？  第一部分 request.open(&amp;lsquo;get&amp;rsquo;, &amp;lsquo;/xxx&amp;rsquo;) 第二部分 request.setHeader(&amp;lsquo;content-type&amp;rsquo;,&amp;lsquo;x-www-form-urlencoded&amp;rsquo;) 第四部分 request.send(&amp;lsquo;a=1&amp;amp;b=2&amp;rsquo;)  2、JS 可以获取任意响应 header 吗？  第一部分 request.status / request.statusText 第二部分 request.getResponseHeader() / request.getAllResponseHeaders() 第四部分 request.responseText  二、window.jQuery.ajax 之前写过window.jQuery，而这次写window.jQuery.ajax。
+封装AJAX函数，JS代码如下：
+window.jQuery.ajax = function(obj){ let url=obj.url let method=obj.method let body=obj.body let successFn=obj.successFn let headers=obj.heaaders let failFn=obj.failFn let request = new XMLHttpRequest() request.open(method, url) // 配置request第一部分 for(let key in headers){ let value = headers[key]; request.</description>
+    </item>
+    
+    <item>
+      <title>什么是Ajax？</title>
+      <link>http://www.yuyunzhi.com/js-ajax/</link>
+      <pubDate>Tue, 04 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-ajax/</guid>
+      <description>一、我们如何向服务器发送请求？  用 form 可以发请求，但是会刷新页面或新开页面 用 a 可以发 get 请求，但是也会刷新页面或新开页面 用 img 可以发 get 请求，但是只能以图片的形式展示 用 link 可以发 get 请求，但是只能以 CSS、favicon 的形式展示 用 script 可以发 get 请求，但是只能以脚本的形式运行  那么有没有什么方式，可以使用get、post、put、delete 请求都行，并且用任意的方式返回给浏览器展示？
+当然有，这个就是AJAX。
+二、什么是AJAX？ Jesse James Garrett 讲同时满足以下技术取名叫做AJAX:异步的 JavaScript 和 XML。
+ 使用 XMLHttpRequest 发请求 服务器返回 XML 格式的字符串 JS 解析 XML，并更新局部页面  如何使用XMLHttpRequest？
+JS文件代码如下：
+myButton.addEventListener(&amp;#39;click&amp;#39;, (e)=&amp;gt;{ let request = new XMLHttpRequest() request.open(&amp;#39;get&amp;#39;, &amp;#39;/xxx&amp;#39;) // 配置request，请求方式和路径 request.onreadystatechange = ()=&amp;gt;{ if(request.readyState===4){ //当请求相应完毕，执行以下代码 if(request.status &amp;gt;= 200 &amp;amp;&amp;amp; request.</description>
+    </item>
+    
+  </channel>
+</rss>

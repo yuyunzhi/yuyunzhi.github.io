@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ES6 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/es6/</link>
+    <description>Recent content in ES6 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 07 Jan 2020 13:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/es6/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HTML、CSS</title>
+      <link>http://www.yuyunzhi.com/interview-es6/</link>
+      <pubDate>Tue, 07 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-es6/</guid>
+      <description>1、let 和 const let 所声明的变量，可以改变
+let a = 123 a = 456 // 正确，可以改变 let b = [123] b = [456] // 正确，可以改变 const 声明一个只读的常量。一旦声明，常量的值就不能改变。简单类型的数据（数值、字符串、布尔值），不可以变动。复合类型的数据（主要是对象和数组），可以这样子变动。
+const a = 123 a = 456 // 报错，不可改变 const b = [123] b = [456] // 报错，不可以重新赋值，不可改变 const a = [123] a.push(456) // 成功 const b = {} b.name = &amp;#39;demo&amp;#39; // 成功 对于 数值、字符串、布尔值 经常会变的，用 let 声明。
+对象、数组和函数用 const 来声明。
+2、解构赋值 数组
+一次性声明多个变量，结合扩展运算符：</description>
+    </item>
+    
+  </channel>
+</rss>

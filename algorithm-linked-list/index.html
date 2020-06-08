@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/algorithm-binary-search/" />
+  <link rel="next" href="http://www.yuyunzhi.com/algorithm-tree/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/algorithm-linked-list/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           链表 Linked List | 余韵之
+       
+  </title>
+  <meta name="title" content="链表 Linked List | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "链表 Linked List",
+    "headline" : "链表 Linked List",
+    "description" : "一、什么是链表？  链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)  链表特性:\n 每个节点都知道它下一个节点的地址 链表的第一个节点可以代表整个链表 查找一个节点或者访问特定编号的节点则需要O(n)的时间，因为遍历第N个节点，才能知道N\u002b1个节点  链表节点定义：\n泛型\npublic class ListNode\u0026lt;T\u0026gt; { T data; ListNode next; public void ListNode(T data){ this.data = data; } } 整数类型\npublic class ListNode { int data; ListNode next; public void ListNode(int data){ this.data = data; } } 何时用链表？\n 不确定数据结构的容量时 常用于组织删除、检索较少，而添加、遍历较多的数据  二、链表实现及其基本API操作 整数型链表\npublic class LinkedList { private ListNode head; public void LinkedList(ListNode head){ this.head = head; } public int get(int index){ preChecked(index); return getNode(index).",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2019",
+    "datePublished": "2019-11-10 23:00:23 \u002b0800 CST",
+    "dateModified" : "2019-11-10 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/algorithm-linked-list\/",
+    "wordCount" : "982",
+    "keywords" : [ "算法", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">链表 Linked List</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2019-11-10 itemprop="datePublished">November 10, 2019</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/%E7%AE%97%E6%B3%95/"> 算法 </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+            
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h1 id="一什么是链表">一、什么是链表？</h1>
+<ul>
+<li>链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)</li>
+</ul>
+<p><img src="/algorithm/5.jpeg" alt="单向、双向链表示意图"></p>
+<p><strong>链表特性</strong>:</p>
+<ul>
+<li>每个节点都知道它下一个节点的地址</li>
+<li>链表的第一个节点可以代表整个链表</li>
+<li>查找一个节点或者访问特定编号的节点则需要O(n)的时间，因为遍历第N个节点，才能知道N+1个节点</li>
+</ul>
+<p><strong>链表节点定义</strong>：</p>
+<p>泛型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public class ListNode&lt;T&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+    T data;
+    ListNode next;
+    public void ListNode<span style="color:#960050;background-color:#1e0010">(</span>T data)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.data = data;
+    }
+}
+</code></pre></div><p>整数类型</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public class ListNode <span style="color:#960050;background-color:#1e0010">{</span>
+    int data;
+    ListNode next;
+    public void ListNode<span style="color:#960050;background-color:#1e0010">(</span>int data)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.data = data;
+    }
+}
+</code></pre></div><p><strong>何时用链表？</strong></p>
+<ul>
+<li>不确定数据结构的容量时</li>
+<li>常用于组织删除、检索较少，而添加、遍历较多的数据</li>
+</ul>
+<h1 id="二链表实现及其基本api操作">二、链表实现及其基本API操作</h1>
+<p>整数型链表</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public class LinkedList <span style="color:#960050;background-color:#1e0010">{</span>
+    private ListNode head;
+
+    public void LinkedList<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        this.head = head;
+    }
+
+    public int get<span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        preChecked(<span style="color:#a6e22e">index</span>);
+        return getNode(<span style="color:#a6e22e">index</span>).value;
+    }
+    private void preChecked<span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        int length = getLength<span style="color:#960050;background-color:#1e0010">(</span>);
+        if<span style="color:#960050;background-color:#1e0010">(</span>index &lt; 0 || index &gt; length-1) <span style="color:#960050;background-color:#1e0010">{</span>
+            throw new IllegalArgumentException<span style="color:#960050;background-color:#1e0010">(</span>&#34;index is invalid&#34;);
+        }
+    }
+    private ListNode getNode <span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode cur = head;
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = 0;i&lt;index;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            cur = cur.next;
+        }
+        return cur;
+    }
+
+    public void set<span style="color:#960050;background-color:#1e0010">(</span>int index,int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        preChecked(<span style="color:#a6e22e">index</span>);
+        ListNode currentNode = getNode(<span style="color:#a6e22e">index</span>);
+        currentNode.value = value;
+    }
+
+    public void add<span style="color:#960050;background-color:#1e0010">(</span>int index,int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        preChecked(<span style="color:#a6e22e">index</span>);
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">-1</span>);
+        dummy.next = head;
+        ListNode preNode = dummy;
+        while<span style="color:#960050;background-color:#1e0010">(</span>index != 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            preNode = preNode.next;
+            index--;
+        }
+        ListNode newNode = new ListNode(<span style="color:#a6e22e">value</span>);
+        newNode.next = preNode.next;
+        preNode.next = newNode;
+        head = dummy.next;
+    }
+
+    public void remove<span style="color:#960050;background-color:#1e0010">(</span>int index)<span style="color:#960050;background-color:#1e0010">{</span>
+        preChecked(<span style="color:#a6e22e">index</span>);
+
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">-1</span>);
+        dummy.next = head;
+        ListNode preNode = dummy;
+        while<span style="color:#960050;background-color:#1e0010">(</span>index != 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            preNode = preNode.next;
+            index--;
+        }
+        preNode.next = preNode.next.next;
+        head = dummy.next;
+    }
+    public int getLength<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode copyNode = head;
+        int nodeLength = 0;
+        while<span style="color:#960050;background-color:#1e0010">(</span>copyNode.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            nodeLength++;
+            copyNode = copyNode.next;
+        }
+        return nodeLength;
+    }
+}
+</code></pre></div><p><strong>上述代码画图理解~</strong>：其中对链表长度修改add、remove的操作使用 Dummy Node 技巧，简化边界情况。链表总是存在至少一个节点，但链表的真正元素是从哨兵节点的下一个节点开始。</p>
+<ul>
+<li>使得链表原头节点不在特殊</li>
+<li>使代码更短，更少的出错</li>
+<li>链表节点只能通过前一个节点的指针访问在将当前节点分配给新节点之前，不要更改上一个节点的next 指针，这样会丢失当前节点，所以要<!-- raw HTML omitted -->ListNode copNode = head<!-- raw HTML omitted --></li>
+</ul>
+<h1 id="三举例">三、举例</h1>
+<h3 id="1得到链表中点的元素">1、得到链表中点的元素</h3>
+<p><strong>题目</strong>：得到链表中点元素。给定一个链表，编写一个函数返回链表的中间节点例：</p>
+<ul>
+<li>Input: 1 -&gt; 3 -&gt; 5 -&gt; 7 return 3</li>
+<li>Input: 1 -&gt; 3 -&gt; 5 -&gt; 7 -&gt; 9 return 5</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<p>遍历方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> public ListNode getMiddleNode<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        int length = getLength(<span style="color:#a6e22e">head</span>);
+        int index = (<span style="color:#a6e22e">length-1</span>)/2;
+        ListNode curNode = getNode(<span style="color:#a6e22e">index</span>);
+        return curNode;
+
+    }
+
+    public int getLength<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode currentNode = head;
+        int length = 0;
+        while<span style="color:#960050;background-color:#1e0010">(</span>currentNode.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            length++;
+            currentNode = currentNode.next;
+        }
+        return length;
+    }
+</code></pre></div><p>双指针方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   public ListNode getMiddleNode<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+       ListNode fast = head;
+       ListNode slow = head;
+       while<span style="color:#960050;background-color:#1e0010">(</span>fast.next != null &amp;&amp; fast.next.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+           fast = fast.next.next;
+           slow = slow.next;
+       }
+       return slow;
+    }
+</code></pre></div><h3 id="2得到链表的倒数第n个节点">2、得到链表的倒数第N个节点</h3>
+<p><strong>题目</strong>：给定一个链表，得到链表的倒数第 n 个节点并返回。给定一个链表: 1-&gt;2-&gt;3-&gt;4-&gt;5, 并且 n = 2，倒数第两个节点为4</p>
+<ul>
+<li>Input: 1-&gt;2-&gt;3-&gt;4-&gt;5, n=2，Output: 4</li>
+<li>Input: 3-&gt;5-&gt;9-&gt;6-&gt;8, n=3,Output: 9</li>
+</ul>
+<p><strong>代码</strong>:</p>
+<p>暴力解法：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public ListNode getKthToLast<span style="color:#960050;background-color:#1e0010">(</span>ListNode head,int n)<span style="color:#960050;background-color:#1e0010">{</span>
+        int nodeLength=getLength(<span style="color:#a6e22e">head</span>);
+        int index = nodelength - n;
+        ListNode cur = head;
+        while<span style="color:#960050;background-color:#1e0010">(</span>index != 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            cur=cur.next;
+        }
+        return cur;
+    }
+</code></pre></div><p>双指针：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">  public ListNode getKthToLast<span style="color:#960050;background-color:#1e0010">(</span>ListNode head,int k)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode first = head;
+        while<span style="color:#960050;background-color:#1e0010">(</span>k-- !=0)<span style="color:#960050;background-color:#1e0010">{</span>
+            first = first.next;
+        }
+        
+        ListNode second = head;
+        while<span style="color:#960050;background-color:#1e0010">(</span>first != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            first = first.next;
+            second = second.next;
+        }
+        
+        return second;
+    }
+</code></pre></div><h3 id="3判断环形链表">3、判断环形链表</h3>
+<p><strong>题目</strong>：给定一个链表，判断链表中否有环</p>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> public boolean hasCycle<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode fast = head;
+        ListNode slow = head;
+        while<span style="color:#960050;background-color:#1e0010">(</span>fast.next != null &amp;&amp; fast.next.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            fast = fast.next.next;
+            slow = slow.next;
+            if<span style="color:#960050;background-color:#1e0010">(</span>fast==slow)<span style="color:#960050;background-color:#1e0010">{</span>
+                return true;
+            }
+        }
+        return false;
+    }
+</code></pre></div><h3 id="4环形链表ii">4、环形链表II</h3>
+<p><strong>题目</strong>：给一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null</p>
+<ul>
+<li>链接：https://leetcode-cn.com/problems/linked-list-cycle-ii/</li>
+</ul>
+<p><strong>思路</strong>：</p>
+<p><img src="/algorithm/6.png" alt="环形链表示意图"></p>
+<ul>
+<li>使用双指针算法，fast slow</li>
+<li>当两指针相遇时，说明花费的时间是相等的，此时可以计算出在1的地方相遇那么，-3-&gt;-2-&gt;-1-&gt;0的距离和2-&gt;3-&gt;4-&gt;0的距离相等。所以第二次temp和slow以相同的速度相遇时便是入口。</li>
+<li>代码先校验是否是环形链表</li>
+<li>当为环形链表，确定fast,slow相遇点</li>
+<li>之后确定slow、temp相遇点</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public ListNode detectCycle<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>    
+        ListNode fast = head;
+        ListNode slow = head;
+        while<span style="color:#960050;background-color:#1e0010">(</span>fast != null &amp;&amp; slow !=null)<span style="color:#960050;background-color:#1e0010">{</span>
+            // 先判断环形链表是不是空
+            if<span style="color:#960050;background-color:#1e0010">(</span>fast.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+                fast = fast.next.next;
+            }else<span style="color:#960050;background-color:#1e0010">{</span>
+                return null;
+            }
+            slow = slow.next;
+            // 当环形链表两指针相遇时
+            if<span style="color:#960050;background-color:#1e0010">(</span>fast == slow)<span style="color:#960050;background-color:#1e0010">{</span>
+                //再继续相遇就是入口
+                ListNode temp = head;
+                while<span style="color:#960050;background-color:#1e0010">(</span>temp != slow)<span style="color:#960050;background-color:#1e0010">{</span>
+                    temp = temp.next;
+                    slow = slow.next;
+                }
+                return temp;
+            }
+        }
+        return null;
+    }
+</code></pre></div><h3 id="5反转一个链表i">5、反转一个链表I</h3>
+<p><strong>题目</strong>：反转一个单链表</p>
+<ul>
+<li>链接：https://leetcode-cn.com/problems/reverse-linked-list/solution/</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">   public ListNode reverselist<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>head == null || head.next == null)<span style="color:#960050;background-color:#1e0010">{</span>
+            return head;
+        }
+        ListNode prev = null;
+        while<span style="color:#960050;background-color:#1e0010">(</span>head != null )<span style="color:#960050;background-color:#1e0010">{</span>
+            ListNode temp = head.next;  //把断开后面的链表临时储存起来
+            head.next = prev;
+            prev = head;
+            head = temp;
+        }
+        return prev;
+    }
+</code></pre></div><h3 id="6反转一个链表ii">6、反转一个链表II</h3>
+<p><strong>题目</strong>：反转从位置 m 到 n 的链表，用一次遍历在原地完成反转给定。 m，n 满足以下条件：1 ≤ m ≤ n ≤ 列表长度。</p>
+<ul>
+<li>给定 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, m = 2 和 n = 4。返回 1-&gt;4-&gt;3-&gt;2-&gt;5-&gt;NULL</li>
+<li>链接：https://leetcode-cn.com/problems/reverse-linked-list/solution/</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">public ListNode reverseBetween<span style="color:#960050;background-color:#1e0010">(</span>ListNode head,int m,int n)<span style="color:#960050;background-color:#1e0010">{</span>
+
+        if<span style="color:#960050;background-color:#1e0010">(</span>head == null || m&gt;n)<span style="color:#960050;background-color:#1e0010">{</span>
+            return head;
+        }
+
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">-1</span>);
+        dummy.next = head;
+        head = dummy;
+
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i = 1 ;i &lt; m;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>head == null)<span style="color:#960050;background-color:#1e0010">{</span>
+                return null;
+            }
+            head = head.next;
+        }
+
+        ListNode premNode = head;
+        ListNode mNode = head.next;
+        ListNode nNode = mNode;
+        ListNode postnNode = mNode.next;
+
+        for<span style="color:#960050;background-color:#1e0010">(</span>int i=m; i&lt;n; i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>postnNode==null)<span style="color:#960050;background-color:#1e0010">{</span>
+                return null;
+            }
+            ListNode temp = postnNode.next;
+            postnNode.next = nNode;
+            nNode = postnNode;
+            postnNode = temp;
+        }
+        mNode.next = postnNode;
+        premNode.next = nNode;
+        
+        return dummy.next;
+    }
+</code></pre></div><h3 id="7交换相邻结点">7、交换相邻结点</h3>
+<p><strong>题目</strong>：给定一个链表，对每两个相邻的结点作交换并返回头节点。你的算法应该只使用额外的常数空间。不要修改列表中的值，只有节点本身可以更改。</p>
+<ul>
+<li>给定 1-&gt;2-&gt;3-&gt;4，你应该返回 2-&gt;1-&gt;4-&gt;3</li>
+<li>链接：https://leetcode-cn.com/problems/swap-nodes-in-pairs/description/</li>
+</ul>
+<p><strong>思路</strong>：</p>
+<ul>
+<li>画图，使用 dummy :-1-&gt;1-&gt;2-&gt;3-&gt;4</li>
+<li>让1的 next 指向2的next</li>
+<li>让-1的 next 指向2</li>
+<li>让2的 next 指向1</li>
+<li>依次循环</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> public ListNode swapPairs<span style="color:#960050;background-color:#1e0010">(</span>ListNode head)<span style="color:#960050;background-color:#1e0010">{</span>
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">-1</span>);
+        dummy.next = head;
+        ListNode pre = dummy;
+        while<span style="color:#960050;background-color:#1e0010">(</span>pre.next != null &amp;&amp; pre.next.next != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            ListNode first = pre.next , second = pre.next.next;
+            first.next = second.next;
+            second.next = first;
+            pre.next = second;
+            pre = first;
+        }
+        return dummy.next;
+    }
+</code></pre></div><h3 id="8两数相加">8、两数相加</h3>
+<p><strong>题目</strong>：给定两个非空链表来代表两个非负数，位数按照逆序方式存储，它们的每个节点只存储单个数字。将这两数相加会返回一个新的链表。可以假设除了数字 0 之外，这两个数字都不会以零开头</p>
+<ul>
+<li>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4) 输出：7 -&gt; 0 -&gt; 8 原因：342 + 465 = 807</li>
+<li>输入：(7 -&gt; 1 -&gt; 6) + (5 -&gt; 9 -&gt; 2) 输出：2 -&gt; 1 -&gt; 9 原因：617 + 295 = 912</li>
+<li>链接：https://leetcode-cn.com/problems/add-twonumbers/description/</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2"> public ListNode addTwoNumbers<span style="color:#960050;background-color:#1e0010">(</span>ListNode l1, ListNode l2) <span style="color:#960050;background-color:#1e0010">{</span>
+        int carry = 0;
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">-1</span>);
+        ListNode p = dummy;
+
+        while<span style="color:#960050;background-color:#1e0010">(</span>l1 != null &amp;&amp; l2 != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            int val = <span style="color:#960050;background-color:#1e0010">(</span>l1.value + l2.value + carry) % 10;
+            carry = <span style="color:#960050;background-color:#1e0010">(</span>l1.value + l2.value + carry) / 10;
+            p = appendToTail<span style="color:#960050;background-color:#1e0010">(</span>p,val);
+            l1 = l1.next;
+            l2 = l2.next;
+        }
+
+        while<span style="color:#960050;background-color:#1e0010">(</span>l1 != null )<span style="color:#960050;background-color:#1e0010">{</span>
+            int val = <span style="color:#960050;background-color:#1e0010">(</span>l1.value + carry) % 10;
+            carry = <span style="color:#960050;background-color:#1e0010">(</span>l1.value + carry) / 10;
+            p = appendToTail<span style="color:#960050;background-color:#1e0010">(</span>p,val);
+            l1 = l1.next;
+        }
+
+        while<span style="color:#960050;background-color:#1e0010">(</span>l2 != null )<span style="color:#960050;background-color:#1e0010">{</span>
+            int val = <span style="color:#960050;background-color:#1e0010">(</span>l2.value + carry) % 10;
+            carry = <span style="color:#960050;background-color:#1e0010">(</span>l2.value + carry) / 10;
+            p = appendToTail<span style="color:#960050;background-color:#1e0010">(</span>p,val);
+            l2 = l2.next;
+        }
+
+        if<span style="color:#960050;background-color:#1e0010">(</span>carry != 0)<span style="color:#960050;background-color:#1e0010">{</span>
+            p.next = new ListNode(<span style="color:#a6e22e">carry</span>);
+        }
+
+        return dummy.next;
+    }
+
+    public ListNode appendToTail<span style="color:#960050;background-color:#1e0010">(</span>ListNode head,int value)<span style="color:#960050;background-color:#1e0010">{</span>
+        head.next = new ListNode(<span style="color:#a6e22e">value</span>);
+        head = head.next;
+        return head;
+    }
+</code></pre></div><h3 id="9删除排序链表中的重复元素-i">9、删除排序链表中的重复元素 I</h3>
+<p><strong>题目</strong>：给定一个排序链表，删除所有重复的元素使得每个元素只留下一个</p>
+<ul>
+<li>给定 1-&gt;1-&gt;2，返回 1-&gt;2</li>
+<li>给定 1-&gt;1-&gt;2-&gt;3-&gt;3，返回 1-&gt;2-&gt;3</li>
+<li>链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/description/</li>
+</ul>
+<p><strong>代码</strong>：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">    public ListNode deleteDuplicates<span style="color:#960050;background-color:#1e0010">(</span>ListNode head) <span style="color:#960050;background-color:#1e0010">{</span>
+  
+        if<span style="color:#960050;background-color:#1e0010">(</span>head==null)<span style="color:#960050;background-color:#1e0010">{</span>
+            return null;
+        }
+        
+        ListNode dummy = new ListNode(<span style="color:#a6e22e">Integer.MAX_VALUE</span>);
+        dummy.next = head;
+        head = dummy;
+        
+        while<span style="color:#960050;background-color:#1e0010">(</span>head != null)<span style="color:#960050;background-color:#1e0010">{</span>
+            while<span style="color:#960050;background-color:#1e0010">(</span>head.next != null &amp;&amp; head.next.value == head.value)<span style="color:#960050;background-color:#1e0010">{</span>
+                head.next = head.next.next;
+            }
+            head = head.next;
+        }
+        return dummy.next;
+    }
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/algorithm-linked-list/>http://www.yuyunzhi.com/algorithm-linked-list/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/">
+                    #算法</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/algorithm-binary-search/" class="prev" rel="prev" title="二分搜索 Binary Search"><i class="iconfont icon-left"></i>&nbsp;二分搜索 Binary Search</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/algorithm-tree/" class="next" rel="next" title="二叉树及二叉搜索树 Tree">二叉树及二叉搜索树 Tree&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+     <link href="//lib.baomitu.com/lightgallery/1.6.11/css/lightgallery.min.css" rel="stylesheet">  
+      
+     <script src="/js/vendor_gallery.min.js" async="" ></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

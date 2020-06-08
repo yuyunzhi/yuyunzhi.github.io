@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 余韵之</title>
+    <link>http://www.yuyunzhi.com/posts/</link>
+    <description>Recent content in Posts on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 20 Jan 2020 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>TS 重构 axios</title>
+      <link>http://www.yuyunzhi.com/js-ts-axios/</link>
+      <pubDate>Mon, 20 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-ts-axios/</guid>
+      <description>一、做什么 1、使用TypeScript从0实现一个axios库
+2、实现完整的单元测试
+3、发布到单元测
+4、使用工具:Jest单元测试 Commitizen规范化注释 RollupJS打包 TSLint代码风格一致性 Prettier美化代码 Semantic release管理版本发布
+5、掌握axios的实现原理
+二、TypScript基础知识 1、需要有nodejs环境
+2、安装TypeScript
+sudo npm install -g typescript 安装成功 运行 tsc -V 出现版本好。</description>
+    </item>
+    
+    <item>
+      <title>Vue</title>
+      <link>http://www.yuyunzhi.com/interview-vue/</link>
+      <pubDate>Sat, 18 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-vue/</guid>
+      <description>一、写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？ key是给每一个vnode的唯一id,可以依靠key,更准确, 更快的拿到oldVnode中对应的vnode节点。
+如果不加key，某些节点有绑定数据（表单）状态，会出现状态错位。</description>
+    </item>
+    
+    <item>
+      <title>Promise</title>
+      <link>http://www.yuyunzhi.com/js-promise/</link>
+      <pubDate>Sat, 11 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-promise/</guid>
+      <description>一、Promise使用注意点 1、Promise 构造函数是同步执行的，promise.then 中的函数是异步执行的。
+const promise = new Promise((resolve, reject) =&amp;gt; { console.log(1) resolve() console.log(2) }) promise.then(() =&amp;gt; { console.log(3) }) console.log(4) 运行结果：
+1 2 3 4 2、promise 有 3 种状态：pending、fulfilled 或 rejected。状态改变只能是 pending-&amp;gt;fulfilled 或者 pending-&amp;gt;rejected，状态一旦改变则不能再变。
+const promise1 = new Promise((resolve, reject) =&amp;gt; { setTimeout(() =&amp;gt; { resolve(&amp;#39;success&amp;#39;) }, 1000) }) const promise2 = promise1.then(() =&amp;gt; { throw new Error(&amp;#39;error!!!&amp;#39;) }) console.log(&amp;#39;promise1&amp;#39;, promise1) console.log(&amp;#39;promise2&amp;#39;, promise2) setTimeout(() =&amp;gt; { console.log(&amp;#39;promise1&amp;#39;, promise1) console.</description>
+    </item>
+    
+    <item>
+      <title>HTML、CSS</title>
+      <link>http://www.yuyunzhi.com/interview-es6/</link>
+      <pubDate>Tue, 07 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-es6/</guid>
+      <description>1、let 和 const let 所声明的变量，可以改变
+let a = 123 a = 456 // 正确，可以改变 let b = [123] b = [456] // 正确，可以改变 const 声明一个只读的常量。一旦声明，常量的值就不能改变。简单类型的数据（数值、字符串、布尔值），不可以变动。复合类型的数据（主要是对象和数组），可以这样子变动。
+const a = 123 a = 456 // 报错，不可改变 const b = [123] b = [456] // 报错，不可以重新赋值，不可改变 const a = [123] a.push(456) // 成功 const b = {} b.name = &amp;#39;demo&amp;#39; // 成功 对于 数值、字符串、布尔值 经常会变的，用 let 声明。
+对象、数组和函数用 const 来声明。
+2、解构赋值 数组
+一次性声明多个变量，结合扩展运算符：</description>
+    </item>
+    
+    <item>
+      <title>常用的跨域方案</title>
+      <link>http://www.yuyunzhi.com/js-cross-domain/</link>
+      <pubDate>Mon, 06 Jan 2020 15:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-cross-domain/</guid>
+      <description>一、什么是跨域？ 1.什么是同源策略及其限制内容？
+同源策略是一种约定，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSRF等攻击。所谓同源是指&amp;quot;协议+域名+端口&amp;quot;三者相同，即便两个不同的域名指向同一个ip地址，也非同源。
+同源策略限制内容有：
+ Cookie、LocalStorage、IndexedDB 等存储性内容 DOM 节点 AJAX 请求发送后，结果被浏览器拦截了  但是有三个标签是允许跨域加载资源：、、2.常见跨域场景
+当协议、子域名、主域名、端口号中任意一个不相同时，都算作不同域。不同域之间相互请求资源，就算作“跨域”。
+跨域并不是请求发不出去，请求能发出去，服务端能收到请求并正常返回结果，只是结果被浏览器拦截了。
+二、跨域解决方案 1.jsonp
+利用 标签没有跨域限制的漏洞，网页可以得到从其他来源动态产生的 JSON 数据。JSONP请求一定需要对方的服务器做支持才可以。
+JSONP优点是简单兼容性好，可用于解决主流浏览器的跨域数据访问的问题。缺点是仅支持get方法具有局限性,不安全可能会遭受XSS攻击。
+2.cors
+服务端设置 Access-Control-Allow-Origin 就可以开启 CORS。 该属性表示哪些域名可以访问资源，如果设置通配符则表示所有网站都可以访问资源。
+3.nginx反向代理
+4.Node中间件代理(两次跨域)
+实现原理：同源策略是浏览器需要遵循的标准，而如果是服务器向服务器请求就无需遵循同源策略。 代理服务器，需要做以下几个步骤：
+ 接受客户端请求 。 将请求 转发给服务器。 拿到服务器 响应 数据。 将 响应 转发给客户端。  </description>
+    </item>
+    
+    <item>
+      <title>JavaScript 5种继承方式</title>
+      <link>http://www.yuyunzhi.com/js-inherit/</link>
+      <pubDate>Mon, 06 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-inherit/</guid>
+      <description>1、原型链继承 //父类型 function Person(name, age) { this.name = name, this.age = age, this.play = [1, 2, 3] this.setName = function () { } } Person.prototype.setAge = function () { } //子类型 function Student(price) { this.price = price this.setScore = function () { } } Student.prototype = new Person() // 子类型的原型为父类型的一个实例对象 var s1 = new Student(15000) var s2 = new Student(14000) console.log(s1,s2) 特点：
+ 父类新增原型方法/原型属性，子类都能访问到 简单，易于实现  缺点：
+ 子类继承的时候会作为公有属性，这样子类1操作这个属性的时候，就会影响到子类2 创建子类实例时，无法向父类构造函数传参 要想为子类新增属性和方法，必须要在Student.</description>
+    </item>
+    
+    <item>
+      <title>js异步执行顺序及Event Loop</title>
+      <link>http://www.yuyunzhi.com/js-asynchronous-order/</link>
+      <pubDate>Sun, 05 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-asynchronous-order/</guid>
+      <description>1、JS执行顺序 先看一段代码，得出执行顺序：1、9、5、0、6、2、7、4、8、3
+(function() { setTimeout(() =&amp;gt; { console.log(0); }); new Promise(resolve =&amp;gt; { console.log(1); setTimeout(() =&amp;gt; { resolve(); Promise.resolve().then(() =&amp;gt; { console.log(2); setTimeout(() =&amp;gt; console.log(3)); Promise.resolve().then(() =&amp;gt; console.log(4)); }); }); Promise.resolve().then(() =&amp;gt; console.log(5)); }).then(() =&amp;gt; { console.log(6); Promise.resolve().then(() =&amp;gt; console.log(7)); setTimeout(() =&amp;gt; console.log(8)); }); console.log(9); })(); 思路：主线程会先执行一遍，执行，异步（宏任务、微任务）压入栈。当主线程执行完毕后就会从队列里取出任务（微任务&amp;gt;宏任务）。每次执行微任务或宏任务都会把该任务分解同步、宏任务、微任务，重复上面的步骤。
+  所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）
+  主线程之外，还存在一个&amp;quot;任务队列&amp;rdquo;（task queue）。只要异步任务有了运行结果，就在&amp;quot;任务队列&amp;quot;之中放置一个事件。
+  一旦&amp;quot;执行栈&amp;quot;中的所有同步任务执行完毕，系统就会读取&amp;quot;任务队列&amp;rdquo;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+  主线程不断重复上面的第三步。
+  宏任务一般是：包括整体代码script，setTimeout，setInterval、I/O、UI render
+微任务主要是：Promise、Object.observe、MutationObserver
+2、从一道题浅说 JavaScript 的事件循环 //请写出输出内容 async function async1() { console.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript一些常用方法</title>
+      <link>http://www.yuyunzhi.com/interview-js-api/</link>
+      <pubDate>Fri, 03 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js-api/</guid>
+      <description>一、instanceof 和 typeof 1、typeof使用: typeof一般被用于判断一个变量的类型是否为以下7种 ：number, string, object, boolean, function, undefined, symbol。但是typeof 在判断一个 object的数据的时候只能告诉我们这个数据是 object, 而不能细致的具体到是哪一种 object
+typeof 1 // number typeof &amp;#34;1&amp;#34; // string typeof [] //object typeof function(){} // function typeof {} // object typeof null // object typeof undefined // undefined typeof true // boolean typeof Object // function 2、typeof null 为什么结果是 object ?因为底层储存变量的时候000表示对象，而 null 的所有机器码也均为0, undefined 用 −2^30 整数来表示。所以 typeof null 结果为object。
+3、Object.prototype.toString.call 使用这个方法来对一个变量类型进行比较准确的判断。
+Object.prototype.toString.call(1) // &amp;#34;[object Number]&amp;#34; Object.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript输出结果题</title>
+      <link>http://www.yuyunzhi.com/interview-js-console/</link>
+      <pubDate>Fri, 03 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js-console/</guid>
+      <description>1、下面程序输出的结果是 ？ if (!(&amp;#34;a&amp;#34; in window)) { var a = 1; } alert(a); // undefined 代码解析：如果 window 不包含属性 a，就声明一个变量 a，然后赋值为 1。
+首先，在 es6 之前，所有的全局变量都是 window 的属性，语句 var a = 1; 等价于 window.a = 1; 你可以用如下方式来检测全局变量是否声明：&amp;ldquo;变量名称&amp;rdquo; in window
+所以：
+var a; alert(&amp;#34;a&amp;#34; in window); // true 2、下面的输出结果是 ？ var out = 25, inner = { out: 20, func: function() { var out = 30; return this.out; } }; console.log((inner.func, inner.func)()); //25 console.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript知识</title>
+      <link>http://www.yuyunzhi.com/interview-js/</link>
+      <pubDate>Thu, 02 Jan 2020 17:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js/</guid>
+      <description>1、常见的浏览器内核有哪些 ？介绍一下你对浏览器内核的理解 ?  Trident 内核：IE, 360，搜狗浏览器 MaxThon、TT、The World,等 Gecko 内核：火狐，FF，MozillaSuite / SeaMonkey 等 Presto 内核：Opera7 及以上 Webkit 内核：Safari，Chrome 等  内核主要分成两部分：渲染引擎(layout engineer 或 Rendering Engine) 和 JS 引擎。
+渲染引擎：
+负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。 浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。 所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。
+JS 引擎：
+解析和执行 javascript 来实现网页的动态效果。 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。
+2、call、apply、bind  call 跟 apply 的用法几乎一样，唯一的不同就是传递的参数不同，call 只能一个参数一个参数的传入。 apply 则只支持传入一个数组，哪怕是一个参数也要是数组形式。最终调用函数时候这个数组会拆成一个个参数分别传入。 至于 bind 方法，他是直接改变这个函数的 this 指向并且返回一个新的函数，之后再次调用这个函数的时候 this 都是指向 bind 绑定的第一个参数。 bind 传参方式跟 call 方法一致。  简易版本bind实现
+Function.prototype.bind = function(context) { var self = this; return function() { return self.</description>
+    </item>
+    
+    <item>
+      <title>HTML、CSS</title>
+      <link>http://www.yuyunzhi.com/interview-html/</link>
+      <pubDate>Thu, 02 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-html/</guid>
+      <description>1、简述一下 src 与 href 的区别  href 是指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，用于超链接。 src 是指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置； 在请求 src 资源时会将其指向的资源下载并应用到文档内，例如 js 脚本，img 图片和 frame 等元素。 当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将 js 脚本放在底部而不是头部。  2、html 中 title 属性和 alt 属性的区别 ？ 有title,那么无论图片能不能正常显示，鼠标放上去都会出现title。有alt，当图片不能正常加载的时候，会显示alt内容。
+&amp;lt;img src=&amp;#34;#&amp;#34; alt=&amp;#34;alt 信息&amp;#34; /&amp;gt; 当图片不输出信息的时候，会显示 alt 信息， 鼠标放上去没有信息。 当图片正常读取，不会出现 alt 信息。
+&amp;lt;img src=&amp;#34;#&amp;#34; alt=&amp;#34;alt 信息&amp;#34; title=&amp;#34;title 信息&amp;#34; /&amp;gt; 当图片不输出信息的时候，会显示 alt 信息，鼠标放上去会出现 title 信息。 当图片正常输出的时候，不会出现 alt 信息，鼠标放上去会出现 title 信息。
+3、讲述你对 reflow回流 和 repaint重绘 的理解 原因：浏览器渲染机制 戳戳戳，你真的了解回流和重绘吗?
+严重性： 在性能优先的前提下，性能消耗 回流 大于 重绘</description>
+    </item>
+    
+    <item>
+      <title>哈希表 Hash 开散列 VS 闭散列</title>
+      <link>http://www.yuyunzhi.com/algorithm-hash/</link>
+      <pubDate>Sat, 30 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-hash/</guid>
+      <description>一、什么是哈希表  设计精妙、用途广泛的数据结构之一 拥有键值对元素的无序集合 键的值是唯一的，键对应的值可以通过键来获取、更新或移除 无论这个哈希表有多大，这些操作基本上通过常量时间的键比较就可完成  基础操作时间复杂度：
+ Insert O(1) Delete O(1) Find O(1)  java hash的基本操作
+HashMap的遍历方式：
+Iterator&amp;lt;Entry&amp;lt;String,String&amp;gt;&amp;gt; iterator = map.entrySet().iterator(); while(iterator.hasNext()){ Map.Entry&amp;lt;String,String&amp;gt; entry = (Map.Entry&amp;lt;String,String&amp;gt;) iterator.next(); System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } for(Map.Entry&amp;lt;String,String &amp;gt; entry : map.entrySet()){ System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } for(Object entry : map.entrySet()){ System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } map.entrySet().forEach(entry -&amp;gt; System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.</description>
+    </item>
+    
+    <item>
+      <title>排序算法 Sort 冒泡、归并、快速、插入</title>
+      <link>http://www.yuyunzhi.com/algorithm-sort/</link>
+      <pubDate>Sun, 17 Nov 2019 10:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-sort/</guid>
+      <description>一、插入排序 核心想法：像排序一手扑克牌，把一张牌开始时，我们的左手为空并且桌子上的牌面向下。然后我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它已在手中的每张牌进行比较。
+ 最坏情况 ：O(n2) 数组反向排序 最好情况 ：O(n) 数组已经排好序 平均情况 ：O(n2) 确定在什么位置插入元素num，平均地数组中有一半元素大于num，一半小于num  代码：
+public void insertionSort(int[] nums) { for (int j = 1; j &amp;lt; length; j++) { int key = nums[j]; int i = j - 1; while (i &amp;gt;= 0 &amp;amp;&amp;amp; nums[i] &amp;gt; key) { nums[i + 1] = nums[i]; i--; } nums[i + 1] = key; } } 二、冒泡排序 核心想法：反复交换相邻的未按次序排列的元素。每一次选出该次最大的数字往后冒泡
+ 最坏情况 ：O(n2) 最好情况 ：O(n) 平均情况 ：O(n2)  代码：</description>
+    </item>
+    
+    <item>
+      <title>二叉树及二叉搜索树 Tree</title>
+      <link>http://www.yuyunzhi.com/algorithm-tree/</link>
+      <pubDate>Sat, 16 Nov 2019 19:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-tree/</guid>
+      <description>一、什么是树？  树 （英语：Tree）是⼀种⽆向图（undirected graph), 其中任意两个顶点间存在唯⼀⼀条路径。或者说，只要没有回路的连通图就是树 ⼀个（可能是⾮线性的）数据结构，由节点，顶点和边组成，美有任何环  二、二叉树   二叉树的遍历是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：前序遍历、中序遍历、后序遍历、层序遍历
+  满二叉树：在一棵二叉树中。如果所有分支节点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为满二叉树。
+   完全二叉树：对一颗具有n个节点的二叉树按层编号，如果编号为i(1&amp;lt;=i&amp;lt;=n)的节点与同样深度的满二叉树中编号为i的节点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。  二叉树的属性：
+三、二叉树代码表示 public class BinaryTree&amp;lt;T&amp;gt; { private TreeNode&amp;lt;T&amp;gt; root; public Tree (T rootData){ root = new TreeNode&amp;lt;T&amp;gt;(); root.data = rootData; } public static class TreeNode&amp;lt;T&amp;gt;{ private T data; private TreeNode&amp;lt;T&amp;gt; leftNode; private TreeNode&amp;lt;T&amp;gt; rightNode; } } 四、二叉树遍历  前序遍历：父节点、左孩子、右孩子 中序遍历：左孩子、父节点、右孩子 后序遍历：左孩子、右孩子、父节点  递归实现遍历：
+public void preOrderTraversalWithRecursion(TreeNode root) { if(root != null){ System.</description>
+    </item>
+    
+    <item>
+      <title>链表 Linked List</title>
+      <link>http://www.yuyunzhi.com/algorithm-linked-list/</link>
+      <pubDate>Sun, 10 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-linked-list/</guid>
+      <description>一、什么是链表？  链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)  链表特性:
+ 每个节点都知道它下一个节点的地址 链表的第一个节点可以代表整个链表 查找一个节点或者访问特定编号的节点则需要O(n)的时间，因为遍历第N个节点，才能知道N+1个节点  链表节点定义：
+泛型
+public class ListNode&amp;lt;T&amp;gt; { T data; ListNode next; public void ListNode(T data){ this.data = data; } } 整数类型
+public class ListNode { int data; ListNode next; public void ListNode(int data){ this.data = data; } } 何时用链表？
+ 不确定数据结构的容量时 常用于组织删除、检索较少，而添加、遍历较多的数据  二、链表实现及其基本API操作 整数型链表
+public class LinkedList { private ListNode head; public void LinkedList(ListNode head){ this.head = head; } public int get(int index){ preChecked(index); return getNode(index).</description>
+    </item>
+    
+    <item>
+      <title>二分搜索 Binary Search</title>
+      <link>http://www.yuyunzhi.com/algorithm-binary-search/</link>
+      <pubDate>Sat, 09 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-binary-search/</guid>
+      <description>一、一个简单的问题  问题：给定一个排序并不存在重复元素的数组: [1, 2, 5, 7, 8, 9, 13], 查找8的位置 直观想法：遍历整个数组，找到与给定值相同的元素，返回下标 时间复杂度为O(n)  二、使用二分搜索  二分搜索将目标值与数组的中间元素进行比较 如果某一特定元素大于或者小于中间元素，则在数组大于或小于 中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。 如果在某一步骤数组为空，则代表找不到。 这种搜索算法每一次比较都使搜索范围缩小一半。 在排序数组中搜索的最快方法  二分搜索模板：
+public int binarySearch(int[] nums,int target){ if(nums.length == 0){ return -1; } int start = 0; int end = nums.length-1; while(start+1 &amp;lt; end ){ int mid = start +(end - start)/2; if(nums[mid] &amp;gt; target){ end = mid; }else if(nums[mid] &amp;lt; target){ start = mid; }else{ end = mid; } } if(nums[start] == target){ return start; } if(nums[end] == target){ return end; } return -1; } 关于上述代码的要点：</description>
+    </item>
+    
+    <item>
+      <title>递归 Recursion、回溯法 Backtracking</title>
+      <link>http://www.yuyunzhi.com/algorithm-recursion/</link>
+      <pubDate>Sun, 03 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-recursion/</guid>
+      <description>一、什么是递归  在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。 递归指在函数的定义中使用函数自身的方法  二、递归三要素  拆解寻找子问题（得到递归规则） 解决最小子问题是指可以直接得到答案问题并不需递归计算 递归终止退出条件  三、递归举例 1、菲波那切数列  基本情况 ： F(0) = 0, F(1) = 1 ,F(2) = F(0) + F(1) = 1 递归规则 ： F(n) = F(n-1) + F(n-2)  1，1，2，3，5，8，13……
+int Fibonacci (int n ){ if(n==0) return 0; if(n==1) return 1; return Fibonacci(n-1) + Fibonacci(n-2); } 后面用动态规划的方法或记忆搜索的方式来优化重复计算的代码。
+2、汉诺塔   有三根杆子A，B，C。A杆上有N个(N&amp;gt;1)穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至C杆。规则1：每次只能移动一个圆盘；规则2：大盘不能叠在小盘上面。
+  递归规则:1. 将A上的前n-1个盘子从A移到B；2. 将第n个盘子，也就是最底下的盘子从A移到C；3. 将B上剩下的n-1个盘子从B移到C。
+  递归函数：MoveHanoi(int n, char origin, char destination, char buffer) n表示n个盘子,origin表示出发的地方，destination表示目的地,buffer表示缓存的地方。这三个char分别代表着三根杆子</description>
+    </item>
+    
+    <item>
+      <title>栈Stack和队列Quene</title>
+      <link>http://www.yuyunzhi.com/algorithm-stackqueue/</link>
+      <pubDate>Fri, 01 Nov 2019 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-stackqueue/</guid>
+      <description>一、定义  栈： 后进先出 队列： 先进先出  二、栈的初始化与基本操作  Java 类库 : Stackstack = new Stack&amp;lt;&amp;gt;(); 栈区(stack),栈区的读取速度更快;堆区(heap),堆区存放引用类型变量,堆区可以动态地分配内存空间。 基本操作   使用场景：调用函数、递归、深度优先搜索DFS(Depth-fist Search) 栈的实现  class Stack&amp;lt;T&amp;gt; { private T[] elementData; private int size; private int capacity; public Stack(int capacity){ this.size=0; this.capacity=capacity; this.elementData = new T[capacity]; } public void push(T element){ if(size == capacity){ resize(); } size++; elementData[size] = element; } public T pop(){ if(size == 0){ throw new EmptyStackException(); } size--; return elementData[size]; } public T peek(){ if(this.</description>
+    </item>
+    
+    <item>
+      <title>双指针算法 &amp;&amp; ArrayList实现方式</title>
+      <link>http://www.yuyunzhi.com/algorithm-array/</link>
+      <pubDate>Thu, 31 Oct 2019 12:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-array/</guid>
+      <description>一、什么是数组？  数组由相同类型的元素（element）的集合所组成的结构 分配一块连续的内存来存储元素 利用元素的索引（index）可以计算出该元素对应的储存地址  二、数组Array的特性  在内存中为连续空间，定址公式： addr(curElem) = addr(intialElem) +sizeof(curElem) * index 存储在数组中的元素是相同类型的 通过index获取数组元素的时间复杂度为O(1)  三、ArrayList的实现  Java中的声明: ArrayListlist = new ArrayList(); 基本操作   利用数组作为存储 初始化时需要指定ArrayList的容量 记得边界检查 当达到数组容量时再添加新元素时,需要resize操作对底层数组进行扩容  附上实现代码:
+public class ArrayList { private int capacity; private int size; private int[] data; public ArrayList(int capacity){ this.capacity = capacity; this.size = 0; this.data = new int[capacity]; } public int get(int index){ if(index&amp;lt;0 || index&amp;gt;size){ //throw Exception } return data[index]; } public void set(int index,int value){ if(index&amp;lt;0 || index&amp;gt;size){ //throw Exception } data[index] = value; } public void add(int index , int value){ if(index &amp;lt; 0 || index &amp;gt; size){ //throw Exception } if(size == capacity){ resize(); } size++; for(int i = size -1; i&amp;gt;= index+1;i--){ data[i] = data[i-1]; } data[index] = value; } public void remove(int index){ if(index &amp;lt; 0 || index &amp;gt; size){ //throw Exception } size--; for(int i = index;i&amp;lt;size;i++){ data[i] = data[i+1]; } } private void resize(){ capacity*=2; int[] new_data = new int[capacity]; for(int i = 0;i&amp;lt;size;i++){ new_data[i] = data[i]; } data = new_data; } 四、例题 1、两数之和 思路1 ： 暴力遍历，遍历取一个数，计算它与其它数字之和，遍历全部情况得到想要的结果对。时间复杂度为: O(n2)</description>
+    </item>
+    
+    <item>
+      <title>算法复杂度</title>
+      <link>http://www.yuyunzhi.com/algorithm-complexity/</link>
+      <pubDate>Tue, 29 Oct 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-complexity/</guid>
+      <description>1、热身：从一个数组查找一个数，需要花多少时间？假如数组长度10个？假如数组长度1万个？假如数组长度100万个？   最好的情况：第一个 T(n)=O(1) - 最坏的情况：最后一个 T(n)=O(n) - 期望情况(平均情况)：T(n)=O(n)
+  时间复杂度： 执行算法所需要的计算工作量
+  空间复杂度： 执行算法所需要的内存空间
+  2、什么是时间复杂度  在计算机科学中，时间复杂性，又称时间复杂度，算法的时间复杂度是一个函数，它定性描述该算法的运行时间。这是一个代表算法输入值的字符串的长度的函数。时间复杂度常用大O符号表述，不包括这个函数的低阶项和首项系数。  3、时间复杂度计算-一般问题  基本操作的时间复杂度：丢弃常数项、丢弃次要项 复合操作：加还是乘  4、时间复杂度计算-递归问题   什么是递归：在数学与计算机科学中，是指在函数的定义中使用函数自身的方法。递归一词还较常用于描述以自相似方法重复事物的过程。
+  经验性结论：递归问题的时间复杂度通常(并不总是)看起来形如O(branchesdepth)，其中branches指递归分支的总数，depth指递归调用深度
+  5、时间复杂度计算-主定理 6、计算例题  该题的空间复杂度为 O(2n) &amp;ndash;&amp;gt; O (n)  void foo(int[] array){ int sum = 0; int product = 1; for(int i =0; i &amp;lt; array.length; i++){ sum += array[i] } for(int i =0; i &amp;lt; array.</description>
+    </item>
+    
+    <item>
+      <title>web前后端的基础知识</title>
+      <link>http://www.yuyunzhi.com/common-web-principle/</link>
+      <pubDate>Mon, 16 Sep 2019 16:52:16 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-web-principle/</guid>
+      <description>一、在打开网页的时候发生了什么？ 比如说 taobao.com 按回车一瞬间后到页面全部完成发生了什么?
+不同的计算机组成的网络是可以互相通信和连接的，我们每一台主机都对应了自己的一个32位地址(4个字节)，如:115.118.112.3,这种方式的网络协议版本为IPV4。
+从这个地址我们可以看出一些比较有趣的事，一个byte最大可以存255,4个字节最多能存约42亿个数字，大约到了90年代发现42亿也不够用了，于是升级到了128位的网络协议版本IPV6，可以理解为地球上每一粒沙子分配一个地址，来避免IPV4地址不足。
+1、DNS域名解析-缓存 如果要一个人要和别的主机通信，就需要知道别的主机IP地址，由于IP地址对人来说不好记忆，所以就需要另外一个服务，DNS （Domain Name Service）域名服务，那么当用户输入域名的时候，就会通过域名服务器解析域名得到IP地址返回。
+当然中间还有跳了一步，比如说本地已经保存了 taobao.com 及对应的IP地址，那么就不需要进行DNS解析了来节约”翻译”域名的时间。无论是windows还是Mac,都可以通过本地的文件host文件来覆盖掉,Mac 路径：sudo /etc/hosts
+2、端口 如果你的电脑开了很多程序，但网线只有一根，从网线传输的数据怎么知道是哪个程序呢？ 比如你开了QQ、浏览器、微信，数据传递如何对应？这时候就用到了端口(port)，
+端口可以理解为自己的电脑有很多的&amp;quot;港口&amp;rdquo;，编号为，1，2，3，4，5……65536个港口，那么每个数据包就会分配到自己对应的端口上。端口指定了你请求网站的归属地
+注意：
+  HTTPS协议默认端口是443,当你请求https://taobao.com的时候，完全等价于请求https://taobao.com:443
+  HTTP协议默认端口是80,当你请求http://taobao.com的时候，完全等价于请求http://taobao.com:80
+  3、数据流 在计算机协议中常用的通信协议有TCP、UDP协议 TCP基于流的协议、也是全双工协议。可以理解为一个双向的高速公路，当你向远端服务器发送请求的时候就在本地的端口和远端的端口开辟了一个双向的高速公路，而中间跑的不是车而是数据，并且是可以同时发送数据。
+数据流是一个个字节组成的，又称作为字节流。TCP协议规定了字节流在网络上发送和接收的方式。
+TCP协议之上是HTTP协议 超文本传输协议，超文本的意思是如果遵循了HTTP协议不仅仅可以在双向数据流上跑字节流还可以跑文件、跑图片等等。
+那每一个数据流长什么样子？
+ Request请求   Response响应  4、数据是如何被浏览器处理的？ 在网络上传的只是字节流
+比如当你发送请求给淘宝后，会获得 HTTP Response 的响应头和响应体，响应体 不仅仅可以是文本，还可以是二进制数据（图片、音频、下载的文件……）
+输入url后的响应体以标签开头
+这就是，HTML 超文本标记语言。当浏览器看到标签的时候就知道这是一个html，并且一行一行进行相应的文本、样式的解析和下载。</description>
+    </item>
+    
+    <item>
+      <title>命令行</title>
+      <link>http://www.yuyunzhi.com/common-command-line/</link>
+      <pubDate>Fri, 23 Aug 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-command-line/</guid>
+      <description>一、什么是命令行  内核：负责操作系统最底层操作的东西 shell:通过命令行负责与内核交互 命令行：cmd、power shell、git bash、zsh  你不能直接操作内核，你需要通过命令行来操作
+二、我们为什么需要命令行  因为所有公司的服务器都运行在linux 将工作自动化、自动化是一切生产力的根源 相比GUI，命令行更容易开发维护 远程连接时，命令行占用的资源远低于GUI 命令行上的开发者工具更丰富  三、命令行的历史与流派  UNIX家族 奇葩 windows  四、命令的全部要素  四个要素：可执行程序（Executable）、参数、环境变量（Environment variable）、工作目录（Working directory）。以上四个要素就可以重现一个命令 可执行程序：ls -a ls 是可执行程序  去哪里找程序？Windows：Path环境变量 + 当前⽬录，UNIX/Linux：PATH环境变量 脚本语言解释器：在脚本的第⼀⾏指定解释器（shebang）   参数：java -version java 后面的都是参数 环境变量：  进程：进程是计算机程序运⾏的最⼩单位，独占⾃⼰的内存空间和⽂件资源 每个进程都和⼀组变量相绑定，传递不同的环境变量可以让程序表现出不同的⾏为 在进程的fork过程中，环境变量可以被完全继承 所有的操作系统/编程语⾔都⽀持环境变量 有局部和全局的环境变量区分   工作目录：命令所在的目录是工作目录pwd。绝对路径，是从根目录开始的路径。相对路径，相对于当前工作目录的路径  </description>
+    </item>
+    
+    <item>
+      <title>Charles抓包(Mac)</title>
+      <link>http://www.yuyunzhi.com/common-charles/</link>
+      <pubDate>Wed, 19 Jun 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-charles/</guid>
+      <description>一、安装 去官网下载，点这里
+二、激活 网上的激活账号:Help-&amp;gt;Registered
+Registered Name: https://zhile.io License Key: 48891cf209c6d32bf4 三、配置 1、配置PC端：   Help-&amp;gt;SSL Proxying-&amp;gt;Install Charles Root Certificate
+  打开后发现证书并不是信任的。双击证书把信任改为始终信任
+  Proxy -&amp;gt; SSL Proxy Settings，勾选 Enable SSL Proxying，，这里可以用 *.443
+  2、配置手机端：   让手机连的wifi和电脑的 wifi 一致
+  查看本机IP地址：Help-&amp;gt;Local IP Address
+  Proxy -&amp;gt; Proxy Settings默认端口是8888，根据实际情况可修改。
+  打开手机中的设置，所选wifi高级设置-&amp;gt;代理（手动），配置代理服务器主机名（本机IP地址）-&amp;gt; 配置代理服务器端口（charles默认为8888）
+  手机安装证（为了查看 https请求）：手机端连上电脑的代理后 ，浏览器访问SSL证书下载地址后直接安装：http://chls.pro/ssl。证书下载地址也可在电脑端 Help-&amp;gt;SSL Proxying—&amp;gt;Install Charles Root Certificate on a Mobile Device or Remote Brower 下查询确认，以此为准。 手机端证书仅对一台PC有效，如要再其他PC端抓取https，需要连接对应的代理后再次安装证书。</description>
+    </item>
+    
+    <item>
+      <title>Java的数据类型</title>
+      <link>http://www.yuyunzhi.com/java-type/</link>
+      <pubDate>Tue, 11 Jun 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/java-type/</guid>
+      <description>真正了不起的程序员对自己的程序的每一个字节都了如指掌
+ 一、数据在计算机中是如何储存的？ 1、字节和字节码 byte是计算机最小的存储单位，一个byte里分了8个&amp;quot;小格子&amp;rdquo;,每个小格子称作bit。比如
+int i = 0 一个int是4个bytes,一共32位 所能表示的上限（二进制）是31个1，开头的位数表示符号
+2、ASCII码 short 是2个字节 char 是2个字节
+short s = 65 char c =65
+虽然二进制存储的内容都是一样的 0100 0001 ，由于类型不同他们会以不同的方式所解释，
+short s = 65; char c =65; System.out.println(&amp;#34;c = &amp;#34; + c); //c=A System.out.println(&amp;#34;s = &amp;#34; + s); //s=65 原因就是 ASCII码
+计算机的内容只能存0和1的数据，将这样的数据解释成A，这样的表叫ASCII码表
+二、基本数据类型 在Java中，有两种数据类型：原生数据、引用数据
+1、原生数据类型 当你声明 int a = 1 a就是这个值
+  byte 2个字节 =&amp;gt; 装箱数据类型 Byte 最大值 Byte.MAX_VALUE为127 最小值 Byte.MIN_VALUE为-128</description>
+    </item>
+    
+    <item>
+      <title>Vue实现业务功能</title>
+      <link>http://www.yuyunzhi.com/js-vue-business-functions/</link>
+      <pubDate>Tue, 05 Mar 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-business-functions/</guid>
+      <description>一、实现逻辑功能 1、导航显示二级菜单  鼠标进入显示 鼠标移开隐藏 多个菜单使用同一个函数  HTML --------------- &amp;lt;div @mouseover=&amp;#34;showSubmenu(&amp;#39;show&amp;#39;,&amp;#39;Language&amp;#39;)&amp;#34; @mouseout=&amp;#34;showSubmenu(&amp;#39;hide&amp;#39;,&amp;#39;Language&amp;#39;)&amp;#34; &amp;gt; &amp;lt;span&amp;gt;Language&amp;lt;/span&amp;gt; &amp;lt;ul class=&amp;#34;submenu&amp;#34; v-show=&amp;#34;showLanguage&amp;#34;&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;中文&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;English&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;Espanol&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt;  使用鼠标onmouseover及mouseout来监听事件,传入两个参数x,y x表示show或hide,y表示触发状态的元素  JS --------------- showSubmenu(status,item){ if(item == &amp;#39;Language&amp;#39;){ status==&amp;#39;show&amp;#39;?this.showLanguage=true:this.showLanguage=false } if(item == &amp;#39;Individual&amp;#39;){ status==&amp;#39;show&amp;#39;?this.showIndividual=true:this.showIndividual=false } ………… } 2、搜索框  函数节流，输入过程中显示相关的搜索清单  if(this.timer){ clearTimeout(this.timer) } this.timer = setTimeout(( //发送请求 //对请求后的数据处理 )=&amp;gt;{},1000)  输入不同的类型内容跳转不同页面，同时传id  输入过程中，结合函数节流从后端获取输入的内容的类型，根据类型判断跳转不同的页面 JS --------------- gotoNewPage(list){ if(list.type==&amp;#34;city&amp;#34;){ //进入city页面 传参为list.cid this.</description>
+    </item>
+    
+    <item>
+      <title>Vue全局引入文件</title>
+      <link>http://www.yuyunzhi.com/js-vue-import/</link>
+      <pubDate>Fri, 01 Mar 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-import/</guid>
+      <description> 写Vue项目的时候，需要对代码进行优化，重复使用的组件、样式、JS进行全局引入并统一管理，这样对代码的维护会很好。
+ 1、全局引入scss文件 安装sass-resources-loader
+npm i sass-resources-loader --save-dev 然后修改vue-cli的build/utils.js，找到scss的加载设置替换
+scss: generateLoaders(&amp;#39;sass&amp;#39;) 替换成
+scss: generateLoaders(&amp;#39;sass&amp;#39;).concat({ loader:&amp;#39;sass-resources-loader&amp;#39;, options:{ resources:path.resolve(__dirname,&amp;#39;./../src/assets/scss/base.scss&amp;#39;) } }), 2、全局引入JS文件 在main.js 引入，并挂在到原型链上，如api.js
+import API from &amp;#39;./assets/js/api/api.js&amp;#39; Vue.prototype.$api = API; 3、全局引入基础组件 在main.js 引入
+import Icon from &amp;#39;./components/y-c/icon.vue&amp;#39; Vue.component(&amp;#39;y-icon&amp;#39;,Icon) 4、全局引入函数 在main.js引入，并挂在到原型链上
+Vue.prototype.$xxx = function(){} </description>
+    </item>
+    
+    <item>
+      <title>Vue虚拟DOM</title>
+      <link>http://www.yuyunzhi.com/js-vue-dom/</link>
+      <pubDate>Mon, 18 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-dom/</guid>
+      <description>一、为什么要使用虚拟DOM  首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以Vue内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。 为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，会先比较该节点类型，假如节点类型不一样，那么Vue会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么Vue会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。  二、使用虚拟DOM 1、代码示例 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;container&amp;#34;&amp;gt; &amp;lt;y-div @click=&amp;#34;outerFny&amp;#34; level=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/y-div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { components: { &amp;#39;y-div&amp;#39;: { data() { return { value: &amp;#39;123&amp;#39; } }, props: [&amp;#39;level&amp;#39;], render: function (createElement) { return createElement( &amp;#39;div&amp;#39;, { &amp;#39;class&amp;#39;: { foo: true, bar: false }, style:{ width:&amp;#39;100px&amp;#39;, height:&amp;#39;100px&amp;#39;, } }, [ createElement(&amp;#39;p&amp;#39;,{ on: { click: this.handler }, &amp;#39;class&amp;#39;: { foo: true, bar: false }, style: { fontSize: &amp;#39;14px&amp;#39;, }, },&amp;#39;nnnnnnnnn&amp;#39;), createElement(&amp;#39;p&amp;#39;,&amp;#39;wwwwwww&amp;#39;) ] ) }, methods: { handler() { console.</description>
+    </item>
+    
+    <item>
+      <title>代码优化思路</title>
+      <link>http://www.yuyunzhi.com/common-code-optimization/</link>
+      <pubDate>Sat, 09 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-code-optimization/</guid>
+      <description>一、代码优化的基本原则  易读性优先 如果不是性能瓶颈，就不要为了性能而改写代码 复杂性守恒原则：无论你怎么写代码，复杂性都是不会消失的  二、优化思路  SCSS:将页面多次使用的颜色提取出来保存在变量，常用的代码块提取出来使用@include导入 基础组件、共用样式、共用JS全局引入 命名的词性  普通变量/属性用「名词」 bool变量/属性用「形容词」或者「be动词」或者「情态动词」或者「hasX」 普通函数/方法用「动词」开头 回调、钩子函数用「介词」开头，或用「动词的现在完成时态」 容易混淆的地方加前缀   使用函数来改代码  两处以上的相同的代码或功能封装 一般一个函数超过5行会有进一步优化的空间   表驱动编程 抽象函数处理复杂逻辑，返回Boolean值 用对象来组织代码，就比如vue里的js  </description>
+    </item>
+    
+    <item>
+      <title>Dashboard一般设计思路</title>
+      <link>http://www.yuyunzhi.com/common-dashboard/</link>
+      <pubDate>Fri, 08 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-dashboard/</guid>
+      <description>一、RESTful API 是什么？  用自己的话来表达就是，遵守一定的规则来给接口url取名字的方法论 所有的东西都是资源，用户是资源、支付是资源、课程是资源…… 每个资源有4种不同的动作：增、删、改、查 以一个课程来举例  增 post 增加一个： /courses 创建的内容JSON 删 delete 删除一个：/courses/:id 改 patch 修改一个：/courses/:id 改的内容JSON 查 get 查所有：/courses 查一个：/courses/:id 注意查又分两种情况返回：html，json,由前端发的请求Accept来确定具体返回哪种类型 直接从浏览器输入url,会自动以text/html的类型返回 从请求中获取，需要设置请求头accept类型 二、前后端JSON如何设计？  前端给后端传上面？后端给前端传上面？ 举例登录功能  前端给后端传： { 手机号, 密码 } 后端成功，返回前端： { 状态码200, data：{用户的信息数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] }  举例展示多个资源  前端根据接口查询 后端成功，返回前端： { 状态码200, data:[{渲染的数据}、{渲染的数据}……], pager：{每页几个、当前页、总共多少页、总共多少个数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] } 三、前端权限如何设计？  什么是权限？你能做什么？你不能做什么？ 角色和权限需要区分开，权限用二进制数组来对应，然后一一映射 前端界面的权限思路:  显示不同的菜单(前端可以直接固定写不同角色能看什么菜单) 分div，封装全局API 后端返回权限状态码    注意：写一个全局的can（userRole,basic）返回一个Boolean。所有的复杂的判断在can里面实现，那么html的展示逻辑就很简单了。</description>
+    </item>
+    
+    <item>
+      <title>设置Maven环境变量</title>
+      <link>http://www.yuyunzhi.com/java-maven/</link>
+      <pubDate>Tue, 05 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/java-maven/</guid>
+      <description>下载、安装  从Maven官方下载压缩包 解压文件夹 apache-maven-3.5.4 到任意文件夹，获取文件夹安装路径。例如我解压到 D:\apache-maven-3.5.4  设置环境变量  打开：我的电脑——右键——属性——高级系统设置——环境变量 第一步：点击“系统变量”，设置环境变量 M2_HOME 为maven安装的路径 第二步：添加 %M2_HOME%\bin到系统环境变量path中 第三步：点击确定  运行命令测试安装  运行命令  mvn -version </description>
+    </item>
+    
+    <item>
+      <title>vue-test-utils&amp;持续集成</title>
+      <link>http://www.yuyunzhi.com/js-vue-test-utils/</link>
+      <pubDate>Fri, 25 Jan 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-test-utils/</guid>
+      <description>一、测试有哪些分类 1、黑白测试  根据代码的思路写测试叫白盒测试 不知道代码的思路测试叫黑盒测试（大部分人工测试都是这个）  2、规模（小-&amp;gt;大）  单元测试（最小的测试是函数，也是白盒测试） 模块测试（根据API测试） 功能测试 集成测试（多个系统端对端测试E2E，也是黑盒测试）  二、单元测试的必要性  你不一定一辈子当前端 开发库（公司里的库必须要有），没有单元测试公司很难有优质代码的积累 测试驱动开发  三、前端业务代码是否需要测试  不需要 业务代码中的共用代码才需要测试：比如表单验证（抽离出组件，测组件） 然后做高质量的组件，输出给团队用  四、什么才算是好的单元测试  测试覆盖率&amp;gt;90%，基本上都是好的测试 测试内容：语句、分支、函数、行  五、测试工具介绍  这里使用Karma + Mocha做单元测试，TravisCI做持续集成 Karma（[ˈkɑrmə] 卡玛）是一个测试运行器，它可以呼起浏览器，加载测试脚本，然后运行测试用例 Mocha（[ˈmoʊkə] 摩卡）是一个单元测试框架/库，它可以用来写测试用例 Sinon（西农）是一个 spy / stub / mock 库，用以辅助测试 karma-coverage 来设置 Karma 的代码覆盖率 chaijs 提供了dscribe it断言  除此之外了解两个词语：
+ BDD 行为驱动开发 Behavior Driven Development TDD 测试驱动开发 Test Driven Development  五、安装工具及配置 1、创建karma 配置  安装依赖  npm add -D karma karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack chai sinon sinon-chai 安装成功：  创建 karma.</description>
+    </item>
+    
+    <item>
+      <title>Git配置命令缩写</title>
+      <link>http://www.yuyunzhi.com/common-git-abbreviation/</link>
+      <pubDate>Sat, 12 Jan 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-abbreviation/</guid>
+      <description>配置用户名之后git会在用户目录下面创建一个配置文件 .gitconfig  1、windows用户  一般在目录 $HOME 目录下, 注意, HOME是系统变量, 保存的是用户的目录. 运行以下命令则可以找到用户目录:  echo $HOME 2、Mac和Linux  配置在用户目录: ~/.gitconfig  3、推荐配置 [user] name = {Name} email = {Email} [alias] st = status cm = commit br = branch co = checkout df = diff rt = remote lg = log --color --graph --pretty=format:&amp;#39;%C(yellow)%h%Creset -%Cred%d%Creset %s %C(bold blue)(%cn %cr)%Creset&amp;#39; ll = log --color --graph --pretty=format:&amp;#39;%C(yellow)%h%Creset -%Cred%d%Creset %s %C(bold blue)(%cn %cr)%Creset&amp;#39; --no-merges --stat up = push origin master pr = pull --rebase [core] excludesfile = /Users/Kid7st/.</description>
+    </item>
+    
+    <item>
+      <title>前端性能优化</title>
+      <link>http://www.yuyunzhi.com/js-performance-optimization/</link>
+      <pubDate>Wed, 21 Nov 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-performance-optimization/</guid>
+      <description>1、使用懒加载  组件懒加载  const xxx =()=&amp;gt;import(&amp;#39;./components/xxx.vue&amp;#39;)  路由懒加载  2、减少或合并DOM操作或使用虚拟DOM // 不好的方式 //var elem = $(&amp;#39;#elem&amp;#39;); //for (var i = 0; i &amp;lt; 100; i++) { // elem.append(&amp;#39;&amp;lt;li&amp;gt;element &amp;#39;+i+&amp;#39;&amp;lt;/li&amp;gt;&amp;#39;); //} // 好的方式 var elem = $(&amp;#39;#elem&amp;#39; ), arr = []; for (var i = 0; i &amp;lt; 100; i++) { arr.push(&amp;#39;&amp;lt;li&amp;gt;element &amp;#39; +i+&amp;#39;&amp;lt;/li&amp;gt;&amp;#39; ); } elem.append(arr. join(&amp;#39;&amp;#39;)); 3、减少监听器，使用事件委托 function listen(element, eventType, selector, fn) { element.addEventListener(eventType, e =&amp;gt; { let el = e.</description>
+    </item>
+    
+    <item>
+      <title>常用在线工具</title>
+      <link>http://www.yuyunzhi.com/common-tools/</link>
+      <pubDate>Fri, 26 Oct 2018 23:00:23 +0900</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-tools/</guid>
+      <description>1、图片背景  https://www.desktoppr.co/ https://alpha.wallhaven.cc/  2、图片压缩（可批量）  https://tinypng.com/  3、CSS动画效果  http://animista.net/  4、文件格式转换  https://smallpdf.com/  5、字体大小转换  http://pxtoem.com/  6、UI设计  http://www.uiimg.com/Material https://dribbble.com/ 交互设计:可以用 Axure RP、墨刀、Sketch.app 视觉设计：可以用 Photoshop、Fireworks、Sketch.app  7、图标  http://www.iconfont.cn/  8、图床  https://sm.ms/  9、cdn(库)  https://cdnjs.com/ https://www.bootcdn.cn/  10、鼠标样式大全  http://css-cursor.techstream.org/  11、CSS渐变代码生成器  http://www.colorzilla.com/gradient-editor/  12、JSON格式化工具  http://www.bejson.com/  </description>
+    </item>
+    
+    <item>
+      <title>实现动态数据生成PDF</title>
+      <link>http://www.yuyunzhi.com/js-generate-pdf/</link>
+      <pubDate>Mon, 22 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-generate-pdf/</guid>
+      <description>最近在做一个业务功能，根据后端传来的数据给每个不同的用户动态生成不同的pdf并下载。
+   方案一、使用window.print()
+pass,打印出来的东西跟页面结构关联度太高，且不是pdf
+  方案二、使用pdfmake 当然还有其他的jsPDF，这里我选择了pdfmake
+  一、先搞定能够下载PDF   github ：官方说-&amp;gt;pdfmake
+  Get Start
+  &amp;lt;!doctype html&amp;gt; &amp;lt;html lang=&amp;#39;en&amp;#39;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#39;utf-8&amp;#39;&amp;gt; &amp;lt;title&amp;gt;my first pdfmake example&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#39;build/pdfmake.min.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#39;build/vfs_fonts.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; 引入 pdfmake.min.js 引入 vfs_fonts.js 可到cdnjs里获取链接：cdnjs-&amp;gt;
+ 创建内容  var docDefinition = { content: &amp;#39;This is an sample PDF printed with pdfMake&amp;#39; };  下载、打开、打印内容  pdfMake.createPdf(docDefinition).download(); pdfMake.createPdf(docDefinition).open(); pdfMake.createPdf(docDefinition).print(); 然后这虽然可以下载，但是内容为中文时会乱码，以及需要设置样式，下面一一道来</description>
+    </item>
+    
+    <item>
+      <title>发布npm包</title>
+      <link>http://www.yuyunzhi.com/common-npm-publish/</link>
+      <pubDate>Tue, 16 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-npm-publish/</guid>
+      <description>一、发布前  确保自己的代码已经测试通过才发布  二、上传代码至npmjs.org  注意每次上传时要更新 package.json 版本 在根目录下创建index.js,在index.js里将你想要导出的内容全部导出 如：  import Button from &amp;#39;./src/button&amp;#39; import ButtonGroup from &amp;#39;./src/button-group&amp;#39; import Icon from &amp;#39;./src/icon&amp;#39; export {Button,ButtonGroup,Icon} 由于node目前不支持import 所以需要进行转义，在上传前对自己的代码输入以下命令行 npx parcel build index.js --no-minify 将 package.json 的 main 改为 dist/index.js  注册一个账户:https://www.npmjs.com/ 确认一下邮箱（必须） 根目录运行 npm adduser，如果错误提示里面含有 https://registry.npm.taobao.org 则说明你的 npm 源目前为淘宝源，需要更换为 npm 官方源 运行 npm publish 同时需要输入账号和密码  三、下载使用包  下载包 npm i xxx 更新包 npm update xxx  如果是为了本地调试可以在项目目录使用 npm link，然后在使用之处运行 npm link xxx，就是最新了</description>
+    </item>
+    
+    <item>
+      <title>SASS常用方法</title>
+      <link>http://www.yuyunzhi.com/js-sass/</link>
+      <pubDate>Mon, 01 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-sass/</guid>
+      <description>一、基于Vue的SASS安装  安装Vue-cli 这里不介绍了 安装SASS  npm install node-sass --save-dev npm install sass-loader --save-dev  在webpack.base.conf.js文件添加scss  { test: /\.scss$/, loaders: [&amp;#34;style&amp;#34;, &amp;#34;css&amp;#34;, &amp;#34;sass&amp;#34;] },  在Vue单文件里使用SASS  &amp;lt;style scoped lang=&amp;#34;scss&amp;#34; type=&amp;#34;text/css&amp;#34;&amp;gt;  启动 npm run dev 会热更新  二、SASS与SCSS的区别  主要是写法不一样，语法一样 SASS格式  #sidebar width: 30% background-color: #faa  SCSS格式  #sidebar { width: 30%; background-color: #faa; } 三、SASS语法 1、变量  SASS允许使用变量，所有变量以$开头  $blue : #1875e7;　div{ color : $blue; } 如果变量需要镶嵌在字符串之中，就必须需要写在#{}之中</description>
+    </item>
+    
+    <item>
+      <title>部署hexo及配置next主题</title>
+      <link>http://www.yuyunzhi.com/common-hexo-next/</link>
+      <pubDate>Fri, 28 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-hexo-next/</guid>
+      <description>这个部署分为三个部分： 1、配置本地电脑与github的SSH(这里就不说了) 2、安装hexo，安装next主题 3、替换部分配置文件
+ 一、安装 1、安装hexo   进入一个安全的目录，比如 cd ~/Desktop 或者 cd ~/Documents，别在根目录 / 瞎搞。以后所有的教程第一步都是「进入一个安全的目录，别在根目录瞎搞」，只有 ~ 里面的目录是你能碰的！ 重新部署可省略该步骤
+  在 GitHub 上新建一个空 repo，repo 名称是「你的用户名.github.io」（注意个用户名是你的GitHub用户名，不是你的电脑用户名）
+  npm install -g hexo-cli，安装 Hexo
+  hexo init myBlog
+  cd myBlog
+  npm i
+  hexo new 开博大吉，你会看到一个 md 文件的路径 重新部署可省略该步骤
+  start xxxxx.md,编辑这个 md 文件，内容自己想（Ubuntu 系统用 xdg-open xxxxx.md 命令） 重新部署可省略该步骤
+  start _config.</description>
+    </item>
+    
+    <item>
+      <title>自己动手封装一个AJAX函数</title>
+      <link>http://www.yuyunzhi.com/js-generate-ajax/</link>
+      <pubDate>Wed, 05 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-generate-ajax/</guid>
+      <description>这是一件很有意思的事，封装一个抽象性函数，就相当于可以把这个函数用在类似相同的环境中。 1、知道AJAX的功能 2、把AJAX的功能封装成函数 3、用Promise优化封装的函数
+ 一、AJAX有哪些功能？  客户端的JS发起请求（浏览器上的） 服务端的JS发送响应（Node.js上的）  1、JS 可以设置任意请求 header 吗？  第一部分 request.open(&amp;lsquo;get&amp;rsquo;, &amp;lsquo;/xxx&amp;rsquo;) 第二部分 request.setHeader(&amp;lsquo;content-type&amp;rsquo;,&amp;lsquo;x-www-form-urlencoded&amp;rsquo;) 第四部分 request.send(&amp;lsquo;a=1&amp;amp;b=2&amp;rsquo;)  2、JS 可以获取任意响应 header 吗？  第一部分 request.status / request.statusText 第二部分 request.getResponseHeader() / request.getAllResponseHeaders() 第四部分 request.responseText  二、window.jQuery.ajax 之前写过window.jQuery，而这次写window.jQuery.ajax。
+封装AJAX函数，JS代码如下：
+window.jQuery.ajax = function(obj){ let url=obj.url let method=obj.method let body=obj.body let successFn=obj.successFn let headers=obj.heaaders let failFn=obj.failFn let request = new XMLHttpRequest() request.open(method, url) // 配置request第一部分 for(let key in headers){ let value = headers[key]; request.</description>
+    </item>
+    
+    <item>
+      <title>什么是Ajax？</title>
+      <link>http://www.yuyunzhi.com/js-ajax/</link>
+      <pubDate>Tue, 04 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-ajax/</guid>
+      <description>一、我们如何向服务器发送请求？  用 form 可以发请求，但是会刷新页面或新开页面 用 a 可以发 get 请求，但是也会刷新页面或新开页面 用 img 可以发 get 请求，但是只能以图片的形式展示 用 link 可以发 get 请求，但是只能以 CSS、favicon 的形式展示 用 script 可以发 get 请求，但是只能以脚本的形式运行  那么有没有什么方式，可以使用get、post、put、delete 请求都行，并且用任意的方式返回给浏览器展示？
+当然有，这个就是AJAX。
+二、什么是AJAX？ Jesse James Garrett 讲同时满足以下技术取名叫做AJAX:异步的 JavaScript 和 XML。
+ 使用 XMLHttpRequest 发请求 服务器返回 XML 格式的字符串 JS 解析 XML，并更新局部页面  如何使用XMLHttpRequest？
+JS文件代码如下：
+myButton.addEventListener(&amp;#39;click&amp;#39;, (e)=&amp;gt;{ let request = new XMLHttpRequest() request.open(&amp;#39;get&amp;#39;, &amp;#39;/xxx&amp;#39;) // 配置request，请求方式和路径 request.onreadystatechange = ()=&amp;gt;{ if(request.readyState===4){ //当请求相应完毕，执行以下代码 if(request.status &amp;gt;= 200 &amp;amp;&amp;amp; request.</description>
+    </item>
+    
+    <item>
+      <title>初学jQuery,从封装函数开始</title>
+      <link>http://www.yuyunzhi.com/js-jquery/</link>
+      <pubDate>Sun, 02 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-jquery/</guid>
+      <description>一、封装两个函数getSiblings()、addClass() 1、getSiblings()根据一个元素的id，获取该元素的兄弟元素id的集合 逻辑： 1、找到node的父元素的所有子元素id集合allChildren; 2、初始化一个空对象用于存放查询的集合，即伪数组(没有push等功能); 3、遍历allChildren; 4、判断allChildren[i]!==node是否为真; 5、若为真，array[array.length]=allChildren[i],注意这是伪数组没有push的方法; 6、调用方式:getSiblings(item3) 7、代码如下：
+function getSiblings(node){ //API var allChildren=node.parentNode.children var array = { length:0 } for(var i=0; i&amp;lt;allChildren.length;i++){ if(allChildren[i]!==node){ array[array.length]=allChildren[i]; array.length+=1 } } return array } 2、addClass()根据一个元素的id，给改元素增加一个class node是一个元素的id，classes是一个数组如：var classes = {&amp;lsquo;a&amp;rsquo;:true,&amp;lsquo;b&amp;rsquo;:false,&amp;lsquo;c&amp;rsquo;:true}
+逻辑：
+1、对该classes遍历，因为该classes不是以数字为key，所以用key in classes; 2、判断value是否为真; 3、如果为真，那么给该node增加一个class; 4、调用方式如：addClass(item2,{book:true}) 5、代码如下：
+function addClass(node,classes){ //对一个哈希进行遍历 for(var key in classes){ var value = classes[key] if(value){ node.classList.add(key) } } } 二、命名空间、Node.prototype、Node2 1、命名空间 window.yyzdom = {} yyzdom.getSiblings = function (node){} //把花括号代码块写进来 yyzdom.</description>
+    </item>
+    
+    <item>
+      <title>JSONP是个什么鬼？</title>
+      <link>http://www.yuyunzhi.com/js-jsonp/</link>
+      <pubDate>Thu, 02 Aug 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-jsonp/</guid>
+      <description>花了一天的时间学习JSONP，总结一下以后方便回顾。在了解什么是JSONP前，需要先了解什么是数据库，如何向服务器进行请求得到响应，可以用那些方式发送请求？如何向不同的服务器发送请求并获得响应？然后推出啥是JSOPN？内容有些长~~
+ 一、数据库是什么？   文件系统就是一种数据库：能长久存数据，能够对内容进行增、删、改、储存
+  MySQL是一种数据库
+  二、向数据库做加法  要做的流程如下： 点击“提交1元钱”发送请求给服务器，服务器修改数据库内容，响应返回所需数据。 用两种方式来做：图片请求；script请求；
+ 方案一：用图片的src向服务器发送get请求
+html代码如下：
+&amp;lt;body&amp;gt; &amp;lt;p&amp;gt;账户金额：&amp;lt;span id=&amp;#34;amount&amp;#34;&amp;gt;!!!amount!!!&amp;lt;/span&amp;gt;&amp;lt;/p&amp;gt; &amp;lt;button id=&amp;#34;button&amp;#34;&amp;gt;付款1元钱&amp;lt;/button&amp;gt; &amp;lt;script&amp;gt; button.addEventListener(&amp;#39;click&amp;#39;, (e)=&amp;gt;{ let image = document.createElement(&amp;#39;img&amp;#39;) image.src = &amp;#39;/pay&amp;#39; image.onload = function(){ // 状态码是 200~299 则表示图片请求成功 alert(&amp;#39;成功&amp;#39;) } amount.innerText = amount.innerText -1 image.onerror = function(){ // 状态码大于等于 400 则表示图片请求失败 alert(&amp;#39;失败&amp;#39;) } }) &amp;lt;/script&amp;gt; &amp;lt;/body&amp;gt; 其中!!!amount!!!表示一个占位符，后端通过获取这个占位符把数据库里的内容赋值给它。
+**解释：**当用户点击button按钮的时候，用图片发送了路径为/pay的GET请求给服务器。服务器收到后执行下面的代码，依次是： 1、判断路径 2、读取数据库的内容，假如是9966。原始数据设置的是10000 3、在最新的内容减1，并保存给变量newAmount 4、把newAmount保存到数据库，那么这个时候的值应该为9965 5、确定返回给浏览器的内容类型为 image/jpg 6、返回一张图片 7、结束</description>
+    </item>
+    
+    <item>
+      <title>var、let、const的区别是什么？</title>
+      <link>http://www.yuyunzhi.com/js-var-let-const/</link>
+      <pubDate>Wed, 25 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-var-let-const/</guid>
+      <description>var  var 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为 undefined 。 内层变量可能覆盖外层变量 用来计数的循环变量泄露为全局变量  var a = 100; console.log(a,window.a); // 100 100 let b = 10; console.log(b,window.b); // 10 undefined const c = 1; console.log(c,window.c); // 1 undefined let  声明的全局变量不会挂在顶层对象下面 所声明的变量一定要在声明后使用，否则报错，报错 ReferenceError 暂时性死区，只要块级作用域内存在 let 命令，它所声明的变量就“绑定”（ binding ）这个区域，不再受外部的影响，在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。 不允许重复声明  const  声明的全局变量不会挂在顶层对象下面 const 声明之后必须马上赋值，否则会报错 const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改。 const 一旦声明变量，就必须立即初始化，不能留到以后赋值。 const 命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。  const a = 100; const list = []; list[0] = 10; console.</description>
+    </item>
+    
+    <item>
+      <title>JS中的继承</title>
+      <link>http://www.yuyunzhi.com/js-extend/</link>
+      <pubDate>Fri, 20 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-extend/</guid>
+      <description>什么是继承？继承就是子类拥有父类的各种属性和方法
+  什么是类？这里的JS的类即是函数，能产生对象的东西就是类
+  继承需要两个类：父类和子类，在JS中的继承需要有2次对原型的搜索。
+  如何让子类拥有父类的属性和方法？
+  //原理 子类(&amp;#39;参数&amp;#39;){ 父类.call(this,&amp;#39;参数&amp;#39;) } 子类.prototype.__proto__=父类.prototype 好了，现在开始说明举例。
+分为ES5和ES6的写法以及两者的区别。
+一、ES5中如何完成JS的继承？ 1、声明一个父类函数，父类函数有一个name的属性和run()的方法 function Human(name){ this.name = name } Human.prototype.run = function(){ console.log(&amp;#34;我叫&amp;#34;+this.name+&amp;#34;，我在跑&amp;#34;) return undefined } 2、声明一个子类函数，并从父类函数中继承属性 function Man(name){ Human.call(this, name) //是Human的属性 this.gender = &amp;#39;男&amp;#39; //是自己的属性 } Man.prototype.fight = function(){ console.log(&amp;#39;xxx&amp;#39;) } 注意，Human.call(this, name)就是从父类继承属性，这句代码很重要
+3、从父类函数继承方法 //添加一句这样的代码就可以了 Man.prototype.__proto__=Human.prototype 然而IE不兼容这个代码所以要换另一种方式
+var f = function(){} f.prototype = Human.prototype Man.prototype = new f()  原因是什么？因为当 var a =new f()的时候  会发生5个步骤： 产生一个空对象 this=空对象 this.</description>
+    </item>
+    
+    <item>
+      <title>移动端是怎么做适配的？</title>
+      <link>http://www.yuyunzhi.com/js-mobile-adaptation/</link>
+      <pubDate>Mon, 09 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-mobile-adaptation/</guid>
+      <description>这里介绍个方案包含5个点：1、meta viewport；2、媒体查询；3、动态rem方案；4、对rem微调；5、其他细节补充。
+ 一、meta viewport &amp;lt;meta name=&amp;#34;viewport&amp;#34; content=&amp;#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&amp;#34;&amp;gt; 在head标签内部加上这段代码。
+该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度。
+width=device-width: 让当前viewport宽度等于设备的宽度 user-scalable=no: 禁止用户缩放 initial-scale=1.0: 设置页面的初始缩放值为不缩放 maximum-scale=1.0: 允许用户的最大缩放值为1.0 minimum-scale=1.0: 允许用户的最小缩放值为1.0 二、媒体查询（响应式） 1、格式一 @media （）and（）{} //满足（）里的条件，就执行大括号里css的样式 举例：
+&amp;lt;style&amp;gt; @media (max-width:320px){ body{ background:red; } } @media (min-width:321px) and (max-width:320px){ body{ background:orange; } } @media (min-width:376px) and (max-width:425px){ body{ background:green; } } @media (min-width:426px) and (max-width:768px){ body{ background:blue; } } @media (min-width:769px){ body{ background:grey; } } &amp;lt;/style&amp;gt; 2、格式二 并举例</description>
+    </item>
+    
+    <item>
+      <title>什么是MVC？</title>
+      <link>http://www.yuyunzhi.com/js-mvc/</link>
+      <pubDate>Thu, 07 Jun 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-mvc/</guid>
+      <description>这段时间写代码，总是会忘记之前写的代码是什么意思？ 那怎么办呢？ 有什么好的办法能够清晰的看明白自己之前写的代码或让别人也更好的一目了然？ 当然有，那就是…… 用MVC。
+ 一、什么是MVC MVC是Model View Controller
+ View：是这个js模块对应在html中的部分，就是展示给用户看的那一部分 Model：可以从服务器获得数据，把数据传给Controller。还要将Controller监听到的用户提交的数据上传到服务器 Controller：调用model的数据，用来更新view。还要监听用户在view上的操作，获取用户提交的数据，传给model  二、举个例子来理解 今天做了个留言板
+但是第一次用MVC重新改自己的代码花了我三个小时&amp;hellip;..来说说步骤：
+1、模块化 不同类型功能的JS代码放在不同的JS文件。同时一个监听事件包含了多个功能，要用队列来分开：xxx.addEventListener(&amp;lsquo;yyy&amp;rsquo;,function(){})
+2、立即执行函数  有些时候我们不想要全局变量，所以我们要使用局部变量 在ES 5 里面只有函数有局部变量，于是我们声明一个 function xxx，然后 xxx.call() 然而 xxx 是全局变量（全局函数），所以我们得用匿名函数：function(){}.call() 但是 Chrome 会语法错误，试出来一种方法可以不报错:！function(){}.call()  3、使用闭包 如果要两个模块变量能够访问……
+!function(){ var people={ name:&amp;#39;yukaka&amp;#39;, age:25 } window.yukakaGrouUp = function(){ people.age += 1 return people.age } }.call() 解释：
+ 立即执行函数使得people 无法被外部访问 闭包使得匿名函数可以操作 people window.yukakaGrowUp 保存了匿名函数的地址 任何地方都可以调用 window.yukakaGrowUp（） =&amp;gt; 任何地方都可以使用 window.yukakaGrowUp 操作 people，但是不能直接访问 people  **什么是闭包？**函数内部使用了函数外面的变量，那么这个函数和这个变量加起来叫做闭包。</description>
+    </item>
+    
+    <item>
+      <title>什么是闭包，闭包的用途是什么？</title>
+      <link>http://www.yuyunzhi.com/js-closure/</link>
+      <pubDate>Thu, 03 May 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-closure/</guid>
+      <description>一、什么是闭包？ 声明一个变量，声明一个函数，在函数内部访问外部的变量，那么这个函数加这个变量叫做闭包。
+如下代码：
+var x = &amp;#39;变量&amp;#39; function f(){ console.log(x) } 二、闭包有何作用？ 1、闭包的用途是间接访问一个变量或隐藏一个变量，我们无法直接访问到函数内部的变量，必须通过一个函数间接的访问到；
+2、可以把变量的值保存在内存中；即使暂时没有使用。
+function foo() { var a = 2 function bar() { console.log(a) } return bar } var xxx = foo() xxx() // 2 上面的代码中，变量a和函数bar组成了一个闭包。return bar只是为了bar能够被使用，跟闭包无关。</description>
+    </item>
+    
+    <item>
+      <title>声明一个函数立即执行</title>
+      <link>http://www.yuyunzhi.com/js-function-excute/</link>
+      <pubDate>Thu, 03 May 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-function-excute/</guid>
+      <description>不要用全局变量做id 或变量，容易覆盖。如果偏要用，那么……声明一个函数立即执行。
+ 一、声明一个函数立即执行的三种方式 1、在函数末尾加上.() function (){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.() 2、在函数末尾加上.call() function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call() 3、声明完函数，立即调用 function xxx(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) } xxx() 但是浏览器会报错，怎么解决？
+二、解决浏览器报错 1、技巧1：整体加括号 （function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call()） 2、技巧2：对匿名函数加括号 （function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }）.call() 3、技巧3：在函数前加-或+或！或~号，告诉浏览器后面是一个值 -function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call() 注意：在一个{}里用let声明一个变量，这个变量的作用局就是在这个花括号里</description>
+    </item>
+    
+    <item>
+      <title>http请求响应,curl命令用法</title>
+      <link>http://www.yuyunzhi.com/common-http-curl/</link>
+      <pubDate>Wed, 11 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-http-curl/</guid>
+      <description>HTTP 请求包括哪些部分，如何用Chrome开发者工具查看 HTTP 请求内容? HTTP 响应包括哪些部分，如何用Chrome开发者工具查看 HTTP 响应内容? 如何使用 curl 命令?
+ 一、笔记 1、李爵士发明了URI（统一资源标识符）、HTTP（超文本传输协议）、HTML（超文本标记语言）； 2、URL（统一资源定位符）、URN（统一资源名称）； 3、URL组成：协议+域名+路径+查询参数+锚点+端口，http://baidu.com是二级域名，http://www.baidu.com是三级域名； 4、DNS（域名解析系统）：输入域名，输出IP； 5、server服务器、client客户端、http协议，一个端口只做1件事，80端口用来服务http； 6、浏览器负责发起请求，服务器在 80 端口接收请求，服务器负责返回内容（响应），浏览器负责下载响应内容，HTTP 的作用就是指导浏览器和服务器如何进行沟通； 7、状态码解释：点这里
+二、http请求包含部分 1、格式 1动词 路径 协议/版本 2 Key1: value1 2 Key2: value2 2 Key3: value3 2 Content-Type: application/x-www-form-urlencoded 2 Host: www.baidu.com 2 User-Agent: curl/7.54.0 3 4 要上传的数据 **解释：**请求最多包含4部分，最少包含3部分；第3部分永远是一个回车；动词可以是GET（获取） POST（上传）PUT（整体更新）PATCH（局部更新）DELETE（删除）HEAD OPTIONS等；路径包含查询参数但不包括锚点；如果没有写路径，默认为/；Content-Type标注了第四部分的格式；
+2、GET请求例子 1 GET / HTTP/1.1 2 Host: www.baidu.com 2 User-Agent: curl/7.54.0 2 Accept: */* 2 Frank: xxx 3 3、POST请求例子 1 POST /path HTTP/1.</description>
+    </item>
+    
+    <item>
+      <title>git分支合并master</title>
+      <link>http://www.yuyunzhi.com/common-git-master/</link>
+      <pubDate>Fri, 06 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-master/</guid>
+      <description>假如我们现在在dev分支上，刚开发完项目，执行了下列命令  git add . git commit -m ‘dev&amp;#39; git push -u origin dev   然后我们要把dev分支的代码合并到master分支上 该如何？
+  首先切换到master分支上
+  git checkout master  如果是多人开发的话 需要把远程master上的代码pull下来  git pull origin master  然后我们把dev分支的代码合并到master上  //有权限改动master git merge dev //没有权限改动master git branch dev git merge master   这个时候打开编辑器，处理冲突的代码
+  这个时候打开编辑器，处理冲突的代码
+  这个时候打开编辑器，处理冲突的代码
+  然后查看状态
+  git status  执行下面命令即可  //有权限 git push origin master //无权限 git push origin dev  在merge的状态下，提交到仓库  git add .</description>
+    </item>
+    
+    <item>
+      <title>iframe a form input table</title>
+      <link>http://www.yuyunzhi.com/js-html/</link>
+      <pubDate>Mon, 02 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-html/</guid>
+      <description>iframe与a标签嵌套： &amp;lt;iframe name=&amp;#34;xxx&amp;#34; src=&amp;#34;http://baidu.com&amp;#34; frameborder=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/iframe&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; 解释： 1、默认打开情况，iframe打开的是百度页面； 2、iframe标签的name为xxx，与a标签target为xxx向对应结合使用，那么点击a标签，打开的是QQ页面； 3、frameborder不写的话会有一个默认border，往往不写的话比较难看；
+一、a标签（get请求） 1、可以写一个跳转链接： &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_blank&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_self&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_parent&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_top&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; 在HTML中target目标的四个参数的用法：
+target=&amp;#34;_blank&amp;#34;表示：将链接的画面内容，在新的浏览视窗中打开。打开新窗口； target=&amp;#34;_self&amp;#34;表示：在自己的窗口打开。如果被iframe 嵌套，这在当前这个iframe窗口打开，而不是当前浏览器窗口； target=&amp;#34;_parent&amp;#34;表示：将链接的画面内容，当成文件的上一个画面。即：当父窗口打开。 target=&amp;#34;_top&amp;#34;表示：将框架中链接的画面内容，显示在没有框架的视窗中（即除去了框架)。即：顶端打开窗口。 2、点击a标签下载文件 &amp;lt;a href=&amp;#34;http://qq.com&amp;#34; download&amp;gt;下载&amp;lt;/a&amp;gt; 3、a标签的href到底可以写什么？ href=&amp;#34;xxx.html&amp;#34; //就会跳到: 当前地址/xxx.html href=&amp;#34;？name=qqq&amp;#34; //就会跳到: 当前地址/？name=qqq href=&amp;#34;javascript:alert(1);&amp;#34; //点击执行javascript内容 href=&amp;#34;javascript: ;&amp;#34; //点击后什么也不做的a标签-伪协议 href=&amp;#34;#&amp;#34; //页面会回到头部 二、form标签（post请求） &amp;lt;form action=&amp;#34;users&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; &amp;lt;label for=&amp;#34;yyy&amp;#34;&amp;gt;用户名&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;账号&amp;#34; id=&amp;#34;yyy&amp;#34;&amp;gt; &amp;lt;label&amp;gt;密码&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;密码&amp;#34; &amp;gt;&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;提交&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; 解释： 1、form表单里面的input的type没有submit属性，就无法提交； 2、label标签的for=yyy 与 input标签的id=yyy 同时出现，点击文字就能聚焦到输入框，或用label套input也行；</description>
+    </item>
+    
+    <item>
+      <title>Git入门</title>
+      <link>http://www.yuyunzhi.com/common-git-get-started/</link>
+      <pubDate>Sun, 01 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-git-get-started/</guid>
+      <description>一、安装git 直接官网下载，持续按下一步即可。(这里就不重复啰嗦了)
+二、配置git 1、git bash打开后输入一下命令，否则Git无法使用 git config --global user.name xxx git config --global user.email yyy git config --global push.default simple git config --global core.quotepath false git config --global core.editor &amp;#34;vim&amp;#34; 2、输入命令生成秘钥： ssh-keygen -t rsa -b 4096 -C &amp;#34;xxxxx@xxxxx.com&amp;#34; //邮箱更换成自己的 然后直接三个回车会生成id_rsa 和id_rsa.pub文件 cat ~/.ssh/id_rsa.pub //输入命令打开id_rsa.pub 复制内容，在GitHub里新建SSH文件保存即 3、配置小插件（命令使用与查询）： 输入命令安装：npm install -g tldr 附上使用地址:命令行查询
+三、使用git仓库的方法 1、本地建立仓库  在D盘建立一个名为xxx的文件夹； 右击git bash打开; 输入命令git init回车，初始化仓库自动生成.git文件; 然后用户进行自定义创建，修改等步骤; 随后输入命令git add 文件名，把文件暂存; 输入命令git commit -m &amp;ldquo;修改解释&amp;rdquo;。 完成  2、将本地仓库上传到github上  在GitHub建立新的仓库，命名为xxx，与本地仓库名一致； 本地仓库修改完成了def的步骤后，依次在gitbash输入一下命令，直接复制最好；如果你有本地仓库，就直接输入第四行和第五行命令就行；  echo &amp;#34;abc&amp;#34; &amp;gt;&amp;gt; README.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-extend/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-jsonp/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-var-let-const/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           var、let、const的区别是什么？ | 余韵之
+       
+  </title>
+  <meta name="title" content="var、let、const的区别是什么？ | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "var、let、const的区别是什么？",
+    "headline" : "var、let、const的区别是什么？",
+    "description" : "var  var 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为 undefined 。 内层变量可能覆盖外层变量 用来计数的循环变量泄露为全局变量  var a = 100; console.log(a,window.a); \/\/ 100 100 let b = 10; console.log(b,window.b); \/\/ 10 undefined const c = 1; console.log(c,window.c); \/\/ 1 undefined let  声明的全局变量不会挂在顶层对象下面 所声明的变量一定要在声明后使用，否则报错，报错 ReferenceError 暂时性死区，只要块级作用域内存在 let 命令，它所声明的变量就“绑定”（ binding ）这个区域，不再受外部的影响，在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。 不允许重复声明  const  声明的全局变量不会挂在顶层对象下面 const 声明之后必须马上赋值，否则会报错 const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改。 const 一旦声明变量，就必须立即初始化，不能留到以后赋值。 const 命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。  const a = 100; const list = []; list[0] = 10; console.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-07-25 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-07-25 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-var-let-const\/",
+    "wordCount" : "80",
+    "keywords" : [ "JavaScript", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">var、let、const的区别是什么？</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-07-25 itemprop="datePublished">July 25, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="var">var</h2>
+<ul>
+<li>var 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为 undefined 。</li>
+<li>内层变量可能覆盖外层变量</li>
+<li>用来计数的循环变量泄露为全局变量</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var a = 100;
+console.log<span style="color:#960050;background-color:#1e0010">(</span>a,window.a);    // 100 100
+ 
+let b = 10;
+console.log<span style="color:#960050;background-color:#1e0010">(</span>b,window.b);    // 10 undefined
+ 
+const c = 1;
+console.log<span style="color:#960050;background-color:#1e0010">(</span>c,window.c);    // 1 undefined
+</code></pre></div><h2 id="let">let</h2>
+<ul>
+<li>声明的全局变量不会挂在顶层对象下面</li>
+<li>所声明的变量一定要在声明后使用，否则报错，报错 ReferenceError</li>
+<li>暂时性死区，只要块级作用域内存在 let 命令，它所声明的变量就“绑定”（ binding ）这个区域，不再受外部的影响，在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。</li>
+<li>不允许重复声明</li>
+</ul>
+<h2 id="const">const</h2>
+<ul>
+<li>声明的全局变量不会挂在顶层对象下面</li>
+<li>const 声明之后必须马上赋值，否则会报错</li>
+<li>const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改。</li>
+<li>const 一旦声明变量，就必须立即初始化，不能留到以后赋值。</li>
+<li>const 命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const a = 100; 
+ 
+const list = <span style="color:#960050;background-color:#1e0010">[</span>];
+list[<span style="color:#a6e22e">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">10;</span>
+console.log(<span style="color:#a6e22e">list</span>);　　// [<span style="color:#a6e22e">10</span>]
+ 
+const obj = <span style="color:#960050;background-color:#1e0010">{</span>a:100};
+obj.name = &#39;apple&#39;;
+obj.a = 10000;
+console.log(<span style="color:#a6e22e">obj</span>);　　// <span style="color:#960050;background-color:#1e0010">{</span>a:10000,name:&#39;
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-var-let-const/>http://www.yuyunzhi.com/js-var-let-const/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/javascript/">
+                    #JavaScript</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-extend/" class="prev" rel="prev" title="JS中的继承"><i class="iconfont icon-left"></i>&nbsp;JS中的继承</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-jsonp/" class="next" rel="next" title="JSONP是个什么鬼？">JSONP是个什么鬼？&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

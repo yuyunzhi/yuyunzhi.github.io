@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>虚拟Dom on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E8%99%9A%E6%8B%9Fdom/</link>
+    <description>Recent content in 虚拟Dom on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 18 Feb 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E8%99%9A%E6%8B%9Fdom/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vue虚拟DOM</title>
+      <link>http://www.yuyunzhi.com/js-vue-dom/</link>
+      <pubDate>Mon, 18 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-dom/</guid>
+      <description>一、为什么要使用虚拟DOM  首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以Vue内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。 为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，会先比较该节点类型，假如节点类型不一样，那么Vue会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么Vue会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。  二、使用虚拟DOM 1、代码示例 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;container&amp;#34;&amp;gt; &amp;lt;y-div @click=&amp;#34;outerFny&amp;#34; level=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/y-div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { components: { &amp;#39;y-div&amp;#39;: { data() { return { value: &amp;#39;123&amp;#39; } }, props: [&amp;#39;level&amp;#39;], render: function (createElement) { return createElement( &amp;#39;div&amp;#39;, { &amp;#39;class&amp;#39;: { foo: true, bar: false }, style:{ width:&amp;#39;100px&amp;#39;, height:&amp;#39;100px&amp;#39;, } }, [ createElement(&amp;#39;p&amp;#39;,{ on: { click: this.handler }, &amp;#39;class&amp;#39;: { foo: true, bar: false }, style: { fontSize: &amp;#39;14px&amp;#39;, }, },&amp;#39;nnnnnnnnn&amp;#39;), createElement(&amp;#39;p&amp;#39;,&amp;#39;wwwwwww&amp;#39;) ] ) }, methods: { handler() { console.</description>
+    </item>
+    
+  </channel>
+</rss>

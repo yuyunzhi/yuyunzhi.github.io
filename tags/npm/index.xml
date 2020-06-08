@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>npm on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/npm/</link>
+    <description>Recent content in npm on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 16 Oct 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/npm/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>发布npm包</title>
+      <link>http://www.yuyunzhi.com/common-npm-publish/</link>
+      <pubDate>Tue, 16 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-npm-publish/</guid>
+      <description>一、发布前  确保自己的代码已经测试通过才发布  二、上传代码至npmjs.org  注意每次上传时要更新 package.json 版本 在根目录下创建index.js,在index.js里将你想要导出的内容全部导出 如：  import Button from &amp;#39;./src/button&amp;#39; import ButtonGroup from &amp;#39;./src/button-group&amp;#39; import Icon from &amp;#39;./src/icon&amp;#39; export {Button,ButtonGroup,Icon} 由于node目前不支持import 所以需要进行转义，在上传前对自己的代码输入以下命令行 npx parcel build index.js --no-minify 将 package.json 的 main 改为 dist/index.js  注册一个账户:https://www.npmjs.com/ 确认一下邮箱（必须） 根目录运行 npm adduser，如果错误提示里面含有 https://registry.npm.taobao.org 则说明你的 npm 源目前为淘宝源，需要更换为 npm 官方源 运行 npm publish 同时需要输入账号和密码  三、下载使用包  下载包 npm i xxx 更新包 npm update xxx  如果是为了本地调试可以在项目目录使用 npm link，然后在使用之处运行 npm link xxx，就是最新了</description>
+    </item>
+    
+  </channel>
+</rss>

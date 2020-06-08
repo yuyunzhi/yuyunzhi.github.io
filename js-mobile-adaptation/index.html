@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-mvc/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-extend/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-mobile-adaptation/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           移动端是怎么做适配的？ | 余韵之
+       
+  </title>
+  <meta name="title" content="移动端是怎么做适配的？ | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "移动端是怎么做适配的？",
+    "headline" : "移动端是怎么做适配的？",
+    "description" : "这里介绍个方案包含5个点：1、meta viewport；2、媒体查询；3、动态rem方案；4、对rem微调；5、其他细节补充。\n 一、meta viewport \u0026lt;meta name=\u0026#34;viewport\u0026#34; content=\u0026#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0\u0026#34;\u0026gt; 在head标签内部加上这段代码。\n该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度。\nwidth=device-width: 让当前viewport宽度等于设备的宽度 user-scalable=no: 禁止用户缩放 initial-scale=1.0: 设置页面的初始缩放值为不缩放 maximum-scale=1.0: 允许用户的最大缩放值为1.0 minimum-scale=1.0: 允许用户的最小缩放值为1.0 二、媒体查询（响应式） 1、格式一 @media （）and（）{} \/\/满足（）里的条件，就执行大括号里css的样式 举例：\n\u0026lt;style\u0026gt; @media (max-width:320px){ body{ background:red; } } @media (min-width:321px) and (max-width:320px){ body{ background:orange; } } @media (min-width:376px) and (max-width:425px){ body{ background:green; } } @media (min-width:426px) and (max-width:768px){ body{ background:blue; } } @media (min-width:769px){ body{ background:grey; } } \u0026lt;\/style\u0026gt; 2、格式二 并举例",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-07-09 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-07-09 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-mobile-adaptation\/",
+    "wordCount" : "147",
+    "keywords" : [ "rem","响应式页面", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">移动端是怎么做适配的？</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-07-09 itemprop="datePublished">July 9, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>这里介绍个方案包含5个点：1、meta viewport；2、媒体查询；3、动态rem方案；4、对rem微调；5、其他细节补充。</p>
+</blockquote>
+<h2 id="一meta-viewport">一、meta viewport</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;meta name=&#34;viewport&#34; content=&#34;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0&#34;&gt;
+</code></pre></div><p>在head标签内部加上这段代码。</p>
+<p>该meta标签的作用是让当前viewport的宽度等于设备的宽度，同时不允许用户手动缩放。也许允不允许用户缩放不同的网站有不同的要求，但让viewport的宽度等于设备的宽度。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">width=device-width: 让当前viewport宽度等于设备的宽度
+user-scalable=no: 禁止用户缩放
+initial-scale=1.0: 设置页面的初始缩放值为不缩放
+maximum-scale=1.0: 允许用户的最大缩放值为1.0
+minimum-scale=1.0: 允许用户的最小缩放值为1.0
+</code></pre></div><h2 id="二媒体查询响应式">二、媒体查询（响应式）</h2>
+<h3 id="1格式一">1、格式一</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">@media （）and（）<span style="color:#960050;background-color:#1e0010">{</span>}
+//满足（）里的条件，就执行大括号里css的样式
+</code></pre></div><p><strong>举例：</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;style&gt;
+@media (<span style="color:#a6e22e">max-width:320px</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    body<span style="color:#960050;background-color:#1e0010">{</span>
+        background:red;
+    }
+}
+@media (<span style="color:#a6e22e">min-width:321px</span>) and (<span style="color:#a6e22e">max-width:320px</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    body<span style="color:#960050;background-color:#1e0010">{</span>
+        background:orange;
+    }
+}
+@media (<span style="color:#a6e22e">min-width:376px</span>) and (<span style="color:#a6e22e">max-width:425px</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    body<span style="color:#960050;background-color:#1e0010">{</span>
+        background:green;
+    }
+}
+@media (<span style="color:#a6e22e">min-width:426px</span>) and (<span style="color:#a6e22e">max-width:768px</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    body<span style="color:#960050;background-color:#1e0010">{</span>
+        background:blue;
+    }
+}
+@media (<span style="color:#a6e22e">min-width:769px</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    body<span style="color:#960050;background-color:#1e0010">{</span>
+        background:grey;
+    }
+}   
+&lt;/style&gt;
+</code></pre></div><h3 id="2格式二">2、格式二</h3>
+<p><strong>并举例</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;link rel=&#34;stylesheet&#34; href=&#34;style.css&#34;media=&#34;(<span style="color:#a6e22e">max-width:320px</span>)&#34;&gt;
+</code></pre></div><p>注意点：
+1、link标签会下载好，但是是否生效取决于media的条件；
+2、有PC端经验，就有移动端经验，只是多了一个media查询；
+3、通过添加多个css样式来满足不同的屏幕宽度；</p>
+<h2 id="三动态rem方案">三、动态rem方案</h2>
+<p>1rem等于根元素html的font-size的值，那么可以调整根元素的font-size值来调整页面缩放后的各个元素的尺寸和定位。</p>
+<p>在script标签加入这段代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;script&gt;
+   var pageWidth=window.innerWidth  //获取屏幕宽度
+   document.documentElement.style.fontSize= `$<span style="color:#960050;background-color:#1e0010">{</span>pageWidth/60}px`
+&lt;/script&gt;
+</code></pre></div><p>此处，fontSizede的值为屏幕宽的十分之一，那么在写CSS的时候可以这样写：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">.xxx<span style="color:#960050;background-color:#1e0010">{</span>
+    width:0.4rem;
+    height:0.2rem;
+    margin:0.05rem 0.05rem;
+    float:left;
+ }
+</code></pre></div><p>用sass将px转化为rem：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">@function px<span style="color:#960050;background-color:#1e0010">(</span> $px )<span style="color:#960050;background-color:#1e0010">{</span>
+  @return $px/$designWidth*<span style="color:#a6e22e">10</span> + rem;
+}
+$designWidth: 320px; 
+
+那么1rem=32px
+</code></pre></div><h2 id="四对动态rem进行微调">四、对动态rem进行微调</h2>
+<p>1、rem都是小数很不方便。所以让 html 的 font-size 的尺寸等于 window.innerWidth/10；</p>
+<p>2、浏览器默认可设置的最小字体大小为12px，浏览器默认可设置的最小字体大小为12px，浏览器默认可设置的最小字体大小为12px；</p>
+<p>3、在精细的地方，就直接写像素，混用px rem em</p>
+<ul>
+<li>比如border:1px solid red;</li>
+<li>比如页面字体的大小就直接写font-size:16px</li>
+</ul>
+<h2 id="五其他补充">五、其他补充</h2>
+<p><strong>1、px em rem vh vw的区别</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">px：表示像素
+em：一个字的高度 //1em == 自己font-size的值
+rem：root em // 根元素html的font-size
+vh：viewport height   视口高度=100vh
+vw：viewport width    视口宽度=100vw
+</code></pre></div><p>2、body默认字体为16px，其中chrome默认可设置的最小字体大小为12px，更改body的font-size是rem是不会变的，更改的必须是html的font-size。</p>
+<p><strong>3、百分比布局和整体缩放布局的区别</strong></p>
+<ul>
+<li>百分比布局：无法让高度跟着屏幕宽度改变而进行有比例的改变，高度和宽度无法做任何的配合；</li>
+<li>整体缩放布局：一切单位以宽度为基准。</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-mobile-adaptation/>http://www.yuyunzhi.com/js-mobile-adaptation/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/rem/">
+                    #rem</a></span>
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/%E5%93%8D%E5%BA%94%E5%BC%8F%E9%A1%B5%E9%9D%A2/">
+                    #响应式页面</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-mvc/" class="prev" rel="prev" title="什么是MVC？"><i class="iconfont icon-left"></i>&nbsp;什么是MVC？</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-extend/" class="next" rel="next" title="JS中的继承">JS中的继承&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

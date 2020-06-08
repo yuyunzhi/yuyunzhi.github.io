@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Maven on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/maven/</link>
+    <description>Recent content in Maven on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 05 Feb 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>设置Maven环境变量</title>
+      <link>http://www.yuyunzhi.com/java-maven/</link>
+      <pubDate>Tue, 05 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/java-maven/</guid>
+      <description>下载、安装  从Maven官方下载压缩包 解压文件夹 apache-maven-3.5.4 到任意文件夹，获取文件夹安装路径。例如我解压到 D:\apache-maven-3.5.4  设置环境变量  打开：我的电脑——右键——属性——高级系统设置——环境变量 第一步：点击“系统变量”，设置环境变量 M2_HOME 为maven安装的路径 第二步：添加 %M2_HOME%\bin到系统环境变量path中 第三步：点击确定  运行命令测试安装  运行命令  mvn -version </description>
+    </item>
+    
+  </channel>
+</rss>

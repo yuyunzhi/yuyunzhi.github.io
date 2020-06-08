@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/common-npm-publish/" />
+  <link rel="next" href="http://www.yuyunzhi.com/common-tools/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-generate-pdf/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           实现动态数据生成PDF | 余韵之
+       
+  </title>
+  <meta name="title" content="实现动态数据生成PDF | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "实现动态数据生成PDF",
+    "headline" : "实现动态数据生成PDF",
+    "description" : "最近在做一个业务功能，根据后端传来的数据给每个不同的用户动态生成不同的pdf并下载。\n   方案一、使用window.print()\npass,打印出来的东西跟页面结构关联度太高，且不是pdf\n  方案二、使用pdfmake 当然还有其他的jsPDF，这里我选择了pdfmake\n  一、先搞定能够下载PDF   github ：官方说-\u0026gt;pdfmake\n  Get Start\n  \u0026lt;!doctype html\u0026gt; \u0026lt;html lang=\u0026#39;en\u0026#39;\u0026gt; \u0026lt;head\u0026gt; \u0026lt;meta charset=\u0026#39;utf-8\u0026#39;\u0026gt; \u0026lt;title\u0026gt;my first pdfmake example\u0026lt;\/title\u0026gt; \u0026lt;script src=\u0026#39;build\/pdfmake.min.js\u0026#39;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;script src=\u0026#39;build\/vfs_fonts.js\u0026#39;\u0026gt;\u0026lt;\/script\u0026gt; \u0026lt;\/head\u0026gt; \u0026lt;body\u0026gt; 引入 pdfmake.min.js 引入 vfs_fonts.js 可到cdnjs里获取链接：cdnjs-\u0026gt;\n 创建内容  var docDefinition = { content: \u0026#39;This is an sample PDF printed with pdfMake\u0026#39; };  下载、打开、打印内容  pdfMake.createPdf(docDefinition).download(); pdfMake.createPdf(docDefinition).open(); pdfMake.createPdf(docDefinition).print(); 然后这虽然可以下载，但是内容为中文时会乱码，以及需要设置样式，下面一一道来",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-10-22 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-10-22 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-generate-pdf\/",
+    "wordCount" : "143",
+    "keywords" : [ "Vue", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">实现动态数据生成PDF</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-10-22 itemprop="datePublished">October 22, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>最近在做一个业务功能，根据后端传来的数据给每个不同的用户动态生成不同的pdf并下载。</p>
+</blockquote>
+<ul>
+<li>
+<p>方案一、使用window.print()<br>
+pass,打印出来的东西跟页面结构关联度太高，且不是pdf</p>
+</li>
+<li>
+<p>方案二、使用pdfmake
+当然还有其他的jsPDF，这里我选择了pdfmake</p>
+</li>
+</ul>
+<h2 id="一先搞定能够下载pdf">一、先搞定能够下载PDF</h2>
+<ul>
+<li>
+<p>github ：<a href="https://github.com/bpampuch/pdfmake">官方说-&gt;pdfmake</a></p>
+</li>
+<li>
+<p>Get Start</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">&lt;!doctype html&gt;
+&lt;html lang=&#39;en&#39;&gt;
+&lt;head&gt;
+  &lt;meta charset=&#39;utf-8&#39;&gt;
+  &lt;title&gt;my first pdfmake example&lt;/title&gt;
+  &lt;script src=&#39;build/pdfmake.min.js&#39;&gt;&lt;/script&gt;
+  &lt;script src=&#39;build/vfs_fonts.js&#39;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+</code></pre></div><p>引入 pdfmake.min.js
+引入 vfs_fonts.js
+可到cdnjs里获取链接：<a href="https://cdnjs.com/libraries/pdfmake">cdnjs-&gt;</a></p>
+<ul>
+<li>创建内容</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var docDefinition = <span style="color:#960050;background-color:#1e0010">{</span> content: &#39;This is an sample PDF printed with pdfMake&#39; };
+</code></pre></div><ul>
+<li>下载、打开、打印内容</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">pdfMake.createPdf(<span style="color:#a6e22e">docDefinition</span>).download<span style="color:#960050;background-color:#1e0010">(</span>);
+pdfMake.createPdf(<span style="color:#a6e22e">docDefinition</span>).open<span style="color:#960050;background-color:#1e0010">(</span>);
+pdfMake.createPdf(<span style="color:#a6e22e">docDefinition</span>).print<span style="color:#960050;background-color:#1e0010">(</span>);
+</code></pre></div><p><strong>然后这虽然可以下载，但是内容为中文时会乱码，以及需要设置样式，下面一一道来</strong></p>
+<h2 id="二解决中文乱码使用自定义样式">二、解决中文乱码(使用自定义样式)</h2>
+<h3 id="方案一">方案一</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm install pdfmake
+</code></pre></div><ul>
+<li>
+<p>用一个现成含有中文的字体替换原来的node_modules/pdfmake/dist/vfs_font.js
+这里有现成的方正黑体简体:<a href="https://github.com/aushion/pdfmake-chinese">进去下载vfs_font.js</a></p>
+</li>
+<li>
+<p>js配置</p>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">/*<span style="color:#a6e22e">设置默认字体</span>,放入变量docDefinition里，与content同作用域<span style="color:#960050;background-color:#1e0010">*</span>/
+defaultStyle: <span style="color:#960050;background-color:#1e0010">{</span>
+    font: &#39;xxx&#39;
+}
+/*<span style="color:#a6e22e">设置字体</span> 与变量docDefinition同作用域<span style="color:#960050;background-color:#1e0010">*</span>/
+pdfMake.fonts = <span style="color:#960050;background-color:#1e0010">{</span>
+     Roboto: <span style="color:#960050;background-color:#1e0010">{</span>
+         normal: &#39;Roboto-Regular.ttf&#39;,
+         bold: &#39;Roboto-Medium.ttf&#39;,
+         italics: &#39;Roboto-Italic.ttf&#39;,
+         bolditalics: &#39;Roboto-Italic.ttf&#39;
+     },
+     /*<span style="color:#a6e22e">这里是加入的微软雅黑字体</span><span style="color:#960050;background-color:#1e0010">*</span>/
+     xxx: <span style="color:#960050;background-color:#1e0010">{</span>
+         normal: &#39;方正黑体简体.ttf&#39;,
+         bold: &#39;方正黑体简体.ttf&#39;,
+         italics: &#39;方正黑体简体.ttf&#39;,
+         bolditalics: &#39;方正黑体简体.ttf&#39;,
+     }
+ };
+</code></pre></div><h3 id="方案二">方案二</h3>
+<ul>
+<li>创建一个vfs_fonts.js包含字体文件的新文件</li>
+<li>pdfMake.fonts在你的JavaScript中分配</li>
+<li>指定doc-definition中的字体</li>
+</ul>
+<p><strong>主要就这三个步骤,现在拆分多个小步骤</strong></p>
+<p>1、git clone:<a href="https://github.com/bpampuch/pdfmake">官方官网的代码到本地</a>
+2、在clone下来的文件加中文字体文件：xx.ttf到 pdfmake\examples\fonts 目录下
+3、npm install确保安装所有先决条件模块
+4、安装gulp,我也是第一次用，其实没有那么复杂的。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm install gulp -g
+</code></pre></div><p>5、检查是否安装成功</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">gulp -v
+</code></pre></div><p>6、打开gulpfile.js 看下require了哪些模块，依次(一次)安装
+7、安装 gulp-cli,没有安装会报错</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">npm install gulp-cli -g
+</code></pre></div><p>8、运行gulp buildFonts以创建新的build/vfs_fonts.js</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">gulp buildFonts
+</code></pre></div><p>9、这个时候就获得了方案一现成的vfs_fonts.js 并替换包里的vfs_fonts.js
+10、引入至JS,我这里使用的是Vue</p>
+<pre><code class="language-angular2html" data-lang="angular2html">import xxx from '../../node_modules/pdfmake/build/pdfmake.min.js';
+import yyy from '../../node_modules/pdfmake/build/vfs_fonts';
+</code></pre><p>11、配置使用，同方案一</p>
+<h2 id="三样式排版">三、样式排版</h2>
+<ul>
+<li>参考这个网站，直接按照这个逻辑写就行了:<a href="http://pdfmake.org/playground.html">戳这里-&gt;</a></li>
+<li>注意，既可以对所有类型设置统一的样式，也可以对每个类型单独设置权限更高的样式</li>
+<li>把获取的数据存入变量，直接放入pdfmake模板，就动态更新pdf内容了。</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-generate-pdf/>http://www.yuyunzhi.com/js-generate-pdf/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/vue/">
+                    #Vue</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/common-npm-publish/" class="prev" rel="prev" title="发布npm包"><i class="iconfont icon-left"></i>&nbsp;发布npm包</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/common-tools/" class="next" rel="next" title="常用在线工具">常用在线工具&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

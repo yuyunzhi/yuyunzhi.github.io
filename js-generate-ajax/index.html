@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-ajax/" />
+  <link rel="next" href="http://www.yuyunzhi.com/common-hexo-next/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-generate-ajax/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           自己动手封装一个AJAX函数 | 余韵之
+       
+  </title>
+  <meta name="title" content="自己动手封装一个AJAX函数 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "自己动手封装一个AJAX函数",
+    "headline" : "自己动手封装一个AJAX函数",
+    "description" : "这是一件很有意思的事，封装一个抽象性函数，就相当于可以把这个函数用在类似相同的环境中。 1、知道AJAX的功能 2、把AJAX的功能封装成函数 3、用Promise优化封装的函数\n 一、AJAX有哪些功能？  客户端的JS发起请求（浏览器上的） 服务端的JS发送响应（Node.js上的）  1、JS 可以设置任意请求 header 吗？  第一部分 request.open(\u0026lsquo;get\u0026rsquo;, \u0026lsquo;\/xxx\u0026rsquo;) 第二部分 request.setHeader(\u0026lsquo;content-type\u0026rsquo;,\u0026lsquo;x-www-form-urlencoded\u0026rsquo;) 第四部分 request.send(\u0026lsquo;a=1\u0026amp;b=2\u0026rsquo;)  2、JS 可以获取任意响应 header 吗？  第一部分 request.status \/ request.statusText 第二部分 request.getResponseHeader() \/ request.getAllResponseHeaders() 第四部分 request.responseText  二、window.jQuery.ajax 之前写过window.jQuery，而这次写window.jQuery.ajax。\n封装AJAX函数，JS代码如下：\nwindow.jQuery.ajax = function(obj){ let url=obj.url let method=obj.method let body=obj.body let successFn=obj.successFn let headers=obj.heaaders let failFn=obj.failFn let request = new XMLHttpRequest() request.open(method, url) \/\/ 配置request第一部分 for(let key in headers){ let value = headers[key]; request.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-09-05 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-09-05 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-generate-ajax\/",
+    "wordCount" : "244",
+    "keywords" : [ "ajax", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">自己动手封装一个AJAX函数</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-09-05 itemprop="datePublished">September 5, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <blockquote>
+<p>这是一件很有意思的事，封装一个抽象性函数，就相当于可以把这个函数用在类似相同的环境中。
+1、知道AJAX的功能
+2、把AJAX的功能封装成函数
+3、用Promise优化封装的函数</p>
+</blockquote>
+<h2 id="一ajax有哪些功能">一、AJAX有哪些功能？</h2>
+<ul>
+<li>客户端的JS发起请求（浏览器上的）</li>
+<li>服务端的JS发送响应（Node.js上的）</li>
+</ul>
+<h3 id="1js-可以设置任意请求-header-吗">1、JS 可以设置任意请求 header 吗？</h3>
+<ul>
+<li>第一部分 request.open(&lsquo;get&rsquo;, &lsquo;/xxx&rsquo;)</li>
+<li>第二部分 request.setHeader(&lsquo;content-type&rsquo;,&lsquo;x-www-form-urlencoded&rsquo;)</li>
+<li>第四部分 request.send(&lsquo;a=1&amp;b=2&rsquo;)</li>
+</ul>
+<h3 id="2js-可以获取任意响应-header-吗">2、JS 可以获取任意响应 header 吗？</h3>
+<ul>
+<li>第一部分 request.status / request.statusText</li>
+<li>第二部分 request.getResponseHeader() / request.getAllResponseHeaders()</li>
+<li>第四部分 request.responseText</li>
+</ul>
+<h2 id="二windowjqueryajax">二、window.jQuery.ajax</h2>
+<p>之前写过window.jQuery，而这次写window.jQuery.ajax。</p>
+<p>封装AJAX函数，JS代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.jQuery.ajax = function(<span style="color:#a6e22e">obj</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    let url=obj.url
+    let method=obj.method
+    let body=obj.body
+    let successFn=obj.successFn
+    let headers=obj.heaaders
+    let failFn=obj.failFn
+    let request = new XMLHttpRequest<span style="color:#960050;background-color:#1e0010">(</span>)
+    request.open<span style="color:#960050;background-color:#1e0010">(</span>method, url) // 配置request第一部分
+    for<span style="color:#960050;background-color:#1e0010">(</span>let key in headers)<span style="color:#960050;background-color:#1e0010">{</span>
+        let value = headers[<span style="color:#a6e22e">key</span>];
+        request.setRequestHeader<span style="color:#960050;background-color:#1e0010">(</span>key,value)
+    }
+    request.onreadystatechange = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+        if<span style="color:#960050;background-color:#1e0010">(</span>request.readyState===4)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 200 &amp;&amp; request.status &lt; 300)<span style="color:#960050;background-color:#1e0010">{</span>
+                successFn.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,x)
+                //假如同时调用f1和f2可以这样写这里的x===request.responseText
+                //f1.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,x)
+                //f2.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,x)           
+            }else if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 400)<span style="color:#960050;background-color:#1e0010">{</span>
+                failFn.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,request)
+            }
+        }
+    }
+    request.send(<span style="color:#a6e22e">body</span>)//设置请求的第四部分
+}
+</code></pre></div><p>补充一个ES 6的知识点：<strong>解构赋值</strong>。所以上面声明的前6个let可以用解构赋值来优化代码，到文末的时候我再修改。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">var a=1
+var b=2;
+<span style="color:#960050;background-color:#1e0010">[</span>a,b]=<span style="color:#960050;background-color:#1e0010">[</span>2,1]    //a与b的值交换
+</code></pre></div><p>函数调用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.jQuery.ajax<span style="color:#960050;background-color:#1e0010">({</span>
+    url:&#39;/xxx&#39;,
+    method:&#39;post&#39;,
+    body:&#39;a=1&amp;b=2&#39;,
+    headers:<span style="color:#960050;background-color:#1e0010">{</span>
+        &#39;content-type&#39;:&#39;application/x-www-form-urlencoded&#39;,
+        &#39;yukaka&#39;:&#39;25&#39;
+    },
+    successFn:function sss(<span style="color:#a6e22e">x</span>)<span style="color:#960050;background-color:#1e0010">{</span>console.log(<span style="color:#a6e22e">x</span>)},
+    failFn:function fff(<span style="color:#a6e22e">resquest</span>)<span style="color:#960050;background-color:#1e0010">{</span>console.log<span style="color:#960050;background-color:#1e0010">(</span>&#39;失败了&#39;)}  
+})
+</code></pre></div><p>然而successFn 和 failFn 是我定义的。<strong>不同的程序员可能回调函数名是不一样，那么在用一个封装过的函数就需要查看手册了传什么样的参数。这不是很方便，那怎么办呢?</strong></p>
+<h2 id="三用promise来优化函数">三、用Promise来优化函数</h2>
+<p>用法如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">const promise = new Promise<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>resolve, reject) <span style="color:#960050;background-color:#1e0010">{</span>
+  // ... some code
+
+  if <span style="color:#960050;background-color:#1e0010">(</span>/<span style="color:#960050;background-color:#1e0010">*</span> 异步操作成功 <span style="color:#960050;background-color:#1e0010">*</span>/)<span style="color:#960050;background-color:#1e0010">{</span>
+    resolve(<span style="color:#a6e22e">value</span>);
+  } else <span style="color:#960050;background-color:#1e0010">{</span>
+    reject(<span style="color:#a6e22e">error</span>);
+  }
+});
+</code></pre></div><p>用Promise优化AJAX函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.jQuery.ajax = function<span style="color:#960050;background-color:#1e0010">({</span>url,method,body,headers})<span style="color:#960050;background-color:#1e0010">{</span> //这里使用ES6 解构赋值
+    return new Promise<span style="color:#960050;background-color:#1e0010">(</span>function<span style="color:#960050;background-color:#1e0010">(</span>resolve,reject)<span style="color:#960050;background-color:#1e0010">{</span>   //resolve表示成功，reject表示失败
+        let request = new XMLHttpRequest<span style="color:#960050;background-color:#1e0010">(</span>)
+        request.open<span style="color:#960050;background-color:#1e0010">(</span>method, url) // 配置request第一部分
+        for<span style="color:#960050;background-color:#1e0010">(</span>let key in headers)<span style="color:#960050;background-color:#1e0010">{</span>  //遍历，设置请求第二部分
+            let value = headers[<span style="color:#a6e22e">key</span>];
+            request.setRequestHeader<span style="color:#960050;background-color:#1e0010">(</span>key,value)
+        }
+        request.onreadystatechange = <span style="color:#960050;background-color:#1e0010">(</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>  //获取readyState码
+            if<span style="color:#960050;background-color:#1e0010">(</span>request.readyState===4)<span style="color:#960050;background-color:#1e0010">{</span>
+            if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 200 &amp;&amp; request.status &lt; 300)<span style="color:#960050;background-color:#1e0010">{</span>   //异步操作成功
+                  resolve.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,request.responseText)        
+             }else if<span style="color:#960050;background-color:#1e0010">(</span>request.status &gt;= 400)<span style="color:#960050;background-color:#1e0010">{</span>
+                  rejcet.call<span style="color:#960050;background-color:#1e0010">(</span>undefined,request)
+              }
+            }
+        }
+        request.send(<span style="color:#a6e22e">body</span>)//设置请求的第四部分
+    })
+}
+</code></pre></div><p>函数调用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">myButton.addEventListener<span style="color:#960050;background-color:#1e0010">(</span>&#39;click&#39;, (<span style="color:#a6e22e">e</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{</span>
+    window.jQuery.ajax<span style="color:#960050;background-color:#1e0010">({</span>
+        url:&#39;/xxx&#39;,
+        method:&#39;post&#39;,
+        body:&#39;a=1&amp;b=2&#39;,
+        headers:<span style="color:#960050;background-color:#1e0010">{</span>
+           &#39;content-type&#39;:&#39;application/x-www-form-urlencoded&#39;,
+           &#39;yukaka&#39;:&#39;25&#39;
+        }    
+    }).then<span style="color:#960050;background-color:#1e0010">(</span>
+        (<span style="color:#a6e22e">text</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{console.log(&#34;响应成功，调用第一个函数&#34;);return</span> 1},//成功调用这个函数       
+    ).then<span style="color:#960050;background-color:#1e0010">(</span>
+        (<span style="color:#a6e22e">text</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{console.log(text)},//成功调用这个函数，这里的参数是上一个then返回的值</span>
+        (<span style="color:#a6e22e">request</span>)<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">&gt;</span><span style="color:#e6db74">{console.log(&#39;error&#39;)}</span> //失败调用这个函数     
+    ) 
+})
+</code></pre></div><p>关于then，第一个函数表示的是异步操作成功时调用的函数，第二个函数表示的是失败时调用的函数。同时then接受多个函数的调用，方法就是链式操作。需要注意的是成功调用这个函数，它的参数是上一个then返回的值。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function xxx<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    return new Promise<span style="color:#960050;background-color:#1e0010">((</span>f1, f2) =&gt; <span style="color:#960050;background-color:#1e0010">{</span>
+        doSomething<span style="color:#960050;background-color:#1e0010">(</span>)
+        setTimeout<span style="color:#960050;background-color:#1e0010">((</span>)=&gt;<span style="color:#960050;background-color:#1e0010">{</span>
+            // 成功就调用 f1，失败就调用 f2
+        },3000)
+    })
+}
+xxx<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">(</span>success, fail)
+xxx<span style="color:#960050;background-color:#1e0010">(</span>).then<span style="color:#960050;background-color:#1e0010">(</span>success, fail).then<span style="color:#960050;background-color:#1e0010">(</span>success, fail)  // 链式操作
+</code></pre></div>
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-generate-ajax/>http://www.yuyunzhi.com/js-generate-ajax/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/ajax/">
+                    #ajax</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-ajax/" class="prev" rel="prev" title="什么是Ajax？"><i class="iconfont icon-left"></i>&nbsp;什么是Ajax？</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/common-hexo-next/" class="next" rel="next" title="部署hexo及配置next主题">部署hexo及配置next主题&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

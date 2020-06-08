@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTML on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/html/</link>
+    <description>Recent content in HTML on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 02 Jan 2020 13:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HTML、CSS</title>
+      <link>http://www.yuyunzhi.com/interview-html/</link>
+      <pubDate>Thu, 02 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-html/</guid>
+      <description>1、简述一下 src 与 href 的区别  href 是指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，用于超链接。 src 是指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置； 在请求 src 资源时会将其指向的资源下载并应用到文档内，例如 js 脚本，img 图片和 frame 等元素。 当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将 js 脚本放在底部而不是头部。  2、html 中 title 属性和 alt 属性的区别 ？ 有title,那么无论图片能不能正常显示，鼠标放上去都会出现title。有alt，当图片不能正常加载的时候，会显示alt内容。
+&amp;lt;img src=&amp;#34;#&amp;#34; alt=&amp;#34;alt 信息&amp;#34; /&amp;gt; 当图片不输出信息的时候，会显示 alt 信息， 鼠标放上去没有信息。 当图片正常读取，不会出现 alt 信息。
+&amp;lt;img src=&amp;#34;#&amp;#34; alt=&amp;#34;alt 信息&amp;#34; title=&amp;#34;title 信息&amp;#34; /&amp;gt; 当图片不输出信息的时候，会显示 alt 信息，鼠标放上去会出现 title 信息。 当图片正常输出的时候，不会出现 alt 信息，鼠标放上去会出现 title 信息。
+3、讲述你对 reflow回流 和 repaint重绘 的理解 原因：浏览器渲染机制 戳戳戳，你真的了解回流和重绘吗?
+严重性： 在性能优先的前提下，性能消耗 回流 大于 重绘</description>
+    </item>
+    
+    <item>
+      <title>iframe a form input table</title>
+      <link>http://www.yuyunzhi.com/js-html/</link>
+      <pubDate>Mon, 02 Apr 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-html/</guid>
+      <description>iframe与a标签嵌套： &amp;lt;iframe name=&amp;#34;xxx&amp;#34; src=&amp;#34;http://baidu.com&amp;#34; frameborder=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/iframe&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; 解释： 1、默认打开情况，iframe打开的是百度页面； 2、iframe标签的name为xxx，与a标签target为xxx向对应结合使用，那么点击a标签，打开的是QQ页面； 3、frameborder不写的话会有一个默认border，往往不写的话比较难看；
+一、a标签（get请求） 1、可以写一个跳转链接： &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_blank&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_self&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_parent&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; &amp;lt;a target=&amp;#34;xxx&amp;#34; href=&amp;#34;http://qq.com&amp;#34;target=&amp;#34;_top&amp;#34;&amp;gt;qq&amp;lt;/a&amp;gt; 在HTML中target目标的四个参数的用法：
+target=&amp;#34;_blank&amp;#34;表示：将链接的画面内容，在新的浏览视窗中打开。打开新窗口； target=&amp;#34;_self&amp;#34;表示：在自己的窗口打开。如果被iframe 嵌套，这在当前这个iframe窗口打开，而不是当前浏览器窗口； target=&amp;#34;_parent&amp;#34;表示：将链接的画面内容，当成文件的上一个画面。即：当父窗口打开。 target=&amp;#34;_top&amp;#34;表示：将框架中链接的画面内容，显示在没有框架的视窗中（即除去了框架)。即：顶端打开窗口。 2、点击a标签下载文件 &amp;lt;a href=&amp;#34;http://qq.com&amp;#34; download&amp;gt;下载&amp;lt;/a&amp;gt; 3、a标签的href到底可以写什么？ href=&amp;#34;xxx.html&amp;#34; //就会跳到: 当前地址/xxx.html href=&amp;#34;？name=qqq&amp;#34; //就会跳到: 当前地址/？name=qqq href=&amp;#34;javascript:alert(1);&amp;#34; //点击执行javascript内容 href=&amp;#34;javascript: ;&amp;#34; //点击后什么也不做的a标签-伪协议 href=&amp;#34;#&amp;#34; //页面会回到头部 二、form标签（post请求） &amp;lt;form action=&amp;#34;users&amp;#34; method=&amp;#34;post&amp;#34;&amp;gt; &amp;lt;label for=&amp;#34;yyy&amp;#34;&amp;gt;用户名&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;text&amp;#34; name=&amp;#34;账号&amp;#34; id=&amp;#34;yyy&amp;#34;&amp;gt; &amp;lt;label&amp;gt;密码&amp;lt;input type=&amp;#34;password&amp;#34; name=&amp;#34;密码&amp;#34; &amp;gt;&amp;lt;/label&amp;gt; &amp;lt;input type=&amp;#34;submit&amp;#34; value=&amp;#34;提交&amp;#34;&amp;gt; &amp;lt;/form&amp;gt; 解释： 1、form表单里面的input的type没有submit属性，就无法提交； 2、label标签的for=yyy 与 input标签的id=yyy 同时出现，点击文字就能聚焦到输入框，或用label套input也行；</description>
+    </item>
+    
+  </channel>
+</rss>

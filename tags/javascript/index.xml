@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/javascript/</link>
+    <description>Recent content in JavaScript on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 06 Jan 2020 13:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JavaScript 5种继承方式</title>
+      <link>http://www.yuyunzhi.com/js-inherit/</link>
+      <pubDate>Mon, 06 Jan 2020 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-inherit/</guid>
+      <description>1、原型链继承 //父类型 function Person(name, age) { this.name = name, this.age = age, this.play = [1, 2, 3] this.setName = function () { } } Person.prototype.setAge = function () { } //子类型 function Student(price) { this.price = price this.setScore = function () { } } Student.prototype = new Person() // 子类型的原型为父类型的一个实例对象 var s1 = new Student(15000) var s2 = new Student(14000) console.log(s1,s2) 特点：
+ 父类新增原型方法/原型属性，子类都能访问到 简单，易于实现  缺点：
+ 子类继承的时候会作为公有属性，这样子类1操作这个属性的时候，就会影响到子类2 创建子类实例时，无法向父类构造函数传参 要想为子类新增属性和方法，必须要在Student.</description>
+    </item>
+    
+    <item>
+      <title>js异步执行顺序及Event Loop</title>
+      <link>http://www.yuyunzhi.com/js-asynchronous-order/</link>
+      <pubDate>Sun, 05 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-asynchronous-order/</guid>
+      <description>1、JS执行顺序 先看一段代码，得出执行顺序：1、9、5、0、6、2、7、4、8、3
+(function() { setTimeout(() =&amp;gt; { console.log(0); }); new Promise(resolve =&amp;gt; { console.log(1); setTimeout(() =&amp;gt; { resolve(); Promise.resolve().then(() =&amp;gt; { console.log(2); setTimeout(() =&amp;gt; console.log(3)); Promise.resolve().then(() =&amp;gt; console.log(4)); }); }); Promise.resolve().then(() =&amp;gt; console.log(5)); }).then(() =&amp;gt; { console.log(6); Promise.resolve().then(() =&amp;gt; console.log(7)); setTimeout(() =&amp;gt; console.log(8)); }); console.log(9); })(); 思路：主线程会先执行一遍，执行，异步（宏任务、微任务）压入栈。当主线程执行完毕后就会从队列里取出任务（微任务&amp;gt;宏任务）。每次执行微任务或宏任务都会把该任务分解同步、宏任务、微任务，重复上面的步骤。
+  所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）
+  主线程之外，还存在一个&amp;quot;任务队列&amp;rdquo;（task queue）。只要异步任务有了运行结果，就在&amp;quot;任务队列&amp;quot;之中放置一个事件。
+  一旦&amp;quot;执行栈&amp;quot;中的所有同步任务执行完毕，系统就会读取&amp;quot;任务队列&amp;rdquo;，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+  主线程不断重复上面的第三步。
+  宏任务一般是：包括整体代码script，setTimeout，setInterval、I/O、UI render
+微任务主要是：Promise、Object.observe、MutationObserver
+2、从一道题浅说 JavaScript 的事件循环 //请写出输出内容 async function async1() { console.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript一些常用方法</title>
+      <link>http://www.yuyunzhi.com/interview-js-api/</link>
+      <pubDate>Fri, 03 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js-api/</guid>
+      <description>一、instanceof 和 typeof 1、typeof使用: typeof一般被用于判断一个变量的类型是否为以下7种 ：number, string, object, boolean, function, undefined, symbol。但是typeof 在判断一个 object的数据的时候只能告诉我们这个数据是 object, 而不能细致的具体到是哪一种 object
+typeof 1 // number typeof &amp;#34;1&amp;#34; // string typeof [] //object typeof function(){} // function typeof {} // object typeof null // object typeof undefined // undefined typeof true // boolean typeof Object // function 2、typeof null 为什么结果是 object ?因为底层储存变量的时候000表示对象，而 null 的所有机器码也均为0, undefined 用 −2^30 整数来表示。所以 typeof null 结果为object。
+3、Object.prototype.toString.call 使用这个方法来对一个变量类型进行比较准确的判断。
+Object.prototype.toString.call(1) // &amp;#34;[object Number]&amp;#34; Object.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript输出结果题</title>
+      <link>http://www.yuyunzhi.com/interview-js-console/</link>
+      <pubDate>Fri, 03 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js-console/</guid>
+      <description>1、下面程序输出的结果是 ？ if (!(&amp;#34;a&amp;#34; in window)) { var a = 1; } alert(a); // undefined 代码解析：如果 window 不包含属性 a，就声明一个变量 a，然后赋值为 1。
+首先，在 es6 之前，所有的全局变量都是 window 的属性，语句 var a = 1; 等价于 window.a = 1; 你可以用如下方式来检测全局变量是否声明：&amp;ldquo;变量名称&amp;rdquo; in window
+所以：
+var a; alert(&amp;#34;a&amp;#34; in window); // true 2、下面的输出结果是 ？ var out = 25, inner = { out: 20, func: function() { var out = 30; return this.out; } }; console.log((inner.func, inner.func)()); //25 console.</description>
+    </item>
+    
+    <item>
+      <title>JavaScript知识</title>
+      <link>http://www.yuyunzhi.com/interview-js/</link>
+      <pubDate>Thu, 02 Jan 2020 17:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-js/</guid>
+      <description>1、常见的浏览器内核有哪些 ？介绍一下你对浏览器内核的理解 ?  Trident 内核：IE, 360，搜狗浏览器 MaxThon、TT、The World,等 Gecko 内核：火狐，FF，MozillaSuite / SeaMonkey 等 Presto 内核：Opera7 及以上 Webkit 内核：Safari，Chrome 等  内核主要分成两部分：渲染引擎(layout engineer 或 Rendering Engine) 和 JS 引擎。
+渲染引擎：
+负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入 CSS 等），以及计算网页的显示方式，然后会输出至显示器或打印机。 浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。 所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。
+JS 引擎：
+解析和执行 javascript 来实现网页的动态效果。 最开始渲染引擎和 JS 引擎并没有区分的很明确，后来 JS 引擎越来越独立，内核就倾向于只指渲染引擎。
+2、call、apply、bind  call 跟 apply 的用法几乎一样，唯一的不同就是传递的参数不同，call 只能一个参数一个参数的传入。 apply 则只支持传入一个数组，哪怕是一个参数也要是数组形式。最终调用函数时候这个数组会拆成一个个参数分别传入。 至于 bind 方法，他是直接改变这个函数的 this 指向并且返回一个新的函数，之后再次调用这个函数的时候 this 都是指向 bind 绑定的第一个参数。 bind 传参方式跟 call 方法一致。  简易版本bind实现
+Function.prototype.bind = function(context) { var self = this; return function() { return self.</description>
+    </item>
+    
+    <item>
+      <title>什么是Ajax？</title>
+      <link>http://www.yuyunzhi.com/js-ajax/</link>
+      <pubDate>Tue, 04 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-ajax/</guid>
+      <description>一、我们如何向服务器发送请求？  用 form 可以发请求，但是会刷新页面或新开页面 用 a 可以发 get 请求，但是也会刷新页面或新开页面 用 img 可以发 get 请求，但是只能以图片的形式展示 用 link 可以发 get 请求，但是只能以 CSS、favicon 的形式展示 用 script 可以发 get 请求，但是只能以脚本的形式运行  那么有没有什么方式，可以使用get、post、put、delete 请求都行，并且用任意的方式返回给浏览器展示？
+当然有，这个就是AJAX。
+二、什么是AJAX？ Jesse James Garrett 讲同时满足以下技术取名叫做AJAX:异步的 JavaScript 和 XML。
+ 使用 XMLHttpRequest 发请求 服务器返回 XML 格式的字符串 JS 解析 XML，并更新局部页面  如何使用XMLHttpRequest？
+JS文件代码如下：
+myButton.addEventListener(&amp;#39;click&amp;#39;, (e)=&amp;gt;{ let request = new XMLHttpRequest() request.open(&amp;#39;get&amp;#39;, &amp;#39;/xxx&amp;#39;) // 配置request，请求方式和路径 request.onreadystatechange = ()=&amp;gt;{ if(request.readyState===4){ //当请求相应完毕，执行以下代码 if(request.status &amp;gt;= 200 &amp;amp;&amp;amp; request.</description>
+    </item>
+    
+    <item>
+      <title>var、let、const的区别是什么？</title>
+      <link>http://www.yuyunzhi.com/js-var-let-const/</link>
+      <pubDate>Wed, 25 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-var-let-const/</guid>
+      <description>var  var 命令会发生“变量提升”现象，即变量可以在声明之前使用，值为 undefined 。 内层变量可能覆盖外层变量 用来计数的循环变量泄露为全局变量  var a = 100; console.log(a,window.a); // 100 100 let b = 10; console.log(b,window.b); // 10 undefined const c = 1; console.log(c,window.c); // 1 undefined let  声明的全局变量不会挂在顶层对象下面 所声明的变量一定要在声明后使用，否则报错，报错 ReferenceError 暂时性死区，只要块级作用域内存在 let 命令，它所声明的变量就“绑定”（ binding ）这个区域，不再受外部的影响，在代码块内，使用 let 命令声明变量之前，该变量都是不可用的。 不允许重复声明  const  声明的全局变量不会挂在顶层对象下面 const 声明之后必须马上赋值，否则会报错 const 简单类型一旦声明就不能再更改，复杂类型(数组、对象等)指针指向的地址不能更改，内部数据可以更改。 const 一旦声明变量，就必须立即初始化，不能留到以后赋值。 const 命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。  const a = 100; const list = []; list[0] = 10; console.</description>
+    </item>
+    
+    <item>
+      <title>JS中的继承</title>
+      <link>http://www.yuyunzhi.com/js-extend/</link>
+      <pubDate>Fri, 20 Jul 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-extend/</guid>
+      <description>什么是继承？继承就是子类拥有父类的各种属性和方法
+  什么是类？这里的JS的类即是函数，能产生对象的东西就是类
+  继承需要两个类：父类和子类，在JS中的继承需要有2次对原型的搜索。
+  如何让子类拥有父类的属性和方法？
+  //原理 子类(&amp;#39;参数&amp;#39;){ 父类.call(this,&amp;#39;参数&amp;#39;) } 子类.prototype.__proto__=父类.prototype 好了，现在开始说明举例。
+分为ES5和ES6的写法以及两者的区别。
+一、ES5中如何完成JS的继承？ 1、声明一个父类函数，父类函数有一个name的属性和run()的方法 function Human(name){ this.name = name } Human.prototype.run = function(){ console.log(&amp;#34;我叫&amp;#34;+this.name+&amp;#34;，我在跑&amp;#34;) return undefined } 2、声明一个子类函数，并从父类函数中继承属性 function Man(name){ Human.call(this, name) //是Human的属性 this.gender = &amp;#39;男&amp;#39; //是自己的属性 } Man.prototype.fight = function(){ console.log(&amp;#39;xxx&amp;#39;) } 注意，Human.call(this, name)就是从父类继承属性，这句代码很重要
+3、从父类函数继承方法 //添加一句这样的代码就可以了 Man.prototype.__proto__=Human.prototype 然而IE不兼容这个代码所以要换另一种方式
+var f = function(){} f.prototype = Human.prototype Man.prototype = new f()  原因是什么？因为当 var a =new f()的时候  会发生5个步骤： 产生一个空对象 this=空对象 this.</description>
+    </item>
+    
+    <item>
+      <title>声明一个函数立即执行</title>
+      <link>http://www.yuyunzhi.com/js-function-excute/</link>
+      <pubDate>Thu, 03 May 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-function-excute/</guid>
+      <description>不要用全局变量做id 或变量，容易覆盖。如果偏要用，那么……声明一个函数立即执行。
+ 一、声明一个函数立即执行的三种方式 1、在函数末尾加上.() function (){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.() 2、在函数末尾加上.call() function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call() 3、声明完函数，立即调用 function xxx(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) } xxx() 但是浏览器会报错，怎么解决？
+二、解决浏览器报错 1、技巧1：整体加括号 （function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call()） 2、技巧2：对匿名函数加括号 （function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }）.call() 3、技巧3：在函数前加-或+或！或~号，告诉浏览器后面是一个值 -function(){ var parent = document.querySelector(&amp;#39;#self&amp;#39;) }.call() 注意：在一个{}里用let声明一个变量，这个变量的作用局就是在这个花括号里</description>
+    </item>
+    
+  </channel>
+</rss>

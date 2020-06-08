@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jQuery on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/jquery/</link>
+    <description>Recent content in jQuery on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 02 Sep 2018 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>初学jQuery,从封装函数开始</title>
+      <link>http://www.yuyunzhi.com/js-jquery/</link>
+      <pubDate>Sun, 02 Sep 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-jquery/</guid>
+      <description>一、封装两个函数getSiblings()、addClass() 1、getSiblings()根据一个元素的id，获取该元素的兄弟元素id的集合 逻辑： 1、找到node的父元素的所有子元素id集合allChildren; 2、初始化一个空对象用于存放查询的集合，即伪数组(没有push等功能); 3、遍历allChildren; 4、判断allChildren[i]!==node是否为真; 5、若为真，array[array.length]=allChildren[i],注意这是伪数组没有push的方法; 6、调用方式:getSiblings(item3) 7、代码如下：
+function getSiblings(node){ //API var allChildren=node.parentNode.children var array = { length:0 } for(var i=0; i&amp;lt;allChildren.length;i++){ if(allChildren[i]!==node){ array[array.length]=allChildren[i]; array.length+=1 } } return array } 2、addClass()根据一个元素的id，给改元素增加一个class node是一个元素的id，classes是一个数组如：var classes = {&amp;lsquo;a&amp;rsquo;:true,&amp;lsquo;b&amp;rsquo;:false,&amp;lsquo;c&amp;rsquo;:true}
+逻辑：
+1、对该classes遍历，因为该classes不是以数字为key，所以用key in classes; 2、判断value是否为真; 3、如果为真，那么给该node增加一个class; 4、调用方式如：addClass(item2,{book:true}) 5、代码如下：
+function addClass(node,classes){ //对一个哈希进行遍历 for(var key in classes){ var value = classes[key] if(value){ node.classList.add(key) } } } 二、命名空间、Node.prototype、Node2 1、命名空间 window.yyzdom = {} yyzdom.getSiblings = function (node){} //把花括号代码块写进来 yyzdom.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noodp"/>
+  <meta name="author" content="余韵之">
+  <meta name="description" content="余韵之的个人网站">
+  <meta name="keywords" content="余韵之,前端">
+  
+  <link rel="prev" href="http://www.yuyunzhi.com/js-jsonp/" />
+  <link rel="next" href="http://www.yuyunzhi.com/js-ajax/" />
+  <link rel="canonical" href="http://www.yuyunzhi.com/js-jquery/" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <title>
+       
+       
+           初学jQuery,从封装函数开始 | 余韵之
+       
+  </title>
+  <meta name="title" content="初学jQuery,从封装函数开始 | 余韵之">
+    
+  
+  <link rel="stylesheet" href="/font/iconfont.css">
+  <link rel="stylesheet" href="/css/main.min.css">
+
+
+  
+  
+ 
+
+<script type="application/ld+json">
+ "@context" : "http://schema.org",
+    "@type" : "BlogPosting",
+    "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "http:\/\/www.yuyunzhi.com\/"
+    },
+    "articleSection" : "posts",
+    "name" : "初学jQuery,从封装函数开始",
+    "headline" : "初学jQuery,从封装函数开始",
+    "description" : "一、封装两个函数getSiblings()、addClass() 1、getSiblings()根据一个元素的id，获取该元素的兄弟元素id的集合 逻辑： 1、找到node的父元素的所有子元素id集合allChildren; 2、初始化一个空对象用于存放查询的集合，即伪数组(没有push等功能); 3、遍历allChildren; 4、判断allChildren[i]!==node是否为真; 5、若为真，array[array.length]=allChildren[i],注意这是伪数组没有push的方法; 6、调用方式:getSiblings(item3) 7、代码如下：\nfunction getSiblings(node){ \/\/API var allChildren=node.parentNode.children var array = { length:0 } for(var i=0; i\u0026lt;allChildren.length;i\u002b\u002b){ if(allChildren[i]!==node){ array[array.length]=allChildren[i]; array.length\u002b=1 } } return array } 2、addClass()根据一个元素的id，给改元素增加一个class node是一个元素的id，classes是一个数组如：var classes = {\u0026lsquo;a\u0026rsquo;:true,\u0026lsquo;b\u0026rsquo;:false,\u0026lsquo;c\u0026rsquo;:true}\n逻辑：\n1、对该classes遍历，因为该classes不是以数字为key，所以用key in classes; 2、判断value是否为真; 3、如果为真，那么给该node增加一个class; 4、调用方式如：addClass(item2,{book:true}) 5、代码如下：\nfunction addClass(node,classes){ \/\/对一个哈希进行遍历 for(var key in classes){ var value = classes[key] if(value){ node.classList.add(key) } } } 二、命名空间、Node.prototype、Node2 1、命名空间 window.yyzdom = {} yyzdom.getSiblings = function (node){} \/\/把花括号代码块写进来 yyzdom.",
+    "inLanguage" : "zh-CN",
+    "author" : "余韵之",
+    "creator" : "余韵之",
+    "publisher": "余韵之",
+    "accountablePerson" : "余韵之",
+    "copyrightHolder" : "余韵之",
+    "copyrightYear" : "2018",
+    "datePublished": "2018-09-02 23:00:23 \u002b0800 CST",
+    "dateModified" : "2018-09-02 23:00:23 \u002b0800 CST",
+    "url" : "http:\/\/www.yuyunzhi.com\/js-jquery\/",
+    "wordCount" : "178",
+    "keywords" : [ "jQuery", "余韵之"]
+}
+</script>
+
+</head>
+
+  
+
+
+  <body class="">
+    <div class="wrapper">
+        <nav class="navbar">
+    <div class="container">
+        <div class="navbar-header header-logo">
+        	<a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a>
+        </div>
+        <div class="menu navbar-right">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+<nav class="navbar-mobile" id="nav-mobile" style="display: none">
+     <div class="container">
+        <div class="navbar-header">
+            <div>  <a href="javascript:void(0);" class="theme-switch"><i class="iconfont icon-xihuan"></i></a>&nbsp;<a href="http://www.yuyunzhi.com/">余韵之</a></div>
+            <div class="menu-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+     
+          <div class="menu" id="mobile-menu">
+                
+                
+                <a class="menu-item" href="/posts/" title="">Blog</a>
+                
+                <a class="menu-item" href="/categories/" title="">Categories</a>
+                
+                <a class="menu-item" href="/tags/" title="">Tags</a>
+                
+                <a class="menu-item" href="/contacts/" title="">Contact</a>
+                
+                <a class="menu-item" href="/resume/" title="">About</a>
+                
+                <a class="menu-item" href="/index.xml" title="">RSS</a>
+                
+        </div>
+    </div>
+</nav>
+    	 <main class="main">
+          <div class="container">
+      		
+<article class="post-warp" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">初学jQuery,从封装函数开始</h1>
+        <div class="post-meta">
+                Written by <a itemprop="name" href="http://www.yuyunzhi.com/" rel="author">余韵之</a> with ♥ 
+                <span class="post-time">
+                on <time datetime=2018-09-02 itemprop="datePublished">September 2, 2018</time>
+                </span>
+                in
+                <i class="iconfont icon-folder"></i>
+                <span class="post-category">
+                        <a href="http://www.yuyunzhi.com/categories/javascript/"> JavaScript </a>
+                        
+                </span>
+        </div>
+    </header>
+    <div class="post-content">
+        
+
+        
+
+        
+        
+     
+          
+          
+          
+
+          
+          
+          
+
+          <h2 id="一封装两个函数getsiblingsaddclass">一、封装两个函数getSiblings()、addClass()</h2>
+<h3 id="1getsiblings根据一个元素的id获取该元素的兄弟元素id的集合">1、getSiblings()根据一个元素的id，获取该元素的兄弟元素id的集合</h3>
+<p><strong>逻辑：</strong>
+1、找到node的父元素的所有子元素id集合allChildren;
+2、初始化一个空对象用于存放查询的集合，即伪数组(没有push等功能);
+3、遍历allChildren;
+4、判断allChildren[i]!==node是否为真;
+5、若为真，array[array.length]=allChildren[i],注意这是伪数组没有push的方法;
+6、调用方式:getSiblings(item3)
+7、代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function getSiblings(<span style="color:#a6e22e">node</span>)<span style="color:#960050;background-color:#1e0010">{</span>  //API
+  var allChildren=node.parentNode.children
+  var array = <span style="color:#960050;background-color:#1e0010">{</span>
+  length:0
+}
+for<span style="color:#960050;background-color:#1e0010">(</span>var i=0; i&lt;allChildren.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+  if<span style="color:#960050;background-color:#1e0010">(</span>allChildren[<span style="color:#a6e22e">i</span>]!==node)<span style="color:#960050;background-color:#1e0010">{</span>
+    array[<span style="color:#a6e22e">array.length</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">allChildren[i];</span>
+    array.length+=1
+  }
+}
+return array
+}
+</code></pre></div><h3 id="2addclass根据一个元素的id给改元素增加一个class">2、addClass()根据一个元素的id，给改元素增加一个class</h3>
+<p>node是一个元素的id，classes是一个数组如：var classes = {&lsquo;a&rsquo;:true,&lsquo;b&rsquo;:false,&lsquo;c&rsquo;:true}</p>
+<p><strong>逻辑：</strong></p>
+<p>1、对该classes遍历，因为该classes不是以数字为key，所以用key in classes;
+2、判断value是否为真;
+3、如果为真，那么给该node增加一个class;
+4、调用方式如：addClass(item2,{book:true})
+5、代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">function addClass<span style="color:#960050;background-color:#1e0010">(</span>node,classes)<span style="color:#960050;background-color:#1e0010">{</span>
+   //对一个哈希进行遍历
+   for<span style="color:#960050;background-color:#1e0010">(</span>var key in classes)<span style="color:#960050;background-color:#1e0010">{</span>
+   var value = classes[<span style="color:#a6e22e">key</span>]
+   if(<span style="color:#a6e22e">value</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+      node.classList.add(<span style="color:#a6e22e">key</span>)
+    }
+   }  
+}
+</code></pre></div><h2 id="二命名空间nodeprototypenode2">二、命名空间、Node.prototype、Node2</h2>
+<h3 id="1命名空间">1、命名空间</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.yyzdom = <span style="color:#960050;background-color:#1e0010">{</span>}
+yyzdom.getSiblings = function (<span style="color:#a6e22e">node</span>)<span style="color:#960050;background-color:#1e0010">{</span>} //把花括号代码块写进来
+yyzdom.addClass = function <span style="color:#960050;background-color:#1e0010">(</span>node，classes)<span style="color:#960050;background-color:#1e0010">{</span>} //把花括号代码块写进来
+</code></pre></div><p>调用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">yyzdom.getSiblings(<span style="color:#a6e22e">item3</span>)
+yyzdom.addClass<span style="color:#960050;background-color:#1e0010">(</span>item3,<span style="color:#960050;background-color:#1e0010">{</span>book:true,fruit:false})
+</code></pre></div><p>缺点：调用方式不习惯，最好能item3.getSiblings()这种</p>
+<h3 id="2nodeprototype-在共有属性里增加函数">2、Node.prototype 在共有属性里增加函数</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">Node.prototype.getSiblings = function <span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>} //把花括号代码块写进来,注意用this来代替node
+Node.prototype.addClass = function <span style="color:#960050;background-color:#1e0010">(</span>node，classes)<span style="color:#960050;background-color:#1e0010">{</span>} //把花括号代码块写进来
+</code></pre></div><p>调用方式：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">item3.getSiblings<span style="color:#960050;background-color:#1e0010">(</span>)
+//上述等价于item3.getSiblings.call(<span style="color:#a6e22e">item3</span>)
+item3.addClass(<span style="color:#a6e22e">classes</span>)
+//上述等价于item3.addClass.call<span style="color:#960050;background-color:#1e0010">(</span>item3,classes)
+</code></pre></div><h3 id="3node2改为jqueryjquery改为">3、Node2改为jQuery,jQuery改为$</h3>
+<p><strong>版本一：接受传node</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.Node2 = function(<span style="color:#a6e22e">node</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    return<span style="color:#960050;background-color:#1e0010">{</span>
+        getSiblings:function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>},//用“一”中的代码
+        addClass:function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>}，//用“一”中的代码
+    }
+}
+
+var node2 = Node2(<span style="color:#a6e22e">item3</span>)
+node2.getSiblings<span style="color:#960050;background-color:#1e0010">(</span>)
+node2.addClass(<span style="color:#a6e22e">xxx</span>)
+</code></pre></div><p>注意：这就是jQuery的模式</p>
+<p><strong>版本二：接受传多node和字符串</strong></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-angular2" data-lang="angular2">window.jQuery = function(<span style="color:#a6e22e">nodeOrSelector</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    //判断多个参数还是一个参数
+    let nodes = <span style="color:#960050;background-color:#1e0010">{</span>}
+    if <span style="color:#960050;background-color:#1e0010">(</span>typeof nodeOrSelector === &#34;string&#34;)<span style="color:#960050;background-color:#1e0010">{</span>
+        let temp = document.querySelectorAll(<span style="color:#a6e22e">nodeOrSelector</span>);//伪数组
+        for<span style="color:#960050;background-color:#1e0010">(</span>let i =0;i&lt;temp.length;i++)<span style="color:#960050;background-color:#1e0010">{</span>
+            nodes[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">=</span><span style="color:#e6db74">temp[i]</span>
+        }
+        nodes.length=temp.length
+    }else if<span style="color:#960050;background-color:#1e0010">(</span>nodeOrSelector instanceof Node)<span style="color:#960050;background-color:#1e0010">{</span>
+        nodes = <span style="color:#960050;background-color:#1e0010">{</span>
+            0:nodeOrSelector,
+            length:1
+        }
+    }
+
+    nodes.getSiblings:function<span style="color:#960050;background-color:#1e0010">(</span>)<span style="color:#960050;background-color:#1e0010">{</span>},//用“一”中的代码，要有return
+    nodes.addClass:function(<span style="color:#a6e22e">node</span>)<span style="color:#960050;background-color:#1e0010">{</span>}，//用“一”中的代码,要有return
+    nodes.setText = function(<span style="color:#a6e22e">text</span>)<span style="color:#960050;background-color:#1e0010">{</span>
+    var texts = <span style="color:#960050;background-color:#1e0010">[</span>]
+    for<span style="color:#960050;background-color:#1e0010">(</span>let i=0;i&lt;nodes.length;i++ )<span style="color:#960050;background-color:#1e0010">{</span>
+        nodes[<span style="color:#a6e22e">i</span>].textContent = text
+    }       
+    }
+    return nodes
+}
+
+window.$=jQuery
+var $node2 = $<span style="color:#960050;background-color:#1e0010">(</span>&#39;ul&gt;li:nth-child(<span style="color:#a6e22e">3</span>)&#39;)
+$node2.getSiblings<span style="color:#960050;background-color:#1e0010">(</span>)
+$node2.addClass<span style="color:#960050;background-color:#1e0010">([</span>&#39;blue&#39;])
+$node2.setText<span style="color:#960050;background-color:#1e0010">(</span>&#39;hi&#39;)
+</code></pre></div><p>注意：这里使用了闭包</p>
+
+    </div>
+
+    <div class="post-copyright">
+             
+            <p class="copyright-item">
+                <span>Author:</span>
+                <span>余韵之 </span>
+                </p>
+            
+           
+             
+            <p class="copyright-item">
+                    <span>Link:</span>
+                    <a href=http://www.yuyunzhi.com/js-jquery/>http://www.yuyunzhi.com/js-jquery/</span>
+            </p>
+            
+             
+            <p class="copyright-item lincese">
+                本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可
+            </p>
+            
+    </div>
+
+  
+    <div class="post-tags">
+        
+            <section>
+            <i class="iconfont icon-tag"></i>Tag(s): 
+            
+            <span class="tag"><a href="http://www.yuyunzhi.com/tags/jquery/">
+                    #jQuery</a></span>
+            
+            </section>
+        
+        <section>
+                <a href="javascript:window.history.back();">back</a></span> · 
+                <span><a href="http://www.yuyunzhi.com/">home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+        
+        <a href="http://www.yuyunzhi.com/js-jsonp/" class="prev" rel="prev" title="JSONP是个什么鬼？"><i class="iconfont icon-left"></i>&nbsp;JSONP是个什么鬼？</a>
+         
+        
+        <a href="http://www.yuyunzhi.com/js-ajax/" class="next" rel="next" title="什么是Ajax？">什么是Ajax？&nbsp;<i class="iconfont icon-right"></i></a>
+        
+    </div>
+
+    <div class="post-comment">
+          
+                 
+          
+    </div>
+</article>
+          </div>
+		   </main>
+      <footer class="footer">
+    <div class="copyright">
+        &copy;
+        
+        <span itemprop="copyrightYear">2018 - 2020</span>
+        
+        <span class="with-love">
+    	 <i class="iconfont icon-love"></i> 
+         </span>
+         
+            <span class="author" itemprop="copyrightHolder"><a href="http://www.yuyunzhi.com/">余韵之</a> | </span> 
+         
+
+         
+		  <span>Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow">Hugo</a> & <a href="https://github.com/liuzc/leaveit" target="_blank" rel="external nofollow">LeaveIt</a></span> 
+    </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    <script src="/js/vendor_no_gallery.min.js" async=""></script>
+    
+  
+
+
+
+     </div>
+  </body>
+</html>

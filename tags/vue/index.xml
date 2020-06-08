@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vue on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/vue/</link>
+    <description>Recent content in Vue on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 18 Jan 2020 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/vue/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Vue</title>
+      <link>http://www.yuyunzhi.com/interview-vue/</link>
+      <pubDate>Sat, 18 Jan 2020 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/interview-vue/</guid>
+      <description>一、写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？ key是给每一个vnode的唯一id,可以依靠key,更准确, 更快的拿到oldVnode中对应的vnode节点。
+如果不加key，某些节点有绑定数据（表单）状态，会出现状态错位。</description>
+    </item>
+    
+    <item>
+      <title>Vue实现业务功能</title>
+      <link>http://www.yuyunzhi.com/js-vue-business-functions/</link>
+      <pubDate>Tue, 05 Mar 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-business-functions/</guid>
+      <description>一、实现逻辑功能 1、导航显示二级菜单  鼠标进入显示 鼠标移开隐藏 多个菜单使用同一个函数  HTML --------------- &amp;lt;div @mouseover=&amp;#34;showSubmenu(&amp;#39;show&amp;#39;,&amp;#39;Language&amp;#39;)&amp;#34; @mouseout=&amp;#34;showSubmenu(&amp;#39;hide&amp;#39;,&amp;#39;Language&amp;#39;)&amp;#34; &amp;gt; &amp;lt;span&amp;gt;Language&amp;lt;/span&amp;gt; &amp;lt;ul class=&amp;#34;submenu&amp;#34; v-show=&amp;#34;showLanguage&amp;#34;&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;中文&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;English&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;li&amp;gt;&amp;lt;a class=&amp;#34;language&amp;#34; href=&amp;#34;#&amp;#34;&amp;gt;Espanol&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt; &amp;lt;/ul&amp;gt; &amp;lt;/div&amp;gt;  使用鼠标onmouseover及mouseout来监听事件,传入两个参数x,y x表示show或hide,y表示触发状态的元素  JS --------------- showSubmenu(status,item){ if(item == &amp;#39;Language&amp;#39;){ status==&amp;#39;show&amp;#39;?this.showLanguage=true:this.showLanguage=false } if(item == &amp;#39;Individual&amp;#39;){ status==&amp;#39;show&amp;#39;?this.showIndividual=true:this.showIndividual=false } ………… } 2、搜索框  函数节流，输入过程中显示相关的搜索清单  if(this.timer){ clearTimeout(this.timer) } this.timer = setTimeout(( //发送请求 //对请求后的数据处理 )=&amp;gt;{},1000)  输入不同的类型内容跳转不同页面，同时传id  输入过程中，结合函数节流从后端获取输入的内容的类型，根据类型判断跳转不同的页面 JS --------------- gotoNewPage(list){ if(list.type==&amp;#34;city&amp;#34;){ //进入city页面 传参为list.cid this.</description>
+    </item>
+    
+    <item>
+      <title>Vue全局引入文件</title>
+      <link>http://www.yuyunzhi.com/js-vue-import/</link>
+      <pubDate>Fri, 01 Mar 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-import/</guid>
+      <description> 写Vue项目的时候，需要对代码进行优化，重复使用的组件、样式、JS进行全局引入并统一管理，这样对代码的维护会很好。
+ 1、全局引入scss文件 安装sass-resources-loader
+npm i sass-resources-loader --save-dev 然后修改vue-cli的build/utils.js，找到scss的加载设置替换
+scss: generateLoaders(&amp;#39;sass&amp;#39;) 替换成
+scss: generateLoaders(&amp;#39;sass&amp;#39;).concat({ loader:&amp;#39;sass-resources-loader&amp;#39;, options:{ resources:path.resolve(__dirname,&amp;#39;./../src/assets/scss/base.scss&amp;#39;) } }), 2、全局引入JS文件 在main.js 引入，并挂在到原型链上，如api.js
+import API from &amp;#39;./assets/js/api/api.js&amp;#39; Vue.prototype.$api = API; 3、全局引入基础组件 在main.js 引入
+import Icon from &amp;#39;./components/y-c/icon.vue&amp;#39; Vue.component(&amp;#39;y-icon&amp;#39;,Icon) 4、全局引入函数 在main.js引入，并挂在到原型链上
+Vue.prototype.$xxx = function(){} </description>
+    </item>
+    
+    <item>
+      <title>Vue虚拟DOM</title>
+      <link>http://www.yuyunzhi.com/js-vue-dom/</link>
+      <pubDate>Mon, 18 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-dom/</guid>
+      <description>一、为什么要使用虚拟DOM  首先说说为什么要使用Virturl DOM，因为操作真实DOM的耗费的性能代价太高，所以Vue内部使用js实现了一套dom结构，在每次操作在和真实dom之前，使用实现好的diff算法，对虚拟dom进行比较，递归找出有变化的dom节点，然后对其进行更新操作。 为了实现虚拟DOM，我们需要把每一种节点类型抽象成对象，每一种节点类型有自己的属性，也就是prop，每次进行diff的时候，会先比较该节点类型，假如节点类型不一样，那么Vue会直接删除该节点，然后直接创建新的节点插入到其中，假如节点类型一样，那么会比较prop是否有更新，假如有prop不一样，那么Vue会判定该节点有更新，那么重渲染该节点，然后在对其子节点进行比较，一层一层往下，直到没有子节点。  二、使用虚拟DOM 1、代码示例 &amp;lt;template&amp;gt; &amp;lt;div class=&amp;#34;container&amp;#34;&amp;gt; &amp;lt;y-div @click=&amp;#34;outerFny&amp;#34; level=&amp;#34;1&amp;#34;&amp;gt;&amp;lt;/y-div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/template&amp;gt; &amp;lt;script&amp;gt; export default { components: { &amp;#39;y-div&amp;#39;: { data() { return { value: &amp;#39;123&amp;#39; } }, props: [&amp;#39;level&amp;#39;], render: function (createElement) { return createElement( &amp;#39;div&amp;#39;, { &amp;#39;class&amp;#39;: { foo: true, bar: false }, style:{ width:&amp;#39;100px&amp;#39;, height:&amp;#39;100px&amp;#39;, } }, [ createElement(&amp;#39;p&amp;#39;,{ on: { click: this.handler }, &amp;#39;class&amp;#39;: { foo: true, bar: false }, style: { fontSize: &amp;#39;14px&amp;#39;, }, },&amp;#39;nnnnnnnnn&amp;#39;), createElement(&amp;#39;p&amp;#39;,&amp;#39;wwwwwww&amp;#39;) ] ) }, methods: { handler() { console.</description>
+    </item>
+    
+    <item>
+      <title>vue-test-utils&amp;持续集成</title>
+      <link>http://www.yuyunzhi.com/js-vue-test-utils/</link>
+      <pubDate>Fri, 25 Jan 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-vue-test-utils/</guid>
+      <description>一、测试有哪些分类 1、黑白测试  根据代码的思路写测试叫白盒测试 不知道代码的思路测试叫黑盒测试（大部分人工测试都是这个）  2、规模（小-&amp;gt;大）  单元测试（最小的测试是函数，也是白盒测试） 模块测试（根据API测试） 功能测试 集成测试（多个系统端对端测试E2E，也是黑盒测试）  二、单元测试的必要性  你不一定一辈子当前端 开发库（公司里的库必须要有），没有单元测试公司很难有优质代码的积累 测试驱动开发  三、前端业务代码是否需要测试  不需要 业务代码中的共用代码才需要测试：比如表单验证（抽离出组件，测组件） 然后做高质量的组件，输出给团队用  四、什么才算是好的单元测试  测试覆盖率&amp;gt;90%，基本上都是好的测试 测试内容：语句、分支、函数、行  五、测试工具介绍  这里使用Karma + Mocha做单元测试，TravisCI做持续集成 Karma（[ˈkɑrmə] 卡玛）是一个测试运行器，它可以呼起浏览器，加载测试脚本，然后运行测试用例 Mocha（[ˈmoʊkə] 摩卡）是一个单元测试框架/库，它可以用来写测试用例 Sinon（西农）是一个 spy / stub / mock 库，用以辅助测试 karma-coverage 来设置 Karma 的代码覆盖率 chaijs 提供了dscribe it断言  除此之外了解两个词语：
+ BDD 行为驱动开发 Behavior Driven Development TDD 测试驱动开发 Test Driven Development  五、安装工具及配置 1、创建karma 配置  安装依赖  npm add -D karma karma-chrome-launcher karma-mocha karma-sourcemap-loader karma-spec-reporter karma-webpack chai sinon sinon-chai 安装成功：  创建 karma.</description>
+    </item>
+    
+    <item>
+      <title>实现动态数据生成PDF</title>
+      <link>http://www.yuyunzhi.com/js-generate-pdf/</link>
+      <pubDate>Mon, 22 Oct 2018 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/js-generate-pdf/</guid>
+      <description>最近在做一个业务功能，根据后端传来的数据给每个不同的用户动态生成不同的pdf并下载。
+   方案一、使用window.print()
+pass,打印出来的东西跟页面结构关联度太高，且不是pdf
+  方案二、使用pdfmake 当然还有其他的jsPDF，这里我选择了pdfmake
+  一、先搞定能够下载PDF   github ：官方说-&amp;gt;pdfmake
+  Get Start
+  &amp;lt;!doctype html&amp;gt; &amp;lt;html lang=&amp;#39;en&amp;#39;&amp;gt; &amp;lt;head&amp;gt; &amp;lt;meta charset=&amp;#39;utf-8&amp;#39;&amp;gt; &amp;lt;title&amp;gt;my first pdfmake example&amp;lt;/title&amp;gt; &amp;lt;script src=&amp;#39;build/pdfmake.min.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;script src=&amp;#39;build/vfs_fonts.js&amp;#39;&amp;gt;&amp;lt;/script&amp;gt; &amp;lt;/head&amp;gt; &amp;lt;body&amp;gt; 引入 pdfmake.min.js 引入 vfs_fonts.js 可到cdnjs里获取链接：cdnjs-&amp;gt;
+ 创建内容  var docDefinition = { content: &amp;#39;This is an sample PDF printed with pdfMake&amp;#39; };  下载、打开、打印内容  pdfMake.createPdf(docDefinition).download(); pdfMake.createPdf(docDefinition).open(); pdfMake.createPdf(docDefinition).print(); 然后这虽然可以下载，但是内容为中文时会乱码，以及需要设置样式，下面一一道来</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数组 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E6%95%B0%E7%BB%84/</link>
+    <description>Recent content in 数组 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 31 Oct 2019 12:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>双指针算法 &amp;&amp; ArrayList实现方式</title>
+      <link>http://www.yuyunzhi.com/algorithm-array/</link>
+      <pubDate>Thu, 31 Oct 2019 12:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-array/</guid>
+      <description>一、什么是数组？  数组由相同类型的元素（element）的集合所组成的结构 分配一块连续的内存来存储元素 利用元素的索引（index）可以计算出该元素对应的储存地址  二、数组Array的特性  在内存中为连续空间，定址公式： addr(curElem) = addr(intialElem) +sizeof(curElem) * index 存储在数组中的元素是相同类型的 通过index获取数组元素的时间复杂度为O(1)  三、ArrayList的实现  Java中的声明: ArrayListlist = new ArrayList(); 基本操作   利用数组作为存储 初始化时需要指定ArrayList的容量 记得边界检查 当达到数组容量时再添加新元素时,需要resize操作对底层数组进行扩容  附上实现代码:
+public class ArrayList { private int capacity; private int size; private int[] data; public ArrayList(int capacity){ this.capacity = capacity; this.size = 0; this.data = new int[capacity]; } public int get(int index){ if(index&amp;lt;0 || index&amp;gt;size){ //throw Exception } return data[index]; } public void set(int index,int value){ if(index&amp;lt;0 || index&amp;gt;size){ //throw Exception } data[index] = value; } public void add(int index , int value){ if(index &amp;lt; 0 || index &amp;gt; size){ //throw Exception } if(size == capacity){ resize(); } size++; for(int i = size -1; i&amp;gt;= index+1;i--){ data[i] = data[i-1]; } data[index] = value; } public void remove(int index){ if(index &amp;lt; 0 || index &amp;gt; size){ //throw Exception } size--; for(int i = index;i&amp;lt;size;i++){ data[i] = data[i+1]; } } private void resize(){ capacity*=2; int[] new_data = new int[capacity]; for(int i = 0;i&amp;lt;size;i++){ new_data[i] = data[i]; } data = new_data; } 四、例题 1、两数之和 思路1 ： 暴力遍历，遍历取一个数，计算它与其它数字之和，遍历全部情况得到想要的结果对。时间复杂度为: O(n2)</description>
+    </item>
+    
+  </channel>
+</rss>

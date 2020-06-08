@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RESTful on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/restful/</link>
+    <description>Recent content in RESTful on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 08 Feb 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/restful/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dashboard一般设计思路</title>
+      <link>http://www.yuyunzhi.com/common-dashboard/</link>
+      <pubDate>Fri, 08 Feb 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/common-dashboard/</guid>
+      <description>一、RESTful API 是什么？  用自己的话来表达就是，遵守一定的规则来给接口url取名字的方法论 所有的东西都是资源，用户是资源、支付是资源、课程是资源…… 每个资源有4种不同的动作：增、删、改、查 以一个课程来举例  增 post 增加一个： /courses 创建的内容JSON 删 delete 删除一个：/courses/:id 改 patch 修改一个：/courses/:id 改的内容JSON 查 get 查所有：/courses 查一个：/courses/:id 注意查又分两种情况返回：html，json,由前端发的请求Accept来确定具体返回哪种类型 直接从浏览器输入url,会自动以text/html的类型返回 从请求中获取，需要设置请求头accept类型 二、前后端JSON如何设计？  前端给后端传上面？后端给前端传上面？ 举例登录功能  前端给后端传： { 手机号, 密码 } 后端成功，返回前端： { 状态码200, data：{用户的信息数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] }  举例展示多个资源  前端根据接口查询 后端成功，返回前端： { 状态码200, data:[{渲染的数据}、{渲染的数据}……], pager：{每页几个、当前页、总共多少页、总共多少个数据} } 后端失败、返回前端： { 状态码4XX, errors:[中文原因1、中文原因2……] } 三、前端权限如何设计？  什么是权限？你能做什么？你不能做什么？ 角色和权限需要区分开，权限用二进制数组来对应，然后一一映射 前端界面的权限思路:  显示不同的菜单(前端可以直接固定写不同角色能看什么菜单) 分div，封装全局API 后端返回权限状态码    注意：写一个全局的can（userRole,basic）返回一个Boolean。所有的复杂的判断在can里面实现，那么html的展示逻辑就很简单了。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on 余韵之</title>
+    <link>http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on 余韵之</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 30 Nov 2019 23:00:23 +0800</lastBuildDate>
+    
+	<atom:link href="http://www.yuyunzhi.com/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>哈希表 Hash 开散列 VS 闭散列</title>
+      <link>http://www.yuyunzhi.com/algorithm-hash/</link>
+      <pubDate>Sat, 30 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-hash/</guid>
+      <description>一、什么是哈希表  设计精妙、用途广泛的数据结构之一 拥有键值对元素的无序集合 键的值是唯一的，键对应的值可以通过键来获取、更新或移除 无论这个哈希表有多大，这些操作基本上通过常量时间的键比较就可完成  基础操作时间复杂度：
+ Insert O(1) Delete O(1) Find O(1)  java hash的基本操作
+HashMap的遍历方式：
+Iterator&amp;lt;Entry&amp;lt;String,String&amp;gt;&amp;gt; iterator = map.entrySet().iterator(); while(iterator.hasNext()){ Map.Entry&amp;lt;String,String&amp;gt; entry = (Map.Entry&amp;lt;String,String&amp;gt;) iterator.next(); System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } for(Map.Entry&amp;lt;String,String &amp;gt; entry : map.entrySet()){ System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } for(Object entry : map.entrySet()){ System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.getValue()); } map.entrySet().forEach(entry -&amp;gt; System.out.println(&amp;#34;Key:&amp;#34; + entry.getKey() + &amp;#34;Value:&amp;#34; + entry.</description>
+    </item>
+    
+    <item>
+      <title>排序算法 Sort 冒泡、归并、快速、插入</title>
+      <link>http://www.yuyunzhi.com/algorithm-sort/</link>
+      <pubDate>Sun, 17 Nov 2019 10:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-sort/</guid>
+      <description>一、插入排序 核心想法：像排序一手扑克牌，把一张牌开始时，我们的左手为空并且桌子上的牌面向下。然后我们每次从桌子上拿走一张牌并将它插入左手中正确的位置。为了找到一张牌的正确位置，我们从右到左将它已在手中的每张牌进行比较。
+ 最坏情况 ：O(n2) 数组反向排序 最好情况 ：O(n) 数组已经排好序 平均情况 ：O(n2) 确定在什么位置插入元素num，平均地数组中有一半元素大于num，一半小于num  代码：
+public void insertionSort(int[] nums) { for (int j = 1; j &amp;lt; length; j++) { int key = nums[j]; int i = j - 1; while (i &amp;gt;= 0 &amp;amp;&amp;amp; nums[i] &amp;gt; key) { nums[i + 1] = nums[i]; i--; } nums[i + 1] = key; } } 二、冒泡排序 核心想法：反复交换相邻的未按次序排列的元素。每一次选出该次最大的数字往后冒泡
+ 最坏情况 ：O(n2) 最好情况 ：O(n) 平均情况 ：O(n2)  代码：</description>
+    </item>
+    
+    <item>
+      <title>二叉树及二叉搜索树 Tree</title>
+      <link>http://www.yuyunzhi.com/algorithm-tree/</link>
+      <pubDate>Sat, 16 Nov 2019 19:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-tree/</guid>
+      <description>一、什么是树？  树 （英语：Tree）是⼀种⽆向图（undirected graph), 其中任意两个顶点间存在唯⼀⼀条路径。或者说，只要没有回路的连通图就是树 ⼀个（可能是⾮线性的）数据结构，由节点，顶点和边组成，美有任何环  二、二叉树   二叉树的遍历是指从二叉树的根结点出发，按照某种次序依次访问二叉树中的所有结点，使得每个结点被访问一次，且仅被访问一次。二叉树的访问次序可以分为四种：前序遍历、中序遍历、后序遍历、层序遍历
+  满二叉树：在一棵二叉树中。如果所有分支节点都存在左子树和右子树，并且所有叶子都在同一层上，这样的二叉树称为满二叉树。
+   完全二叉树：对一颗具有n个节点的二叉树按层编号，如果编号为i(1&amp;lt;=i&amp;lt;=n)的节点与同样深度的满二叉树中编号为i的节点在二叉树中位置完全相同，则这棵二叉树称为完全二叉树。  二叉树的属性：
+三、二叉树代码表示 public class BinaryTree&amp;lt;T&amp;gt; { private TreeNode&amp;lt;T&amp;gt; root; public Tree (T rootData){ root = new TreeNode&amp;lt;T&amp;gt;(); root.data = rootData; } public static class TreeNode&amp;lt;T&amp;gt;{ private T data; private TreeNode&amp;lt;T&amp;gt; leftNode; private TreeNode&amp;lt;T&amp;gt; rightNode; } } 四、二叉树遍历  前序遍历：父节点、左孩子、右孩子 中序遍历：左孩子、父节点、右孩子 后序遍历：左孩子、右孩子、父节点  递归实现遍历：
+public void preOrderTraversalWithRecursion(TreeNode root) { if(root != null){ System.</description>
+    </item>
+    
+    <item>
+      <title>链表 Linked List</title>
+      <link>http://www.yuyunzhi.com/algorithm-linked-list/</link>
+      <pubDate>Sun, 10 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-linked-list/</guid>
+      <description>一、什么是链表？  链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的指针(Pointer)  链表特性:
+ 每个节点都知道它下一个节点的地址 链表的第一个节点可以代表整个链表 查找一个节点或者访问特定编号的节点则需要O(n)的时间，因为遍历第N个节点，才能知道N+1个节点  链表节点定义：
+泛型
+public class ListNode&amp;lt;T&amp;gt; { T data; ListNode next; public void ListNode(T data){ this.data = data; } } 整数类型
+public class ListNode { int data; ListNode next; public void ListNode(int data){ this.data = data; } } 何时用链表？
+ 不确定数据结构的容量时 常用于组织删除、检索较少，而添加、遍历较多的数据  二、链表实现及其基本API操作 整数型链表
+public class LinkedList { private ListNode head; public void LinkedList(ListNode head){ this.head = head; } public int get(int index){ preChecked(index); return getNode(index).</description>
+    </item>
+    
+    <item>
+      <title>二分搜索 Binary Search</title>
+      <link>http://www.yuyunzhi.com/algorithm-binary-search/</link>
+      <pubDate>Sat, 09 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-binary-search/</guid>
+      <description>一、一个简单的问题  问题：给定一个排序并不存在重复元素的数组: [1, 2, 5, 7, 8, 9, 13], 查找8的位置 直观想法：遍历整个数组，找到与给定值相同的元素，返回下标 时间复杂度为O(n)  二、使用二分搜索  二分搜索将目标值与数组的中间元素进行比较 如果某一特定元素大于或者小于中间元素，则在数组大于或小于 中间元素的那一半中查找，而且跟开始一样从中间元素开始比较。 如果在某一步骤数组为空，则代表找不到。 这种搜索算法每一次比较都使搜索范围缩小一半。 在排序数组中搜索的最快方法  二分搜索模板：
+public int binarySearch(int[] nums,int target){ if(nums.length == 0){ return -1; } int start = 0; int end = nums.length-1; while(start+1 &amp;lt; end ){ int mid = start +(end - start)/2; if(nums[mid] &amp;gt; target){ end = mid; }else if(nums[mid] &amp;lt; target){ start = mid; }else{ end = mid; } } if(nums[start] == target){ return start; } if(nums[end] == target){ return end; } return -1; } 关于上述代码的要点：</description>
+    </item>
+    
+    <item>
+      <title>递归 Recursion、回溯法 Backtracking</title>
+      <link>http://www.yuyunzhi.com/algorithm-recursion/</link>
+      <pubDate>Sun, 03 Nov 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-recursion/</guid>
+      <description>一、什么是递归  在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。 递归指在函数的定义中使用函数自身的方法  二、递归三要素  拆解寻找子问题（得到递归规则） 解决最小子问题是指可以直接得到答案问题并不需递归计算 递归终止退出条件  三、递归举例 1、菲波那切数列  基本情况 ： F(0) = 0, F(1) = 1 ,F(2) = F(0) + F(1) = 1 递归规则 ： F(n) = F(n-1) + F(n-2)  1，1，2，3，5，8，13……
+int Fibonacci (int n ){ if(n==0) return 0; if(n==1) return 1; return Fibonacci(n-1) + Fibonacci(n-2); } 后面用动态规划的方法或记忆搜索的方式来优化重复计算的代码。
+2、汉诺塔   有三根杆子A，B，C。A杆上有N个(N&amp;gt;1)穿孔圆盘，盘的尺寸由下到上依次变小。要求按下列规则将所有圆盘移至C杆。规则1：每次只能移动一个圆盘；规则2：大盘不能叠在小盘上面。
+  递归规则:1. 将A上的前n-1个盘子从A移到B；2. 将第n个盘子，也就是最底下的盘子从A移到C；3. 将B上剩下的n-1个盘子从B移到C。
+  递归函数：MoveHanoi(int n, char origin, char destination, char buffer) n表示n个盘子,origin表示出发的地方，destination表示目的地,buffer表示缓存的地方。这三个char分别代表着三根杆子</description>
+    </item>
+    
+    <item>
+      <title>栈Stack和队列Quene</title>
+      <link>http://www.yuyunzhi.com/algorithm-stackqueue/</link>
+      <pubDate>Fri, 01 Nov 2019 13:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-stackqueue/</guid>
+      <description>一、定义  栈： 后进先出 队列： 先进先出  二、栈的初始化与基本操作  Java 类库 : Stackstack = new Stack&amp;lt;&amp;gt;(); 栈区(stack),栈区的读取速度更快;堆区(heap),堆区存放引用类型变量,堆区可以动态地分配内存空间。 基本操作   使用场景：调用函数、递归、深度优先搜索DFS(Depth-fist Search) 栈的实现  class Stack&amp;lt;T&amp;gt; { private T[] elementData; private int size; private int capacity; public Stack(int capacity){ this.size=0; this.capacity=capacity; this.elementData = new T[capacity]; } public void push(T element){ if(size == capacity){ resize(); } size++; elementData[size] = element; } public T pop(){ if(size == 0){ throw new EmptyStackException(); } size--; return elementData[size]; } public T peek(){ if(this.</description>
+    </item>
+    
+    <item>
+      <title>算法复杂度</title>
+      <link>http://www.yuyunzhi.com/algorithm-complexity/</link>
+      <pubDate>Tue, 29 Oct 2019 23:00:23 +0800</pubDate>
+      
+      <guid>http://www.yuyunzhi.com/algorithm-complexity/</guid>
+      <description>1、热身：从一个数组查找一个数，需要花多少时间？假如数组长度10个？假如数组长度1万个？假如数组长度100万个？   最好的情况：第一个 T(n)=O(1) - 最坏的情况：最后一个 T(n)=O(n) - 期望情况(平均情况)：T(n)=O(n)
+  时间复杂度： 执行算法所需要的计算工作量
+  空间复杂度： 执行算法所需要的内存空间
+  2、什么是时间复杂度  在计算机科学中，时间复杂性，又称时间复杂度，算法的时间复杂度是一个函数，它定性描述该算法的运行时间。这是一个代表算法输入值的字符串的长度的函数。时间复杂度常用大O符号表述，不包括这个函数的低阶项和首项系数。  3、时间复杂度计算-一般问题  基本操作的时间复杂度：丢弃常数项、丢弃次要项 复合操作：加还是乘  4、时间复杂度计算-递归问题   什么是递归：在数学与计算机科学中，是指在函数的定义中使用函数自身的方法。递归一词还较常用于描述以自相似方法重复事物的过程。
+  经验性结论：递归问题的时间复杂度通常(并不总是)看起来形如O(branchesdepth)，其中branches指递归分支的总数，depth指递归调用深度
+  5、时间复杂度计算-主定理 6、计算例题  该题的空间复杂度为 O(2n) &amp;ndash;&amp;gt; O (n)  void foo(int[] array){ int sum = 0; int product = 1; for(int i =0; i &amp;lt; array.length; i++){ sum += array[i] } for(int i =0; i &amp;lt; array.</description>
+    </item>
+    
+  </channel>
+</rss>
